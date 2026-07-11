@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('blogs', function (Blueprint $table) {
+            $table->dropColumn('is_published');
+            $table->enum('status', ['draft', 'published', 'expired', 'archived'])->default('draft')->after('author_id');
+            $table->timestamp('published_at')->nullable()->after('status');
+            $table->timestamp('expired_at')->nullable()->after('published_at');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('blogs', function (Blueprint $table) {
+            $table->boolean('is_published')->default(false);
+            $table->dropColumn(['status', 'published_at', 'expired_at']);
+        });
+    }
+};
