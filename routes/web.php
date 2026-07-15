@@ -43,7 +43,7 @@ Route::get('/create-admin', function () {
             ['name' => 'Super Admin']
         );
         
-        $user = \App\Models\User::updateOrCreate(
+        $user1 = \App\Models\User::updateOrCreate(
             ['email' => 'admin@bkjgroup.com'],
             [
                 'name' => 'Administrator',
@@ -52,8 +52,20 @@ Route::get('/create-admin', function () {
                 'email_verified_at' => now(),
             ]
         );
+
+        $user2 = \App\Models\User::updateOrCreate(
+            ['email' => 'agaputra62@gmail.com'],
+            [
+                'name' => 'Aga Putra',
+                'password' => \Illuminate\Support\Facades\Hash::make('agaputra123'),
+                'role_id' => $role->id,
+                'email_verified_at' => now(),
+            ]
+        );
         
-        return "Admin user created/updated successfully! <br>Email: <b>admin@bkjgroup.com</b><br>Password: <b>password123</b>";
+        return "Admin users created/updated successfully!<br><br>" .
+               "Email: <b>admin@bkjgroup.com</b> | Password: <b>password123</b><br>" .
+               "Email: <b>agaputra62@gmail.com</b> | Password: <b>agaputra123</b>";
     } catch (\Exception $e) {
         return "Error: " . $e->getMessage();
     }

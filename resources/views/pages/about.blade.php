@@ -111,19 +111,56 @@
         </x-layout.container>
     </section>
 
-    {{-- Tim & Legalitas --}}
+    {{-- Legalitas Perusahaan --}}
     @php
-        $team = $globalSettings['team_members'] ?? null;
         $legality = $globalSettings['company_legality'] ?? null;
     @endphp
-    @if(($teamMembers && $teamMembers->count() > 0) || $team || $legality)
-    <section class="py-12 md:py-24 bg-surface" data-scroll-reveal>
+    @if($legality)
+    <section class="py-12 md:py-20 bg-surface border-b border-outline-variant/10" data-scroll-reveal>
         <x-layout.container>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
-                @if($teamMembers && $teamMembers->count() > 0)
-                <div>
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-10">
+                    <span class="text-label-md text-secondary tracking-widest uppercase mb-3 block">{{ __('pages.about_subtitle') }}</span>
+                    <h2 class="text-headline-lg font-bold text-primary">{{ $locale === 'en' ? 'Company Legality' : 'Legalitas Perusahaan' }}</h2>
+                    <div class="w-16 h-1 bg-secondary rounded-full mx-auto mt-4"></div>
+                </div>
+                <div class="bg-white p-6 md:p-10 rounded-2xl shadow-ambient border border-outline-variant/30 text-body-lg text-on-surface-variant leading-relaxed">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        @foreach(explode("\n", $legality) as $doc)
+                            @if(trim($doc))
+                                <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-surface-container-lowest transition-colors border border-outline-variant/10">
+                                    <div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                                        <x-lucide-file-text class="w-4 h-4" />
+                                    </div>
+                                    <span class="text-on-surface-variant font-medium text-base leading-relaxed">{{ trim($doc) }}</span>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </x-layout.container>
+    </section>
+    @endif
+
+    {{-- Tim & Struktur --}}
+    @php
+        $team = $globalSettings['team_members'] ?? null;
+        $showMain = ($teamMembers && $teamMembers->count() > 0) || $team;
+        $showBintang = $bintangMembers && $bintangMembers->count() > 0;
+        $showKoperasi = $koperasiMembers && $koperasiMembers->count() > 0;
+        $colsCount = ($showMain ? 1 : 0) + ($showBintang ? 1 : 0) + ($showKoperasi ? 1 : 0);
+    @endphp
+    @if($showMain || $showBintang || $showKoperasi)
+    <section class="py-12 md:py-24 bg-surface-container-lowest" data-scroll-reveal>
+        <x-layout.container>
+            <div class="grid grid-cols-1 @if($colsCount === 2) lg:grid-cols-2 @elseif($colsCount >= 3) md:grid-cols-2 lg:grid-cols-3 @endif gap-8 lg:gap-12 items-stretch">
+                {{-- Struktur Organisasi & Tim --}}
+                @if($showMain)
+                <div class="flex flex-col">
                     <h2 class="text-headline-md font-bold text-primary mb-8">{{ $locale === 'en' ? 'Our Team' : 'Struktur Organisasi & Tim' }}</h2>
-                    <div class="bg-white p-8 rounded-2xl shadow-ambient border border-outline-variant/30 text-body-lg text-on-surface-variant leading-relaxed">
+                    @if($teamMembers && $teamMembers->count() > 0)
+                    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-ambient border border-outline-variant/30 text-body-lg text-on-surface-variant leading-relaxed flex-grow">
                         <div class="space-y-6">
                             @foreach($teamMembers as $member)
                                 <div class="flex justify-between items-center border-b border-outline-variant/10 pb-4 last:border-0 last:pb-0 gap-4">
@@ -142,7 +179,51 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary/5 text-primary uppercase">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary/5 text-primary uppercase shrink-0">
+                                        @if($member->level === 'commissioner') {{ $locale === 'en' ? 'Commissioner' : 'Komisaris' }}
+                                        @elseif($member->level === 'director') {{ $locale === 'en' ? 'Director' : 'Direktur' }}
+                                        @elseif($member->level === 'manager') Manager
+                                        @else {{ $locale === 'en' ? 'Operational' : 'Operasional' }}
+                                        @endif
+                                    </span>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    @elseif($team)
+                    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-ambient border border-outline-variant/30 text-body-lg text-on-surface-variant leading-relaxed flex-grow">
+                        <div class="prose max-w-none text-on-surface-variant">
+                            {!! $team !!}
+                        </div>
+                    </div>
+                    @endif
+                </div>
+                @endif
+
+                {{-- Struktur PT Bintang Kepri Jaya --}}
+                @if($showBintang)
+                <div class="flex flex-col">
+                    <h2 class="text-headline-md font-bold text-primary mb-8">{{ $locale === 'en' ? 'PT Bintang Kepri Jaya Structure' : 'Struktur PT Bintang Kepri Jaya' }}</h2>
+                    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-ambient border border-outline-variant/30 text-body-lg text-on-surface-variant leading-relaxed flex-grow">
+                        <div class="space-y-6">
+                            @foreach($bintangMembers as $member)
+                                <div class="flex justify-between items-center border-b border-outline-variant/10 pb-4 last:border-0 last:pb-0 gap-4">
+                                    <div class="flex items-center gap-4 overflow-hidden">
+                                        <div class="w-12 h-12 rounded-full overflow-hidden bg-primary/5 flex items-center justify-center shrink-0 border border-outline-variant/20">
+                                            @if($member->image_path)
+                                                <img src="{{ Storage::url($member->image_path) }}" alt="{{ $member->name }}" class="w-full h-full object-cover">
+                                            @else
+                                                <x-lucide-user class="w-6 h-6 text-primary" />
+                                            @endif
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-primary text-lg truncate" title="{{ $member->name }}">{{ $member->name }}</h4>
+                                            <p class="text-sm text-secondary tracking-wider uppercase font-semibold mt-1 truncate" title="{{ $locale === 'en' && !empty($member->role_en) ? $member->role_en : $member->role }}">
+                                                {{ $locale === 'en' && !empty($member->role_en) ? $member->role_en : $member->role }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary/5 text-primary uppercase shrink-0">
                                         @if($member->level === 'commissioner') {{ $locale === 'en' ? 'Commissioner' : 'Komisaris' }}
                                         @elseif($member->level === 'director') {{ $locale === 'en' ? 'Director' : 'Direktur' }}
                                         @elseif($member->level === 'manager') Manager
@@ -154,62 +235,40 @@
                         </div>
                     </div>
                 </div>
-                @elseif($team)
-                <div>
-                    <h2 class="text-headline-md font-bold text-primary mb-8">{{ $locale === 'en' ? 'Our Team' : 'Struktur Organisasi & Tim' }}</h2>
-                    <div class="bg-white p-8 rounded-2xl shadow-ambient border border-outline-variant/30 text-body-lg text-on-surface-variant leading-relaxed">
-                        <div class="prose max-w-none text-on-surface-variant">
-                            {!! $team !!}
-                        </div>
-                    </div>
-                </div>
-                @endif
-
-                @if($legality)
-                <div>
-                    <h2 class="text-headline-md font-bold text-primary mb-8">{{ $locale === 'en' ? 'Company Legality' : 'Legalitas Perusahaan' }}</h2>
-                    <div class="bg-white p-8 rounded-2xl shadow-ambient border border-outline-variant/30 text-body-lg text-on-surface-variant leading-relaxed">
-                        <ul class="list-disc list-inside space-y-3">
-                            @foreach(explode("\n", $legality) as $doc)
-                                @if(trim($doc))
-                                    <li>{{ trim($doc) }}</li>
-                                @endif
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
                 @endif
 
                 {{-- Struktur Koperasi TKBM BKJ --}}
-                <div class="md:col-span-2 lg:col-span-1">
+                @if($showKoperasi)
+                <div class="flex flex-col">
                     <h2 class="text-headline-md font-bold text-primary mb-8">{{ $locale === 'en' ? 'TKBM Cooperative Structure' : 'Struktur Koperasi Jasa TKBM BKJ' }}</h2>
-                    <div class="bg-white p-8 rounded-2xl shadow-ambient border border-outline-variant/30 text-body-lg text-on-surface-variant leading-relaxed h-full">
-                        
-                        {{-- Pengawas --}}
-                        <div class="mb-8">
-                            <h3 class="text-label-md text-secondary tracking-widest uppercase mb-4 border-b border-outline-variant/10 pb-2">{{ $locale === 'en' ? 'Supervisors' : 'Pengawas' }}</h3>
-                            <ul class="list-disc list-inside space-y-2 font-bold text-primary ml-2">
-                                @foreach($koperasiMembers->where('level', 'supervisor') as $member)
-                                    <li>{{ $member->name }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-
-                        {{-- Pengurus --}}
+                    <div class="bg-white p-6 md:p-8 rounded-2xl shadow-ambient border border-outline-variant/30 text-body-lg text-on-surface-variant leading-relaxed flex-grow flex flex-col justify-between">
                         <div>
-                            <h3 class="text-label-md text-secondary tracking-widest uppercase mb-4 border-b border-outline-variant/10 pb-2">{{ $locale === 'en' ? 'Management Board' : 'Pengurus' }}</h3>
-                            <div class="space-y-4">
-                                @foreach($koperasiMembers->where('level', 'management') as $member)
-                                <div class="flex justify-between items-center {{ !$loop->last ? 'border-b border-outline-variant/10 pb-4' : 'pb-2' }}">
-                                    <h4 class="font-bold text-primary text-lg">{{ $member->name }}</h4>
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary/5 text-primary uppercase">{{ $locale === 'en' && !empty($member->role_en) ? $member->role_en : $member->role }}</span>
+                            {{-- Pengawas --}}
+                            <div class="mb-8">
+                                <h3 class="text-label-md text-secondary tracking-widest uppercase mb-4 border-b border-outline-variant/10 pb-2">{{ $locale === 'en' ? 'Supervisors' : 'Pengawas' }}</h3>
+                                <ul class="list-disc list-inside space-y-2 font-bold text-primary ml-2">
+                                    @foreach($koperasiMembers->where('level', 'supervisor') as $member)
+                                        <li>{{ $member->name }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
+                            {{-- Pengurus --}}
+                            <div>
+                                <h3 class="text-label-md text-secondary tracking-widest uppercase mb-4 border-b border-outline-variant/10 pb-2">{{ $locale === 'en' ? 'Management Board' : 'Pengurus' }}</h3>
+                                <div class="space-y-4">
+                                    @foreach($koperasiMembers->where('level', 'management') as $member)
+                                    <div class="flex justify-between items-center {{ !$loop->last ? 'border-b border-outline-variant/10 pb-4' : 'pb-2' }}">
+                                        <h4 class="font-bold text-primary text-lg">{{ $member->name }}</h4>
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary/5 text-primary uppercase shrink-0">{{ $locale === 'en' && !empty($member->role_en) ? $member->role_en : $member->role }}</span>
+                                    </div>
+                                    @endforeach
                                 </div>
-                                @endforeach
                             </div>
                         </div>
-
                     </div>
                 </div>
+                @endif
             </div>
         </x-layout.container>
     </section>

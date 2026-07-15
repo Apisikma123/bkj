@@ -35,7 +35,8 @@ class PageController extends Controller
     {
         $teamMembers = \App\Models\TeamMember::where('status', 'published')->where('branch', 'main')->orderBy('order')->orderBy('name')->get();
         $koperasiMembers = \App\Models\TeamMember::where('status', 'published')->where('branch', 'koperasi')->orderBy('order')->orderBy('name')->get();
-        return view('pages.about', compact('teamMembers', 'koperasiMembers'));
+        $bintangMembers = \App\Models\TeamMember::where('status', 'published')->where('branch', 'pt-bintang-kepri-jaya')->orderBy('order')->orderBy('name')->get();
+        return view('pages.about', compact('teamMembers', 'koperasiMembers', 'bintangMembers'));
     }
 
     public function services()

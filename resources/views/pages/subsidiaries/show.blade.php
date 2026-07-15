@@ -33,7 +33,7 @@
     </section>
 
     {{-- Team Section (Dynamic based on subsidiary slug) --}}
-    @if(isset($teamMembers) && $teamMembers->count() > 0)
+    @if(isset($teamMembers) && $teamMembers->count() > 0 && $subsidiary->slug !== 'pt-bintang-kepri-jaya')
     <section class="py-12 md:py-24 bg-surface-container-lowest border-t border-outline-variant/30" data-scroll-reveal>
         <x-layout.container>
             <div class="max-w-4xl mx-auto">
