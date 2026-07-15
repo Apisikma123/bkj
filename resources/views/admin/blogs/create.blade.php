@@ -49,9 +49,13 @@
 
                         <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
                             <h4 class="font-medium text-gray-900 mb-4">Thumbnail</h4>
-                            <input type="file" name="thumbnail" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20">
-                            <p class="text-xs text-gray-500 mt-2">Maksimal 2 MB, format akan diconvert ke WebP</p>
-                            @error('thumbnail') <p class="text-error text-xs mt-1">{{ $message }}</p> @enderror
+                            <x-admin.image-cropper 
+                                id="thumbnail" 
+                                name="thumbnail" 
+                                label="" 
+                                description="Maksimal 2 MB, format akan diconvert ke WebP. Akan dipotong dengan rasio 16:9."
+                                aspect-ratio="16/9"
+                            />
                         </div>
                         
                         <x-primary-button class="w-full justify-center text-center">

@@ -50,9 +50,13 @@
 
                                     <!-- Upload Input -->
                                     <div>
-                                        <x-input-label for="global-icon" value="Upload Global Icon File (.ico, .png, .svg)" class="mb-2" />
-                                        <input type="file" name="icon" id="global-icon" accept=".ico,.png,.svg" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 border border-gray-200 rounded-xl bg-white cursor-pointer transition-all">
-                                        <p class="text-[11px] text-gray-400 mt-1.5">Max allowed size is 2 MB. PNGs will be compressed.</p>
+                                        <x-admin.image-cropper 
+                                            id="global-icon" 
+                                            name="icon" 
+                                            label="Upload Global Icon File (.ico, .png, .svg)" 
+                                            description="Max allowed size is 2 MB. PNGs will be compressed. Akan dipotong dengan rasio 1:1."
+                                            aspect-ratio="1"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -82,9 +86,13 @@
 
                                     <!-- Upload Input -->
                                     <div>
-                                        <x-input-label for="global-favicon" value="Upload Global Favicon File (.ico, .png, .svg)" class="mb-2" />
-                                        <input type="file" name="favicon" id="global-favicon" accept=".ico,.png,.svg" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 border border-gray-200 rounded-xl bg-white cursor-pointer transition-all">
-                                        <p class="text-[11px] text-gray-400 mt-1.5">Max allowed size is 2 MB. PNGs will be compressed.</p>
+                                        <x-admin.image-cropper 
+                                            id="global-favicon" 
+                                            name="favicon" 
+                                            label="Upload Global Favicon File (.ico, .png, .svg)" 
+                                            description="Max allowed size is 2 MB. PNGs will be compressed. Akan dipotong dengan rasio 1:1."
+                                            aspect-ratio="1"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -128,9 +136,13 @@
 
                                         <!-- Upload Input -->
                                         <div>
-                                            <x-input-label for="icon-{{ $sub->id }}" value="Upload Icon File (.ico, .png, .svg)" class="mb-2" />
-                                            <input type="file" name="icon" id="icon-{{ $sub->id }}" accept=".ico,.png,.svg" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 border border-gray-200 rounded-xl bg-white cursor-pointer transition-all">
-                                            <p class="text-[11px] text-gray-400 mt-1.5">Max allowed size is 2 MB. PNGs will be compressed.</p>
+                                            <x-admin.image-cropper 
+                                                id="icon-{{ $sub->id }}" 
+                                                name="icon" 
+                                                label="Upload Icon File (.ico, .png, .svg)" 
+                                                description="Max allowed size is 2 MB. PNGs will be compressed. Akan dipotong dengan rasio 1:1."
+                                                aspect-ratio="1"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -160,9 +172,13 @@
 
                                         <!-- Upload Input -->
                                         <div>
-                                            <x-input-label for="favicon-{{ $sub->id }}" value="Upload Favicon File (.ico, .png, .svg)" class="mb-2" />
-                                            <input type="file" name="favicon" id="favicon-{{ $sub->id }}" accept=".ico,.png,.svg" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 border border-gray-200 rounded-xl bg-white cursor-pointer transition-all">
-                                            <p class="text-[11px] text-gray-400 mt-1.5">Max allowed size is 2 MB. PNGs will be compressed.</p>
+                                            <x-admin.image-cropper 
+                                                id="favicon-{{ $sub->id }}" 
+                                                name="favicon" 
+                                                label="Upload Favicon File (.ico, .png, .svg)" 
+                                                description="Max allowed size is 2 MB. PNGs will be compressed. Akan dipotong dengan rasio 1:1."
+                                                aspect-ratio="1"
+                                            />
                                         </div>
                                     </div>
                                 </div>

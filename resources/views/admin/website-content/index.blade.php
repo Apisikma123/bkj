@@ -33,16 +33,14 @@
                                     <x-textarea-input id="hero_subtitle" name="hero_subtitle" rows="3">{{ old('hero_subtitle', $hero->subtitle ?? '') }}</x-textarea-input>
                                 </div>
                                 <div class="md:col-span-2">
-                                    <x-input-label for="hero_image" value="Hero Image (Background)" />
-                                    <input type="file" name="hero_image" id="hero_image" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 border border-outline-variant/40 rounded-lg bg-white mt-1 cursor-pointer">
-                                    <p class="text-xs text-on-surface-variant mt-1">Maksimal 2 MB, format akan diconvert ke WebP</p>
-                                    @error('hero_image') <p class="text-error text-xs mt-1">{{ $message }}</p> @enderror
-                                    @if(!empty($hero->background_image))
-                                        <div class="mt-3">
-                                            <p class="text-sm font-medium text-on-surface mb-2">Current Image:</p>
-                                            <img src="{{ Storage::url($hero->background_image) }}" class="h-32 object-cover border border-outline-variant/30 rounded-lg">
-                                        </div>
-                                    @endif
+                                    <x-admin.image-cropper 
+                                        id="hero_image" 
+                                        name="hero_image" 
+                                        label="Hero Image (Background)" 
+                                        description="Maksimal 2 MB, format akan diconvert ke WebP. Akan dipotong dengan rasio 16:9."
+                                        aspect-ratio="16/9"
+                                        :current-image-url="!empty($hero->background_image) ? Storage::url($hero->background_image) : null"
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -95,6 +93,17 @@
                                 <div>
                                     <x-input-label for="history" value="History / Background" />
                                     <x-textarea-input id="history" name="history" rows="3">{{ $profile['history'] ?? '' }}</x-textarea-input>
+                                </div>
+
+                                <div>
+                                    <x-admin.image-cropper 
+                                        id="about_image" 
+                                        name="about_image" 
+                                        label="Foto Profil Perusahaan (Opsional)" 
+                                        description="Maksimal 2 MB, format akan diconvert ke WebP. Akan dipotong dengan rasio 16:9."
+                                        aspect-ratio="16/9"
+                                        :current-image-url="!empty($profile['image']) ? Storage::url($profile['image']) : null"
+                                    />
                                 </div>
                             </div>
                             

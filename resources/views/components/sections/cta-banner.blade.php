@@ -1,6 +1,6 @@
 @props(['title', 'description', 'buttonText', 'buttonLink' => '/contact'])
 
-<section class="py-24 relative overflow-hidden bg-primary" data-scroll-reveal>
+<section class="py-12 md:py-24 relative overflow-hidden bg-primary" data-scroll-reveal>
     {{-- Decorative Background Patterns --}}
     <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary-container/50 to-transparent skew-x-12 translate-x-1/4"></div>
     

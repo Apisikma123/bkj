@@ -13,10 +13,10 @@
     />
 
     {{-- Company Overview --}}
-    <section class="py-24 bg-surface" data-scroll-reveal>
+    <section class="py-12 md:py-24 bg-surface" data-scroll-reveal>
         <x-layout.container>
-            <div class="flex flex-col lg:flex-row items-center gap-16">
-                <div class="w-full lg:w-1/2 relative h-[500px] flex items-center justify-center">
+            <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+                <div class="w-full lg:w-1/2 relative h-[250px] md:h-[400px] lg:h-[500px] flex items-center justify-center">
                     <div class="absolute inset-0 bg-primary/5 rounded-2xl transform -rotate-3 scale-95 transition-transform duration-700 hover:rotate-0 hover:scale-100"></div>
                     <div class="relative z-10 w-[85%] h-[85%] bg-outline-variant/10 rounded-2xl shadow-ambient"></div>
                 </div>
@@ -31,15 +31,15 @@
     </section>
 
     {{-- Vision Mission --}}
-    <section class="py-24 bg-primary text-white relative overflow-hidden" data-scroll-reveal>
-        <x-layout.container class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+    <section class="py-12 md:py-24 bg-primary text-white relative overflow-hidden" data-scroll-reveal>
+        <x-layout.container class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
             <div>
                 <h3 class="text-label-md text-secondary-container tracking-widest uppercase mb-6">{{ $locale === 'en' ? 'Our Vision' : 'Visi Kami' }}</h3>
                 <blockquote class="text-headline-md font-semibold leading-snug text-white/90">
                     "{{ $locale === 'en' ? 'To be the best developer and manager of maritime industrial infrastructure that supports regional economic growth.' : 'Menjadi pengembang dan pengelola infrastruktur industri maritim terbaik yang mendukung pertumbuhan ekonomi kawasan.' }}"
                 </blockquote>
             </div>
-            <div class="bg-white/10 backdrop-blur-md p-10 rounded-2xl border border-white/10">
+            <div class="bg-white/10 backdrop-blur-md p-6 md:p-10 rounded-2xl border border-white/10">
                 <h3 class="text-headline-md font-bold mb-8 text-white flex items-center gap-4">
                     <span class="w-12 h-12 rounded-full bg-secondary text-white flex items-center justify-center shrink-0">
                         <x-lucide-flag class="w-6 h-6" />
@@ -61,7 +61,7 @@
     </section>
 
     {{-- Core Values --}}
-    <section class="py-24 bg-surface" data-scroll-reveal>
+    <section class="py-12 md:py-24 bg-surface" data-scroll-reveal>
         <x-layout.container>
             <div class="text-center mb-16">
                 <h2 class="text-headline-lg font-bold text-primary">{{ $locale === 'en' ? 'Core Company Values' : 'Nilai Utama Perusahaan' }}</h2>
@@ -93,7 +93,7 @@
     </section>
 
     {{-- Services --}}
-    <section class="py-24 bg-surface-container-lowest border-y border-outline-variant/30" data-scroll-reveal>
+    <section class="py-12 md:py-24 bg-surface-container-lowest border-y border-outline-variant/30" data-scroll-reveal>
         <x-layout.container>
             <div class="text-center mb-16">
                 <h2 class="text-headline-lg font-bold text-primary">{{ $locale === 'en' ? 'Infrastructure Solutions' : 'Solusi Infrastruktur' }}</h2>

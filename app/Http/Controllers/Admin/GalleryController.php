@@ -21,7 +21,7 @@ class GalleryController extends Controller
             $query->where('category', $request->category);
         }
 
-        $galleries = $query->paginate(12)->withQueryString();
+        $galleries = $query->paginate(10)->withQueryString();
 
         return view('admin.galleries.index', compact('galleries'));
     }
@@ -34,8 +34,8 @@ class GalleryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'images' => 'required|array',
-            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'title' => 'required|string|max:255',
             'category' => 'nullable|string|max:255',
         ]);
         
@@ -45,28 +45,21 @@ class GalleryController extends Controller
             $categoryEn = $translator->translateToEnglish($request->category);
         }
 
-        $count = 0;
-        foreach ($request->file('images') as $image) {
-            $path = \App\Services\ImageService::upload($image, 'galleries');
-            $title = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-            
-            // Clean up title (remove dashes/underscores)
-            $title = ucwords(str_replace(['-', '_'], ' ', $title));
-            $titleEn = $translator->translateToEnglish($title);
+        $path = \App\Services\ImageService::upload($request->file('image'), 'galleries');
+        $title = $request->title;
+        $titleEn = $translator->translateToEnglish($title);
 
-            Gallery::create([
-                'title' => $title,
-                'title_en' => $titleEn,
-                'image_path' => $path,
-                'category' => $request->category,
-                'category_en' => $categoryEn,
-                'status' => 'published',
-                'is_featured' => false
-            ]);
-            $count++;
-        }
+        Gallery::create([
+            'title' => $title,
+            'title_en' => $titleEn,
+            'image_path' => $path,
+            'category' => $request->category,
+            'category_en' => $categoryEn,
+            'status' => 'published',
+            'is_featured' => false
+        ]);
         
-        return redirect()->route('admin.galleries.index')->with('success', $count . ' gambar berhasil diunggah.');
+        return redirect()->route('admin.galleries.index')->with('success', 'Gambar berhasil diunggah.');
     }
 
     public function edit(Gallery $gallery)

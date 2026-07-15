@@ -84,6 +84,7 @@ class WebsiteContentController extends Controller
             'vision' => 'nullable|string',
             'mission' => 'nullable|string',
             'history' => 'nullable|string',
+            'about_image' => 'nullable|image|max:2048',
         ]);
 
         $translator = app(\App\Services\TranslationService::class);
@@ -116,11 +117,10 @@ class WebsiteContentController extends Controller
             }
         }
         
-        // Clean up old company profile image if it exists (since we use global icon now)
-        $oldImage = CompanyProfile::where('key', 'image')->value('value');
-        if ($oldImage) {
-            \App\Services\ImageService::delete($oldImage);
-            CompanyProfile::where('key', 'image')->delete();
+        if ($request->hasFile('about_image')) {
+            $oldImage = CompanyProfile::where('key', 'image')->value('value');
+            $newImage = \App\Services\ImageService::upload($request->file('about_image'), 'about', $oldImage);
+            CompanyProfile::updateOrCreate(['key' => 'image'], ['value' => $newImage]);
         }
         
         \Illuminate\Support\Facades\Cache::forget('home_page_data_html');

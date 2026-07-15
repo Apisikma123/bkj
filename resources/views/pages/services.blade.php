@@ -5,7 +5,7 @@
     <x-seo.meta title="{{ __('pages.services_title') }}" description="Eksplorasi layanan bongkar muat, keagenan kapal, dan logistik menyeluruh dari BKJ Group." />
 
     {{-- Hero Page --}}
-    <div class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-primary overflow-hidden">
+    <div class="relative pt-24 pb-12 lg:pt-48 lg:pb-32 bg-primary overflow-hidden">
         <div class="absolute inset-0 z-0">
             <div class="w-full h-full bg-outline-variant/10 opacity-20"></div>
             <div class="absolute inset-0 bg-gradient-to-b from-primary/50 to-primary"></div>
@@ -17,9 +17,9 @@
     </div>
 
     {{-- Services List (Detailed View instead of cards) --}}
-    <section class="py-24 bg-surface" data-scroll-reveal>
+    <section class="py-12 md:py-24 bg-surface" data-scroll-reveal>
         <x-layout.container>
-            <div class="space-y-32">
+            <div class="space-y-16 lg:space-y-32">
                 @php
                     $locale = app()->getLocale();
                 @endphp
@@ -29,9 +29,9 @@
                         $shortDescription = $locale === 'en' && !empty($service->short_description_en) ? $service->short_description_en : $service->short_description;
                         $content = $locale === 'en' && !empty($service->content_en) ? $service->content_en : $service->content;
                     @endphp
-                    <div id="service-{{ $service->slug }}" class="flex flex-col lg:flex-row gap-16 items-center {{ $index % 2 !== 0 ? 'lg:flex-row-reverse' : '' }}">
+                    <div id="service-{{ $service->slug }}" class="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center {{ $index % 2 !== 0 ? 'lg:flex-row-reverse' : '' }}">
                         <div class="w-full lg:w-1/2">
-                            <div class="relative h-[400px] lg:h-[500px] rounded-[2rem] overflow-hidden shadow-ambient group flex items-center justify-center bg-primary/5 border border-outline-variant/10">
+                            <div class="relative h-[250px] md:h-[400px] lg:h-[500px] rounded-2xl lg:rounded-[2rem] overflow-hidden shadow-ambient group flex items-center justify-center bg-primary/5 border border-outline-variant/10">
                                 <div class="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-700 z-10"></div>
                                 @if($service->image_path)
                                     <img src="{{ Storage::url($service->image_path) }}" alt="{{ $title }}" class="w-full h-full object-cover relative z-0 transition-transform duration-700 group-hover:scale-105">
@@ -44,17 +44,13 @@
                         </div>
                         <div class="w-full lg:w-1/2">
                             <div class="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-8 shadow-sm overflow-hidden">
-                                @if($service->image_path)
-                                    <img src="{{ Storage::url($service->image_path) }}" alt="{{ $title }}" class="w-full h-full object-cover">
-                                @else
-                                    @php
-                                        try {
-                                            echo \Illuminate\Support\Facades\Blade::render('<x-dynamic-component :component="\'lucide-\' . $icon" class="w-8 h-8" />', ['icon' => $service->icon]);
-                                        } catch (\Exception $e) {
-                                            echo \Illuminate\Support\Facades\Blade::render('<x-lucide-package class="w-8 h-8" />');
-                                        }
-                                    @endphp
-                                @endif
+                                @php
+                                    try {
+                                        echo \Illuminate\Support\Facades\Blade::render('<x-dynamic-component :component="\'lucide-\' . $icon" class="w-8 h-8" />', ['icon' => $service->icon ?? 'package']);
+                                    } catch (\Exception $e) {
+                                        echo \Illuminate\Support\Facades\Blade::render('<x-lucide-package class="w-8 h-8" />');
+                                    }
+                                @endphp
                             </div>
                             <h2 class="text-headline-lg font-bold text-primary mb-6">{{ $title }}</h2>
                             @if($shortDescription)

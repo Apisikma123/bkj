@@ -4,7 +4,7 @@
     
     <x-seo.meta title="{{ __('pages.contact_title') }}" description="{{ __('contact.meta_description') }}" />
 
-    <div class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-primary overflow-hidden">
+    <div class="relative pt-24 pb-12 lg:pt-48 lg:pb-32 bg-primary overflow-hidden">
         <div class="absolute inset-0 z-0">
             <div class="w-full h-full bg-outline-variant/10 opacity-20"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>
@@ -17,7 +17,7 @@
 
     <section class="py-16 pb-32 bg-surface min-h-screen">
         <x-layout.container>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-24">
                 {{-- Contact Info --}}
                 <div data-scroll-reveal>
                     <h2 class="text-headline-lg font-bold text-primary mb-8">{{ __('contact.info_title') }}</h2>
@@ -61,7 +61,7 @@
                 </div>
                 
                 {{-- Contact Form --}}
-                <div class="bg-white p-10 lg:p-12 rounded-[2rem] shadow-ambient border border-outline-variant/30 relative" data-scroll-reveal>
+                <div class="bg-white p-6 md:p-10 lg:p-12 rounded-2xl lg:rounded-[2rem] shadow-ambient border border-outline-variant/30 relative" data-scroll-reveal>
                     <form action="{{ route('contact.submit') }}" method="POST" class="relative z-10 flex flex-col gap-6">
                         @csrf
                         

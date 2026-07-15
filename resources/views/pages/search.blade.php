@@ -5,17 +5,19 @@
     
     <x-seo.meta title="{{ $locale === 'en' ? 'Search' : 'Pencarian' }}" description="{{ $locale === 'en' ? 'Search results for your query.' : 'Hasil pencarian untuk kueri Anda.' }}" />
 
-    <section class="py-32 bg-surface min-h-screen">
+    <section class="py-24 md:py-32 bg-surface min-h-screen">
         <x-layout.container>
             <div class="max-w-4xl mx-auto">
                 <form action="{{ route('search') }}" method="GET" class="mb-12 relative">
-                    <input type="text" name="q" value="{{ $query ?? '' }}" placeholder="{{ $locale === 'en' ? 'Type search keywords...' : 'Ketik kata kunci pencarian...' }}" class="w-full pl-14 pr-6 py-5 bg-white border border-outline-variant/50 rounded-2xl shadow-ambient focus:ring-2 focus:ring-secondary focus:border-secondary transition-colors text-headline-md text-primary">
-                    <x-lucide-search class="w-6 h-6 text-on-surface-variant absolute left-6 top-1/2 -translate-y-1/2" />
-                    <button type="submit" class="absolute right-4 top-1/2 -translate-y-1/2 bg-primary text-white px-6 py-2 rounded-xl hover:bg-primary/90 transition-colors font-bold">{{ $locale === 'en' ? 'Search' : 'Cari' }}</button>
+                    <div class="relative">
+                        <input type="text" name="q" value="{{ $query ?? '' }}" placeholder="{{ $locale === 'en' ? 'Type search keywords...' : 'Ketik kata kunci pencarian...' }}" class="w-full pl-12 md:pl-14 pr-4 md:pr-28 py-4 md:py-5 bg-white border border-outline-variant/50 rounded-xl md:rounded-2xl shadow-ambient focus:ring-2 focus:ring-secondary focus:border-secondary transition-colors text-body-lg md:text-headline-md text-primary">
+                        <x-lucide-search class="w-5 h-5 md:w-6 md:h-6 text-on-surface-variant absolute left-4 md:left-6 top-1/2 -translate-y-1/2" />
+                    </div>
+                    <button type="submit" class="md:absolute md:right-4 md:top-1/2 md:-translate-y-1/2 mt-3 md:mt-0 w-full md:w-auto bg-primary text-white px-6 py-3 md:py-2 rounded-xl hover:bg-primary/90 transition-colors font-bold">{{ $locale === 'en' ? 'Search' : 'Cari' }}</button>
                 </form>
 
                 @if(isset($query) && $query != '')
-                    <div class="mb-8 border-b border-outline-variant/30 pb-4 flex items-center justify-between">
+                    <div class="mb-8 border-b border-outline-variant/30 pb-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
                         <h2 class="text-title-lg text-primary font-bold">{{ $locale === 'en' ? 'Search Results for:' : 'Hasil Pencarian untuk:' }} "<span class="text-secondary">{{ $query }}</span>"</h2>
                         <span class="bg-surface-container-low text-primary text-label-md px-3 py-1 rounded-lg border border-outline-variant/30">{{ count($results) }} {{ $locale === 'en' ? 'found' : 'ditemukan' }}</span>
                     </div>
@@ -39,7 +41,7 @@
                             @endforeach
                         </div>
                     @else
-                        <div class="text-center py-20 bg-white rounded-[2rem] border border-outline-variant/30">
+                        <div class="text-center py-12 md:py-20 bg-white rounded-2xl md:rounded-[2rem] border border-outline-variant/30">
                             <div class="w-24 h-24 bg-surface-container-lowest rounded-full flex items-center justify-center mx-auto mb-6 text-outline">
                                 <x-lucide-search-x class="w-10 h-10" />
                             </div>

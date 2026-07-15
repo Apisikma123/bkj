@@ -35,7 +35,7 @@ class TeamMemberController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'branch' => 'required|in:main,koperasi',
+            'branch' => 'required|in:main,koperasi,pt-bintang-kepri-jaya',
             'name' => 'required|string|max:255',
             'role' => 'required|string|max:255',
             'level' => 'required|in:commissioner,director,manager,operational,supervisor,management',
@@ -64,7 +64,7 @@ class TeamMemberController extends Controller
     public function update(Request $request, TeamMember $teamMember)
     {
         $data = $request->validate([
-            'branch' => 'required|in:main,koperasi',
+            'branch' => 'required|in:main,koperasi,pt-bintang-kepri-jaya',
             'name' => 'required|string|max:255',
             'role' => 'required|string|max:255',
             'level' => 'required|in:commissioner,director,manager,operational,supervisor,management',

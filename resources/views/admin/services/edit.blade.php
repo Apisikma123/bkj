@@ -29,16 +29,14 @@
                     </div>
 
                     <div class="md:col-span-2">
-                        <x-input-label for="image" value="Foto Layanan (Opsional)" />
-                        <input type="file" name="image" id="image" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 border border-outline-variant/40 rounded-lg bg-white mt-1 cursor-pointer">
-                        <p class="text-sm text-gray-500 mt-1">Maksimal 2 MB. Jika diunggah, foto ini akan digunakan sebagai gambar utama layanan di website (menggantikan ikon Lucide).</p>
-                        @error('image') <p class="text-error text-xs mt-1">{{ $message }}</p> @enderror
-                        @if($service->image_path)
-                            <div class="mt-3">
-                                <p class="text-sm font-medium text-gray-700 mb-2">Foto Saat Ini:</p>
-                                <img src="{{ Storage::url($service->image_path) }}" class="h-32 object-cover border border-gray-200 rounded-lg">
-                            </div>
-                        @endif
+                        <x-admin.image-cropper 
+                            id="image" 
+                            name="image" 
+                            label="Foto Layanan (Opsional)" 
+                            description="Maksimal 2 MB. Jika diunggah, foto ini akan digunakan sebagai gambar utama layanan di website (menggantikan ikon Lucide). Akan dipotong dengan rasio 16:9 (Persegi Panjang)."
+                            aspect-ratio="16/9"
+                            :current-image-url="$service->image_path ? Storage::url($service->image_path) : null"
+                        />
                     </div>
 
                     <div class="md:col-span-2">

@@ -18,6 +18,7 @@
                         <select id="branch" name="branch" x-model="branch" required class="w-full bg-white border border-outline-variant/40 rounded-lg text-lg py-3 px-4 focus:border-secondary focus:ring-secondary transition-colors">
                             <option value="main">PT Batam Kepri Jaya</option>
                             <option value="koperasi">Koperasi Jasa TKBM BKJ</option>
+                            <option value="pt-bintang-kepri-jaya">PT Bintang Kepri Jaya</option>
                         </select>
                         <p class="text-sm text-gray-500 mt-1">Menentukan bagan struktur di mana personil akan ditampilkan.</p>
                     </div>
@@ -57,6 +58,13 @@
                                     <option value="management" {{ $teamMember->level === 'management' ? 'selected' : '' }}>Pengurus</option>
                                 </>
                             </template>
+                            <template x-if="branch === 'pt-bintang-kepri-jaya'">
+                                <>
+                                    <option value="director" {{ $teamMember->level === 'director' ? 'selected' : '' }}>Direktur</option>
+                                    <option value="manager" {{ $teamMember->level === 'manager' ? 'selected' : '' }}>Manager</option>
+                                    <option value="operational" {{ $teamMember->level === 'operational' ? 'selected' : '' }}>Staff/Operasional</option>
+                                </>
+                            </template>
                         </select>
                         <p class="text-sm text-gray-500 mt-1">Menentukan posisi bagan alir organisasi di halaman depan.</p>
                     </div>
@@ -68,16 +76,14 @@
                     </div>
 
                     <div class="md:col-span-2">
-                        <x-input-label for="image" value="Foto Anggota Tim (Opsional)" />
-                        <input type="file" name="image" id="image" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 border border-outline-variant/40 rounded-lg bg-white mt-1 cursor-pointer">
-                        <p class="text-sm text-gray-500 mt-1">Maksimal 2 MB. Jika diunggah, foto ini akan digunakan sebagai foto profil anggota tim di website (menggantikan ikon user default).</p>
-                        @error('image') <p class="text-error text-xs mt-1">{{ $message }}</p> @enderror
-                        @if($teamMember->image_path)
-                            <div class="mt-3">
-                                <p class="text-sm font-medium text-gray-700 mb-2">Foto Saat Ini:</p>
-                                <img src="{{ Storage::url($teamMember->image_path) }}" class="h-32 object-cover border border-gray-200 rounded-lg">
-                            </div>
-                        @endif
+                        <x-admin.image-cropper 
+                            id="image" 
+                            name="image" 
+                            label="Foto Anggota Tim (Opsional)" 
+                            description="Maksimal 2 MB. Jika diunggah, foto ini akan digunakan sebagai foto profil anggota tim di website (menggantikan ikon user default). Akan dipotong dengan rasio 1:1 (Persegi)."
+                            aspect-ratio="1"
+                            :current-image-url="$teamMember->image_path ? Storage::url($teamMember->image_path) : null"
+                        />
                     </div>
 
                     <div>

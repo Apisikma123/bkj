@@ -17,6 +17,7 @@
                         <select id="branch" name="branch" x-model="branch" required class="w-full bg-white border border-outline-variant/40 rounded-lg text-lg py-3 px-4 focus:border-secondary focus:ring-secondary transition-colors">
                             <option value="main">PT Batam Kepri Jaya</option>
                             <option value="koperasi">Koperasi Jasa TKBM BKJ</option>
+                            <option value="pt-bintang-kepri-jaya">PT Bintang Kepri Jaya</option>
                         </select>
                         <p class="text-sm text-gray-500 mt-1">Menentukan bagan struktur di mana personil akan ditampilkan.</p>
                     </div>
@@ -54,6 +55,13 @@
                                 <>
                                     <option value="supervisor">Pengawas</option>
                                     <option value="management">Pengurus</option>
+                                </>
+                            </template>
+                            <template x-if="branch === 'pt-bintang-kepri-jaya'">
+                                <>
+                                    <option value="director">Direktur</option>
+                                    <option value="manager">Manager</option>
+                                    <option value="operational">Staff/Operasional</option>
                                 </>
                             </template>
                         </select>

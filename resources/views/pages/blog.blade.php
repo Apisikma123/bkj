@@ -18,7 +18,7 @@
             @if(isset($blogs[0]) && $blogs->currentPage() == 1)
                 {{-- Featured Post --}}
                 <div class="mb-20">
-                    <div class="group relative rounded-[2.5rem] overflow-hidden shadow-ambient h-[500px] cursor-pointer block">
+                    <div class="group relative rounded-2xl md:rounded-[2.5rem] overflow-hidden shadow-ambient h-[300px] md:h-[500px] cursor-pointer block">
                         @if(!empty($blogs[0]->thumbnail))
                             <x-ui.image src="{{ Storage::url($blogs[0]->thumbnail) }}" alt="{{ $blogs[0]->title }}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
                         @else
@@ -29,10 +29,10 @@
                             $featuredTitle = $locale === 'en' && !empty($blogs[0]->title_en) ? $blogs[0]->title_en : $blogs[0]->title;
                             $featuredContent = $locale === 'en' && !empty($blogs[0]->content_en) ? $blogs[0]->content_en : $blogs[0]->content;
                         @endphp
-                        <div class="absolute bottom-0 left-0 right-0 p-10 lg:p-16">
+                        <div class="absolute bottom-0 left-0 right-0 p-6 md:p-10 lg:p-16">
                             <span class="bg-secondary text-white text-label-md px-4 py-2 rounded-full mb-6 inline-block">Featured</span>
-                            <h2 class="text-display-lg text-white font-bold mb-4 line-clamp-2 max-w-4xl group-hover:text-secondary-container transition-colors">{{ $featuredTitle }}</h2>
-                            <p class="text-body-lg text-white/80 max-w-3xl line-clamp-2 mb-8">{{ Str::limit(strip_tags($featuredContent), 150) }}</p>
+                            <h2 class="text-headline-lg md:text-display-lg text-white font-bold mb-4 line-clamp-2 max-w-4xl group-hover:text-secondary-container transition-colors">{{ $featuredTitle }}</h2>
+                            <p class="text-body-md md:text-body-lg text-white/80 max-w-3xl line-clamp-2 mb-4 md:mb-8 hidden md:block">{{ Str::limit(strip_tags($featuredContent), 150) }}</p>
                             <a href="{{ route('blog.show', $blogs[0]->slug ?? '#') }}" class="inline-flex items-center text-white font-bold text-label-md uppercase tracking-wider group-hover:text-secondary transition-colors">
                                 {{ $locale === 'en' ? 'Read Article' : 'Baca Artikel' }} <x-lucide-arrow-right class="w-5 h-5 ml-2 transform group-hover:translate-x-2 transition-transform" />
                             </a>
@@ -43,7 +43,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" data-scroll-stagger>
                 @forelse($blogs->skip($blogs->currentPage() == 1 ? 1 : 0) as $blog)
-                    <div class="bg-white rounded-3xl overflow-hidden border border-outline-variant/30 shadow-ambient hover-card-premium border-top-accent flex flex-col group">
+                    <div class="bg-white rounded-2xl md:rounded-3xl overflow-hidden border border-outline-variant/30 shadow-ambient hover-card-premium border-top-accent flex flex-col group">
                         <div class="relative h-60 overflow-hidden">
                             @if(!empty($blog->thumbnail))
                                 <x-ui.image src="{{ Storage::url($blog->thumbnail) }}" alt="{{ $blog->title }}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />

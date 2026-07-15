@@ -32,57 +32,47 @@
         </div>
 
         {{-- List --}}
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            @if($clients->count() > 0)
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-gray-50/50 border-b border-gray-100 text-sm font-semibold text-gray-500">
-                                <th class="p-6">Nama Klien / Perusahaan</th>
-                                <th class="p-6">Status</th>
-                                <th class="p-6 text-right">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-50">
-                            @foreach($clients as $client)
-                                <tr class="hover:bg-gray-50/30 transition-colors">
-                                    <td class="p-6 font-bold text-gray-900 text-lg">
-                                        {{ $client->name }}
-                                    </td>
-                                    <td class="p-6">
-                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium {{ $client->status === 'published' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-gray-50 text-gray-700 border border-gray-200' }}">
-                                            {{ $client->status === 'published' ? 'Diterbitkan' : 'Draft' }}
-                                        </span>
-                                    </td>
-                                    <td class="p-6 text-right">
-                                        <div class="inline-flex gap-2">
-                                            <a href="{{ route('admin.clients.edit', $client) }}" class="inline-flex items-center px-3 py-2 bg-blue-50 text-blue-600 font-semibold rounded-lg hover:bg-blue-100 transition-colors text-base">
-                                                <x-lucide-edit class="w-4 h-4 mr-1" /> Edit
-                                            </a>
-                                            <form action="{{ route('admin.clients.destroy', $client) }}" method="POST" class="inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="inline-flex items-center px-3 py-2 bg-red-50 text-red-600 font-semibold rounded-lg hover:bg-red-100 transition-colors text-base">
-                                                    <x-lucide-trash-2 class="w-4 h-4 mr-1" /> Hapus
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                <div class="p-6 border-t border-gray-100">
-                    {{ $clients->links() }}
-                </div>
-            @else
-                <div class="p-16 text-center">
-                    <x-lucide-award class="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                    <h3 class="text-xl font-bold text-gray-900">Belum ada data klien</h3>
-                    <p class="text-gray-500 mt-2 max-w-md mx-auto">Klik tombol "Tambah Klien" di atas untuk membuat klien baru.</p>
-                </div>
-            @endif
+        <x-admin.table :headers="['Nama Klien / Perusahaan', 'Status', 'Aksi']">
+            @forelse($clients as $client)
+                <tr>
+                    <td class="px-6 py-4 font-bold text-gray-900 text-lg">
+                        {{ $client->name }}
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium {{ $client->status === 'published' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-gray-50 text-gray-700 border border-gray-200' }}">
+                            {{ $client->status === 'published' ? 'Diterbitkan' : 'Draft' }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                            <a href="{{ route('admin.clients.edit', $client) }}" class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
+                                <x-lucide-edit class="w-4 h-4" />
+                            </a>
+                            <form action="{{ route('admin.clients.destroy', $client) }}" method="POST" class="inline" data-no-alert>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete" onclick="return confirm('Apakah Anda yakin ingin menghapus klien ini?')">
+                                    <x-lucide-trash-2 class="w-4 h-4" />
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="3" class="px-6 py-12 text-center text-gray-500">
+                        <div class="flex flex-col items-center justify-center">
+                            <x-lucide-award class="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                            <h3 class="text-xl font-bold text-gray-900">Belum ada data klien</h3>
+                            <p class="text-gray-500 mt-2 max-w-md mx-auto">Klik tombol "Tambah Klien" di atas untuk membuat klien baru.</p>
+                        </div>
+                    </td>
+                </tr>
+            @endforelse
+        </x-admin.table>
+        
+        <div class="mt-4">
+            {{ $clients->links() }}
         </div>
     </div>
 </x-admin-layout>

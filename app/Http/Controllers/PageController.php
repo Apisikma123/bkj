@@ -22,6 +22,7 @@ class PageController extends Controller
                 'services' => \App\Models\Service::where('status', 'published')->get(),
                 'teamMembers' => \App\Models\TeamMember::where('status', 'published')->where('branch', 'main')->orderBy('order')->orderBy('name')->get(),
                 'koperasiMembers' => \App\Models\TeamMember::where('status', 'published')->where('branch', 'koperasi')->orderBy('order')->orderBy('name')->get(),
+                'bintangMembers' => \App\Models\TeamMember::where('status', 'published')->where('branch', 'pt-bintang-kepri-jaya')->orderBy('order')->orderBy('name')->get(),
                 'clients' => \App\Models\Client::where('status', 'published')->get(),
                 'subsidiariesList' => Subsidiary::all(),
             ];
@@ -51,7 +52,13 @@ class PageController extends Controller
             return redirect()->away($subsidiary->url);
         }
 
-        return view('pages.subsidiaries.show', compact('subsidiary'));
+        $teamMembers = \App\Models\TeamMember::where('status', 'published')
+                            ->where('branch', $slug)
+                            ->orderBy('order')
+                            ->orderBy('name')
+                            ->get();
+
+        return view('pages.subsidiaries.show', compact('subsidiary', 'teamMembers'));
     }
 
     public function gallery()

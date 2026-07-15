@@ -22,7 +22,7 @@
 
 <footer class="bg-primary text-white pt-20 pb-10 border-t-4 border-secondary">
     <x-layout.container>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-16">
             {{-- Brand Column --}}
             <div class="flex flex-col gap-6">
                 <img src="{{ $footerLogoUrl }}" alt="PT. BATAM KEPRI JAYA" class="h-12 w-auto object-contain self-start">
@@ -98,9 +98,9 @@
         @if($footerBankAccounts->count() > 0)
         <div class="pt-12 border-t border-primary-container mb-12">
             <h3 class="text-headline-sm font-semibold text-secondary mb-8 text-center">{{ app()->getLocale() === 'en' ? 'Official Bank Accounts' : 'Rekening Pembayaran Resmi' }}</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
                 @foreach($footerBankAccounts as $subsidiaryName => $accounts)
-                    <div class="bg-primary-container/30 p-6 rounded-xl border border-primary-container">
+                    <div class="bg-primary-container/30 p-4 md:p-6 rounded-xl border border-primary-container">
                         <h4 class="text-body-lg font-bold text-white mb-4 border-b border-primary-container pb-2">{{ $subsidiaryName }}</h4>
                         <div class="space-y-4">
                             @foreach($accounts as $account)

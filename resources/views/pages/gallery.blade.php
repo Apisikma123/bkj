@@ -5,7 +5,7 @@
     
     <x-seo.meta title="{{ __('pages.gallery_title') }}" description="Dokumentasi aktivitas operasional dan infrastruktur PT Bintang Kepri Jaya." />
 
-    <div class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-primary overflow-hidden">
+    <div class="relative pt-24 pb-12 lg:pt-48 lg:pb-32 bg-primary overflow-hidden">
         <div class="absolute inset-0 z-0">
             <div class="w-full h-full bg-outline-variant/10 opacity-20"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>

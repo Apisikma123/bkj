@@ -5,7 +5,7 @@
     <x-seo.meta title="{{ __('pages.about_title') }}" description="{{ $companyProfile['meta_description'] ?? 'Pelajari lebih lanjut tentang sejarah, visi, dan misi PT Bintang Kepri Jaya (BKJ Group).' }}" />
 
     {{-- Hero Page --}}
-    <div class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-primary overflow-hidden">
+    <div class="relative pt-24 pb-12 lg:pt-48 lg:pb-32 bg-primary overflow-hidden">
         <div class="absolute inset-0 z-0">
             @if(!empty($globalSettings['global_icon']))
                 <div class="w-full h-full flex items-center justify-center opacity-10">
@@ -30,9 +30,9 @@
     @endphp
 
     {{-- Sejarah / Company Profile --}}
-    <section class="py-24 bg-surface" data-scroll-reveal>
+    <section class="py-12 md:py-24 bg-surface" data-scroll-reveal>
         <x-layout.container>
-            <div class="flex flex-col lg:flex-row gap-16">
+            <div class="flex flex-col lg:flex-row gap-8 lg:gap-16">
                 <div class="w-full lg:w-5/12">
                     <div class="sticky top-32">
                         <span class="text-label-md text-secondary tracking-widest uppercase">{{ __('pages.about_history') }}</span>
@@ -47,20 +47,26 @@
                 </div>
                 <div class="w-full lg:w-7/12">
                     <div class="grid grid-cols-2 gap-6 items-center">
-                        @if(!empty($globalSettings['global_icon']))
-                            <div class="w-full h-[400px] bg-primary/5 rounded-2xl shadow-ambient mt-12 flex items-center justify-center p-8 border border-outline-variant/10">
-                                <img src="{{ Storage::url($globalSettings['global_icon']) }}" alt="BKJ Group History Logo 1" class="max-w-full max-h-full object-contain" loading="lazy" decoding="async">
+                        @if(!empty($companyProfile['image']))
+                            <div class="col-span-2 w-full h-[250px] md:h-[400px] lg:h-[500px] bg-primary/5 rounded-2xl shadow-ambient mt-12 flex items-center justify-center p-2 border border-outline-variant/10 overflow-hidden">
+                                <img src="{{ Storage::url($companyProfile['image']) }}" alt="BKJ Group History Image" class="w-full h-full object-cover rounded-xl" loading="lazy" decoding="async">
                             </div>
                         @else
-                            <div class="w-full h-[400px] bg-outline-variant/10 rounded-2xl shadow-ambient mt-12"></div>
-                        @endif
+                            @if(!empty($globalSettings['global_icon']))
+                                <div class="w-full h-[250px] md:h-[400px] bg-primary/5 rounded-2xl shadow-ambient mt-12 flex items-center justify-center p-8 border border-outline-variant/10">
+                                    <img src="{{ Storage::url($globalSettings['global_icon']) }}" alt="BKJ Group History Logo 1" class="max-w-full max-h-full object-contain" loading="lazy" decoding="async">
+                                </div>
+                            @else
+                                <div class="w-full h-[250px] md:h-[400px] bg-outline-variant/10 rounded-2xl shadow-ambient mt-12"></div>
+                            @endif
 
-                        @if(!empty($globalSettings['global_icon']))
-                            <div class="w-full h-[500px] bg-primary/5 rounded-2xl shadow-ambient flex items-center justify-center p-8 border border-outline-variant/10">
-                                <img src="{{ Storage::url($globalSettings['global_icon']) }}" alt="BKJ Group History Logo 2" class="max-w-full max-h-full object-contain" loading="lazy" decoding="async">
-                            </div>
-                        @else
-                            <div class="w-full h-[500px] bg-outline-variant/20 rounded-2xl shadow-ambient"></div>
+                            @if(!empty($globalSettings['global_icon']))
+                                <div class="w-full h-[300px] md:h-[500px] bg-primary/5 rounded-2xl shadow-ambient flex items-center justify-center p-8 border border-outline-variant/10">
+                                    <img src="{{ Storage::url($globalSettings['global_icon']) }}" alt="BKJ Group History Logo 2" class="max-w-full max-h-full object-contain" loading="lazy" decoding="async">
+                                </div>
+                            @else
+                                <div class="w-full h-[300px] md:h-[500px] bg-outline-variant/20 rounded-2xl shadow-ambient"></div>
+                            @endif
                         @endif
                     </div>
                 </div>
@@ -69,10 +75,10 @@
     </section>
 
     {{-- Visi & Misi --}}
-    <section class="py-32 bg-surface-container-lowest" data-scroll-reveal>
+    <section class="py-16 md:py-32 bg-surface-container-lowest" data-scroll-reveal>
         <x-layout.container>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-                <div class="bg-primary text-white p-12 lg:p-16 rounded-[2rem] shadow-hover relative overflow-hidden group">
+                <div class="bg-primary text-white p-6 md:p-12 lg:p-16 rounded-2xl md:rounded-[2rem] shadow-hover relative overflow-hidden group">
                     <div class="absolute -right-8 -top-8 text-white/5 group-hover:scale-110 transition-transform duration-700">
                         <x-lucide-eye class="w-64 h-64" />
                     </div>
@@ -87,7 +93,7 @@
                     </div>
                 </div>
                 
-                <div class="bg-white border border-outline-variant/30 p-12 lg:p-16 rounded-[2rem] shadow-ambient relative overflow-hidden group">
+                <div class="bg-white border border-outline-variant/30 p-6 md:p-12 lg:p-16 rounded-2xl md:rounded-[2rem] shadow-ambient relative overflow-hidden group">
                     <div class="absolute -right-8 -top-8 text-primary/5 group-hover:scale-110 transition-transform duration-700">
                         <x-lucide-target class="w-64 h-64" />
                     </div>
@@ -111,9 +117,9 @@
         $legality = $globalSettings['company_legality'] ?? null;
     @endphp
     @if(($teamMembers && $teamMembers->count() > 0) || $team || $legality)
-    <section class="py-24 bg-surface" data-scroll-reveal>
+    <section class="py-12 md:py-24 bg-surface" data-scroll-reveal>
         <x-layout.container>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
                 @if($teamMembers && $teamMembers->count() > 0)
                 <div>
                     <h2 class="text-headline-md font-bold text-primary mb-8">{{ $locale === 'en' ? 'Our Team' : 'Struktur Organisasi & Tim' }}</h2>

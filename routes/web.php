@@ -110,3 +110,5 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'admin'])->name('admin.'
     // Users — Super Admin only
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->middleware('admin:super-admin');
 });
+
+

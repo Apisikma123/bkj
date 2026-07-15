@@ -12,7 +12,7 @@
     $secondaryCta = $secondaryCta ?? ($locale === 'en' ? 'Learn More' : 'Pelajari Lebih Lanjut');
 @endphp
 
-<div class="relative w-full h-screen min-h-[600px] flex items-center overflow-x-hidden bg-primary" id="hero">
+<div class="relative w-full h-screen min-h-[480px] md:min-h-[600px] flex items-center overflow-x-hidden bg-primary" id="hero">
     {{-- Parallax Background --}}
     <div class="absolute inset-0 w-full h-[120%] -top-[10%] z-0" data-hero-parallax>
         <div class="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent z-10"></div>
@@ -24,7 +24,7 @@
     </div>
     
     <x-layout.container class="relative z-10 pt-20">
-        <div class="max-w-3xl flex flex-col gap-6">
+        <div class="max-w-3xl flex flex-col gap-4 md:gap-6">
             @if($subtitle)
                 <div class="overflow-hidden">
                     <span class="block text-secondary-container font-semibold tracking-widest uppercase text-label-md" data-hero-text>
@@ -34,7 +34,7 @@
             @endif
             
             <div class="overflow-hidden">
-                <h1 class="text-display-lg text-white font-bold" data-hero-text>
+                <h1 class="text-display-lg text-white font-bold break-words" data-hero-text>
                     {{ $title }}
                 </h1>
             </div>
@@ -53,7 +53,7 @@
     </x-layout.container>
     
     {{-- Scroll Indicator --}}
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/50 cursor-pointer hover:text-white transition-colors duration-300">
+    <div class="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-2 text-white/50 cursor-pointer hover:text-white transition-colors duration-300 hidden md:flex">
         <span class="text-xs font-semibold uppercase tracking-widest">Scroll</span>
         <x-lucide-mouse class="w-5 h-5" />
     </div>

@@ -16,16 +16,14 @@
             </div>
 
             <div class="mb-6">
-                <x-input-label for="hero_image" value="Hero Background Image (Optional)" />
-                <input type="file" name="hero_image" id="hero_image" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 border border-outline-variant/40 rounded-lg bg-white mt-1 cursor-pointer">
-                <p class="text-xs text-on-surface-variant mt-1">Maksimal 2 MB, format akan diconvert ke WebP</p>
-                @error('hero_image') <p class="text-error text-xs mt-1">{{ $message }}</p> @enderror
-                @if(!empty($subsidiary->hero_image))
-                    <div class="mt-3">
-                        <p class="text-sm font-medium text-on-surface mb-2">Current Image:</p>
-                        <img src="{{ Storage::url($subsidiary->hero_image) }}" class="h-32 object-cover border border-outline-variant/30 rounded-lg">
-                    </div>
-                @endif
+                <x-admin.image-cropper 
+                    id="hero_image" 
+                    name="hero_image" 
+                    label="Hero Background Image (Optional)" 
+                    description="Maksimal 2 MB, format akan diconvert ke WebP. Akan dipotong dengan rasio 16:9."
+                    aspect-ratio="16/9"
+                    :current-image-url="!empty($subsidiary->hero_image) ? Storage::url($subsidiary->hero_image) : null"
+                />
             </div>
 
             <div class="mb-6">

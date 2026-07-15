@@ -5,7 +5,7 @@
     
     <x-seo.meta title="{{ __('pages.subsidiaries_title') }}" description="{{ $locale === 'en' ? 'The maritime and logistics ecosystem network of PT Bintang Kepri Jaya.' : 'Jaringan ekosistem maritim dan logistik PT Bintang Kepri Jaya.' }}" />
 
-    <div class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-surface overflow-hidden">
+    <div class="relative pt-24 pb-12 lg:pt-48 lg:pb-32 bg-surface overflow-hidden">
         <x-layout.container class="relative z-10 text-center max-w-3xl">
             <span class="text-label-md text-secondary tracking-widest uppercase mb-4 block">{{ __('pages.subsidiaries_subtitle') }}</span>
             <h1 class="text-display-lg text-primary font-bold mb-6">{{ __('pages.subsidiaries_title') }}</h1>
