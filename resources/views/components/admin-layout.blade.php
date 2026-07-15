@@ -10,15 +10,28 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Scripts and Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     @stack('styles')
 </head>
-<body class="font-sans antialiased bg-surface text-on-surface flex h-screen overflow-hidden" x-data="{ sidebarOpen: true }">
+<body class="font-sans antialiased bg-surface text-on-surface flex h-screen overflow-hidden" x-data="{ sidebarOpen: window.innerWidth >= 1024 }" @resize.window="if (window.innerWidth >= 1024) sidebarOpen = true">
     
+    <!-- Sidebar backdrop (only visible on mobile when sidebar is open) -->
+    <div x-show="sidebarOpen" 
+         @click="sidebarOpen = false" 
+         class="lg:hidden fixed inset-0 bg-black/40 z-30 transition-opacity duration-300"
+         x-transition:enter="transition-opacity ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition-opacity ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         style="display: none;">
+    </div>
+
     <!-- Sidebar -->
     <x-admin.sidebar />
 

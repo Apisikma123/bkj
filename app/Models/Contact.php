@@ -12,10 +12,14 @@ class Contact extends Model
     {
         static::saved(function ($model) {
             \Illuminate\Support\Facades\Cache::forget('home_page_data_html');
+            \Illuminate\Support\Facades\Cache::forget('home_page_data');
+            \Illuminate\Support\Facades\Cache::forget('dashboard_counts');
         });
 
         static::deleted(function ($model) {
             \Illuminate\Support\Facades\Cache::forget('home_page_data_html');
+            \Illuminate\Support\Facades\Cache::forget('home_page_data');
+            \Illuminate\Support\Facades\Cache::forget('dashboard_counts');
         });
     }
 }

@@ -32,10 +32,12 @@ export default function initMarquee() {
         // The exact distance to shift is the width of the original div + the gap
         const shiftDistance = originalDiv.offsetWidth + gap;
 
+        let tween;
+
         if (direction === 1) {
             // Moving Right: start offset to the left, move to 0
             gsap.set(track, { x: -shiftDistance });
-            gsap.to(track, {
+            tween = gsap.to(track, {
                 x: 0,
                 duration: 20,
                 ease: "none",
@@ -44,7 +46,7 @@ export default function initMarquee() {
         } else {
             // Moving Left: start at 0, move offset to the left
             gsap.set(track, { x: 0 });
-            gsap.to(track, {
+            tween = gsap.to(track, {
                 x: -shiftDistance,
                 duration: 20,
                 ease: "none",
@@ -53,7 +55,20 @@ export default function initMarquee() {
         }
 
         // Pause on hover
-        marquee.addEventListener('mouseenter', () => gsap.getTweensOf(track).forEach(t => t.pause()));
-        marquee.addEventListener('mouseleave', () => gsap.getTweensOf(track).forEach(t => t.play()));
+        marquee.addEventListener('mouseenter', () => tween.pause());
+        marquee.addEventListener('mouseleave', () => tween.play());
+
+        // Use IntersectionObserver to pause/resume when in/out of viewport
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    tween.play();
+                } else {
+                    tween.pause();
+                }
+            });
+        }, { threshold: 0.01 });
+
+        observer.observe(marquee);
     });
 }

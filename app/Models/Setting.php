@@ -12,11 +12,13 @@ class Setting extends Model
     {
         static::saved(function ($model) {
             \Illuminate\Support\Facades\Cache::forget('home_page_data_html');
+            \Illuminate\Support\Facades\Cache::forget('home_page_data');
             \Illuminate\Support\Facades\Cache::forget('global_settings');
         });
 
         static::deleted(function ($model) {
             \Illuminate\Support\Facades\Cache::forget('home_page_data_html');
+            \Illuminate\Support\Facades\Cache::forget('home_page_data');
             \Illuminate\Support\Facades\Cache::forget('global_settings');
         });
     }

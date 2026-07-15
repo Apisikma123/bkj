@@ -42,7 +42,7 @@
        class="group relative flex items-center justify-center w-14 h-14 bg-green-500 text-white rounded-full shadow-hover hover:scale-110 transition-transform duration-200">
         
         {{-- Pulse animation ring --}}
-        <div class="absolute inset-0 rounded-full border-2 border-green-500 animate-ping opacity-75" x-show="!open"></div>
+        <div class="absolute inset-0 rounded-full border-2 border-green-500 animate-[ping_1.5s_ease-out_3] opacity-75" x-show="!open"></div>
         
         <x-lucide-message-circle class="w-7 h-7 relative z-10 transition-transform duration-300" x-bind:class="{'rotate-[-15deg] scale-110': open}" />
         

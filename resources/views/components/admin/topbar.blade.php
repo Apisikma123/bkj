@@ -6,6 +6,9 @@
     </div>
 
     <div class="flex items-center gap-2 md:gap-4">
+        {{-- Help Guide Trigger --}}
+        <x-admin.help />
+
         <!-- Profile -->
         <div class="relative" x-data="{ open: false }">
             <button @click="open = !open" class="flex items-center gap-2 focus:outline-none p-1 pr-2 rounded-full hover:bg-surface-container transition-colors">

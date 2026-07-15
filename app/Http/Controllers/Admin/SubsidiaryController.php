@@ -24,18 +24,20 @@ class SubsidiaryController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'name_en' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'description_en' => 'nullable|string',
             'content' => 'nullable|string',
-            'content_en' => 'nullable|string',
             'url' => 'nullable|url|max:255',
             'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
         
         if ($request->hasFile('hero_image')) {
-            $data['hero_image'] = $request->file('hero_image')->store('subsidiaries', 'public');
+            $data['hero_image'] = \App\Services\ImageService::upload($request->file('hero_image'), 'subsidiaries');
         }
+
+        $translator = app(\App\Services\TranslationService::class);
+        if (!empty($data['name'])) $data['name_en'] = $data['name']; // Do not translate proper names
+        if (!empty($data['description'])) $data['description_en'] = $translator->translateToEnglish($data['description']);
+        if (!empty($data['content'])) $data['content_en'] = $translator->translateToEnglish($data['content']);
 
         $data['slug'] = Str::slug($data['name']);
         Subsidiary::create($data);
@@ -51,21 +53,20 @@ class SubsidiaryController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'name_en' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'description_en' => 'nullable|string',
             'content' => 'nullable|string',
-            'content_en' => 'nullable|string',
             'url' => 'nullable|url|max:255',
             'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
         if ($request->hasFile('hero_image')) {
-            if ($subsidiary->hero_image) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($subsidiary->hero_image);
-            }
-            $data['hero_image'] = $request->file('hero_image')->store('subsidiaries', 'public');
+            $data['hero_image'] = \App\Services\ImageService::upload($request->file('hero_image'), 'subsidiaries', $subsidiary->hero_image);
         }
+
+        $translator = app(\App\Services\TranslationService::class);
+        if (!empty($data['name'])) $data['name_en'] = $data['name']; // Do not translate proper names
+        if (!empty($data['description'])) $data['description_en'] = $translator->translateToEnglish($data['description']);
+        if (!empty($data['content'])) $data['content_en'] = $translator->translateToEnglish($data['content']);
 
         $data['slug'] = Str::slug($data['name']);
         $subsidiary->update($data);

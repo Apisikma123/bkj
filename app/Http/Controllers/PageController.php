@@ -14,30 +14,33 @@ class PageController extends Controller
 {
     public function home()
     {
-        $html = Cache::rememberForever('home_page_data_html', function () {
-            $data = [
+        $data = Cache::remember('home_page_data', 3600, function () {
+            return [
                 'hero' => HeroSection::latest()->first(),
-                'profile' => CompanyProfile::pluck('value', 'key')->toArray(),
                 'blogs' => Blog::with('author')->where('status', 'published')->latest()->limit(3)->get(),
                 'galleries' => Gallery::where('status', 'published')->latest()->limit(6)->get(),
-                'settings' => \App\Models\Setting::pluck('value', 'key')->toArray(),
+                'services' => \App\Models\Service::where('status', 'published')->get(),
+                'teamMembers' => \App\Models\TeamMember::where('status', 'published')->where('branch', 'main')->orderBy('order')->orderBy('name')->get(),
+                'koperasiMembers' => \App\Models\TeamMember::where('status', 'published')->where('branch', 'koperasi')->orderBy('order')->orderBy('name')->get(),
+                'clients' => \App\Models\Client::where('status', 'published')->get(),
+                'subsidiariesList' => Subsidiary::all(),
             ];
-            
-            return view('welcome', $data)->render();
         });
         
-        return response($html);
+        return view('welcome', $data);
     }
 
     public function about()
     {
-        $profile = CompanyProfile::pluck('value', 'key')->toArray();
-        return view('pages.about', compact('profile'));
+        $teamMembers = \App\Models\TeamMember::where('status', 'published')->where('branch', 'main')->orderBy('order')->orderBy('name')->get();
+        $koperasiMembers = \App\Models\TeamMember::where('status', 'published')->where('branch', 'koperasi')->orderBy('order')->orderBy('name')->get();
+        return view('pages.about', compact('teamMembers', 'koperasiMembers'));
     }
 
     public function services()
     {
-        return view('pages.services');
+        $services = \App\Models\Service::where('status', 'published')->get();
+        return view('pages.services', compact('services'));
     }
 
     public function showSubsidiary($slug)
@@ -80,6 +83,7 @@ class PageController extends Controller
             'email' => 'required|email|max:255',
             'company' => 'nullable|string|max:255',
             'message' => 'required|string|max:5000',
+            'cf-turnstile-response' => [app()->environment('testing') || empty(env('TURNSTILE_SECRET_KEY')) ? 'nullable' : 'required', new \App\Rules\Turnstile()],
         ]);
 
         \App\Models\Contact::create($validated);

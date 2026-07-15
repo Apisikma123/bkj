@@ -19,7 +19,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $roles = Role::all();
+        $roles = Role::where('slug', 'super-admin')->get();
         return view('admin.users.create', compact('roles'));
     }
 
@@ -41,7 +41,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        $roles = Role::all();
+        $roles = Role::where('slug', 'super-admin')->get();
         return view('admin.users.edit', compact('user', 'roles'));
     }
 

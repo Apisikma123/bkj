@@ -16,7 +16,7 @@
             <div class="mb-6">
                 <x-input-label for="images" value="Select Images" required />
                 <input type="file" name="images[]" id="images" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 border border-outline-variant/40 rounded-lg bg-white mt-1 cursor-pointer" accept="image/*" multiple required />
-                <p class="text-xs text-outline mt-2">You can select multiple images. Max 5MB per image.</p>
+                <p class="text-xs text-outline mt-2">Bisa pilih banyak gambar. Maksimal 2 MB per gambar, format akan diconvert ke WebP.</p>
                 @error('images')
                     <p class="text-error text-xs mt-1">{{ $message }}</p>
                 @enderror

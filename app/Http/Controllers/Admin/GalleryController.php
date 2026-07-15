@@ -35,10 +35,16 @@ class GalleryController extends Controller
     {
         $request->validate([
             'images' => 'required|array',
-            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:5120',
+            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
             'category' => 'nullable|string|max:255',
         ]);
         
+        $translator = app(\App\Services\TranslationService::class);
+        $categoryEn = null;
+        if (!empty($request->category)) {
+            $categoryEn = $translator->translateToEnglish($request->category);
+        }
+
         $count = 0;
         foreach ($request->file('images') as $image) {
             $path = \App\Services\ImageService::upload($image, 'galleries');
@@ -46,11 +52,14 @@ class GalleryController extends Controller
             
             // Clean up title (remove dashes/underscores)
             $title = ucwords(str_replace(['-', '_'], ' ', $title));
+            $titleEn = $translator->translateToEnglish($title);
 
             Gallery::create([
                 'title' => $title,
+                'title_en' => $titleEn,
                 'image_path' => $path,
                 'category' => $request->category,
+                'category_en' => $categoryEn,
                 'status' => 'published',
                 'is_featured' => false
             ]);
@@ -69,12 +78,14 @@ class GalleryController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'title_en' => 'nullable|string|max:255',
-            'image' => 'nullable|image|max:5120',
+            'image' => 'nullable|image|max:2048',
             'category' => 'nullable|string|max:255',
-            'category_en' => 'nullable|string|max:255',
             'status' => 'required|in:published,draft',
         ]);
+
+        $translator = app(\App\Services\TranslationService::class);
+        if (!empty($data['title'])) $data['title_en'] = $translator->translateToEnglish($data['title']);
+        if (!empty($data['category'])) $data['category_en'] = $translator->translateToEnglish($data['category']);
 
         if ($request->hasFile('image')) {
             $data['image_path'] = \App\Services\ImageService::upload($request->file('image'), 'galleries', $gallery->image_path);

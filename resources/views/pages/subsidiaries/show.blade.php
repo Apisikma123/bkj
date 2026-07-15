@@ -2,7 +2,7 @@
     @php
         $locale = app()->getLocale();
         $subName = $locale === 'en' && !empty($subsidiary->name_en) ? $subsidiary->name_en : $subsidiary->name;
-        $subDesc = $locale === 'en' && !empty($subsidiary->description_en) ? $subsidiary->description_en : ($subsidiary->description ?? 'Anak Perusahaan PT. BATAM KEPRI JAYA');
+        $subDesc = $locale === 'en' && !empty($subsidiary->description_en) ? $subsidiary->description_en : ($subsidiary->description ?? ($locale === 'en' ? 'Subsidiary of PT. BATAM KEPRI JAYA' : 'Anak Perusahaan PT. BATAM KEPRI JAYA'));
         $subContent = $locale === 'en' && !empty($subsidiary->content_en) ? $subsidiary->content_en : $subsidiary->content;
     @endphp
 

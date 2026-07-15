@@ -6,12 +6,8 @@
             @method('PUT')
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
-                    <x-input-label for="name" value="Name (ID)" required />
+                    <x-input-label for="name" value="Name" required />
                     <x-text-input id="name" name="name" type="text" value="{{ old('name', $subsidiary->name) }}" required />
-                </div>
-                <div>
-                    <x-input-label for="name_en" value="Name (EN)" />
-                    <x-text-input id="name_en" name="name_en" type="text" value="{{ old('name_en', $subsidiary->name_en) }}" />
                 </div>
                 <div class="md:col-span-2">
                     <x-input-label for="url" value="External URL (Optional)" />
@@ -22,6 +18,7 @@
             <div class="mb-6">
                 <x-input-label for="hero_image" value="Hero Background Image (Optional)" />
                 <input type="file" name="hero_image" id="hero_image" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 border border-outline-variant/40 rounded-lg bg-white mt-1 cursor-pointer">
+                <p class="text-xs text-on-surface-variant mt-1">Maksimal 2 MB, format akan diconvert ke WebP</p>
                 @error('hero_image') <p class="text-error text-xs mt-1">{{ $message }}</p> @enderror
                 @if(!empty($subsidiary->hero_image))
                     <div class="mt-3">
@@ -31,25 +28,14 @@
                 @endif
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div>
-                    <x-input-label for="description" value="Short Description (ID)" />
-                    <x-textarea-input id="description" name="description" rows="3">{{ old('description', $subsidiary->description) }}</x-textarea-input>
-                </div>
-                <div>
-                    <x-input-label for="description_en" value="Short Description (EN)" />
-                    <x-textarea-input id="description_en" name="description_en" rows="3">{{ old('description_en', $subsidiary->description_en) }}</x-textarea-input>
-                </div>
+            <div class="mb-6">
+                <x-input-label for="description" value="Short Description" />
+                <x-textarea-input id="description" name="description" rows="3">{{ old('description', $subsidiary->description) }}</x-textarea-input>
             </div>
             <div class="mb-6">
-                <x-input-label for="content" value="Page Content (Rich Text) (ID)" />
+                <x-input-label for="content" value="Page Content (Rich Text)" />
                 <input type="hidden" name="content" id="content">
                 <div id="editor" class="min-h-[400px] rounded-b-lg border-gray-300">{!! old('content', $subsidiary->content) !!}</div>
-            </div>
-            <div class="mb-6">
-                <x-input-label for="content_en" value="Page Content (Rich Text) (EN)" />
-                <input type="hidden" name="content_en" id="content_en">
-                <div id="editor_en" class="min-h-[400px] rounded-b-lg border-gray-300">{!! old('content_en', $subsidiary->content_en) !!}</div>
             </div>
             <div class="flex justify-end gap-3 mt-8 pt-6 border-t border-outline-variant/20">
                 <a href="{{ route('admin.subsidiaries.index') }}" class="inline-flex items-center justify-center px-4 py-2 bg-gray-100 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-200 transition-colors font-medium text-sm shadow-sm">Cancel</a>
@@ -78,25 +64,8 @@
                 ]
             }
         });
-        
-        var quill_en = new Quill('#editor_en', {
-            theme: 'snow',
-            modules: {
-                toolbar: [
-                    [{ 'header': [1, 2, 3, false] }],
-                    ['bold', 'italic', 'underline', 'strike'],
-                    ['blockquote', 'code-block'],
-                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    [{ 'align': [] }],
-                    ['link', 'image', 'video'],
-                    ['clean']
-                ]
-            }
-        });
-
         document.getElementById('subsidiary-form').onsubmit = function() {
             document.getElementById('content').value = quill.root.innerHTML;
-            document.getElementById('content_en').value = quill_en.root.innerHTML;
         };
     </script>
     <style>

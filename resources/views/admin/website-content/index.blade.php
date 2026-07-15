@@ -23,26 +23,19 @@
                             <h3 class="text-lg font-bold text-on-surface mb-6 flex items-center gap-2">
                                 <x-lucide-layout-template class="w-5 h-5 text-primary"/> Hero Section
                             </h3>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="grid grid-cols-1 gap-6">
                                 <div>
-                                    <x-input-label for="hero_title" value="Hero Title (ID)" required />
+                                    <x-input-label for="hero_title" value="Hero Title" required />
                                     <x-text-input id="hero_title" name="hero_title" type="text" value="{{ old('hero_title', $hero->title ?? '') }}" required />
                                 </div>
                                 <div>
-                                    <x-input-label for="hero_title_en" value="Hero Title (EN)" />
-                                    <x-text-input id="hero_title_en" name="hero_title_en" type="text" value="{{ old('hero_title_en', $hero->title_en ?? '') }}" />
-                                </div>
-                                <div>
-                                    <x-input-label for="hero_subtitle" value="Hero Subtitle (ID)" />
+                                    <x-input-label for="hero_subtitle" value="Hero Subtitle" />
                                     <x-textarea-input id="hero_subtitle" name="hero_subtitle" rows="3">{{ old('hero_subtitle', $hero->subtitle ?? '') }}</x-textarea-input>
-                                </div>
-                                <div>
-                                    <x-input-label for="hero_subtitle_en" value="Hero Subtitle (EN)" />
-                                    <x-textarea-input id="hero_subtitle_en" name="hero_subtitle_en" rows="3">{{ old('hero_subtitle_en', $hero->subtitle_en ?? '') }}</x-textarea-input>
                                 </div>
                                 <div class="md:col-span-2">
                                     <x-input-label for="hero_image" value="Hero Image (Background)" />
                                     <input type="file" name="hero_image" id="hero_image" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 border border-outline-variant/40 rounded-lg bg-white mt-1 cursor-pointer">
+                                    <p class="text-xs text-on-surface-variant mt-1">Maksimal 2 MB, format akan diconvert ke WebP</p>
                                     @error('hero_image') <p class="text-error text-xs mt-1">{{ $message }}</p> @enderror
                                     @if(!empty($hero->background_image))
                                         <div class="mt-3">
@@ -83,41 +76,25 @@
                                 <x-text-input id="name" name="name" type="text" value="{{ old('name', $profile['name'] ?? '') }}" required />
                             </div>
                             
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="grid grid-cols-1 gap-6">
                                 <div>
-                                    <x-input-label for="description" value="Description (ID)" />
+                                    <x-input-label for="description" value="Description" />
                                     <x-textarea-input id="description" name="description" rows="4">{{ $profile['description'] ?? '' }}</x-textarea-input>
                                 </div>
-                                <div>
-                                    <x-input-label for="description_en" value="Description (EN)" />
-                                    <x-textarea-input id="description_en" name="description_en" rows="4">{{ $profile['description_en'] ?? '' }}</x-textarea-input>
-                                </div>
 
                                 <div>
-                                    <x-input-label for="vision" value="Vision (ID)" />
+                                    <x-input-label for="vision" value="Vision" />
                                     <x-textarea-input id="vision" name="vision" rows="3">{{ $profile['vision'] ?? '' }}</x-textarea-input>
                                 </div>
-                                <div>
-                                    <x-input-label for="vision_en" value="Vision (EN)" />
-                                    <x-textarea-input id="vision_en" name="vision_en" rows="3">{{ $profile['vision_en'] ?? '' }}</x-textarea-input>
-                                </div>
 
                                 <div>
-                                    <x-input-label for="mission" value="Mission (ID)" />
+                                    <x-input-label for="mission" value="Mission" />
                                     <x-textarea-input id="mission" name="mission" rows="3">{{ $profile['mission'] ?? '' }}</x-textarea-input>
                                 </div>
-                                <div>
-                                    <x-input-label for="mission_en" value="Mission (EN)" />
-                                    <x-textarea-input id="mission_en" name="mission_en" rows="3">{{ $profile['mission_en'] ?? '' }}</x-textarea-input>
-                                </div>
 
                                 <div>
-                                    <x-input-label for="history" value="History / Background (ID)" />
+                                    <x-input-label for="history" value="History / Background" />
                                     <x-textarea-input id="history" name="history" rows="3">{{ $profile['history'] ?? '' }}</x-textarea-input>
-                                </div>
-                                <div>
-                                    <x-input-label for="history_en" value="History / Background (EN)" />
-                                    <x-textarea-input id="history_en" name="history_en" rows="3">{{ $profile['history_en'] ?? '' }}</x-textarea-input>
                                 </div>
                             </div>
                             
@@ -130,17 +107,6 @@
                                     <x-input-label for="company_legality" value="Company Legality (Pisahkan per baris)" />
                                     <x-textarea-input id="company_legality" name="company_legality" rows="4" placeholder="SIUP&#10;NIB">{{ $settings['company_legality'] ?? '' }}</x-textarea-input>
                                 </div>
-                            </div>
-
-                            <div>
-                                <x-input-label for="about_image" value="About Image (Company Photo)" />
-                                <input type="file" name="about_image" id="about_image" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 border border-outline-variant/40 rounded-lg bg-white mt-1 cursor-pointer">
-                                @if(!empty($profile['image']))
-                                    <div class="mt-3">
-                                        <p class="text-sm font-medium text-on-surface mb-2">Current Image:</p>
-                                        <img src="{{ Storage::url($profile['image']) }}" class="h-32 object-cover border border-outline-variant/30 rounded-lg">
-                                    </div>
-                                @endif
                             </div>
                         </div>
                         <div class="flex justify-end gap-3 mt-8 pt-6 border-t border-outline-variant/20">
@@ -156,7 +122,10 @@
                 <div x-show="activeTab === 'gallery'" x-cloak>
                     <div class="text-center py-12 text-gray-500">
                         <x-lucide-image class="w-12 h-12 mx-auto mb-3 opacity-50"/>
-                        <p>Gallery settings and categories.</p>
+                        <p class="mb-4">Gallery images are managed in their own dedicated module.</p>
+                        <a href="{{ route('admin.galleries.index') }}" class="inline-flex items-center px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-colors">
+                            <x-lucide-edit class="w-5 h-5 mr-2" /> Manage Gallery
+                        </a>
                     </div>
                 </div>
                 

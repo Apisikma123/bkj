@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Rules\Turnstile;
 
 class LoginRequest extends FormRequest
 {
@@ -30,6 +31,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
+            'cf-turnstile-response' => [app()->environment('testing') || empty(env('TURNSTILE_SECRET_KEY')) ? 'nullable' : 'required', new Turnstile()],
         ];
     }
 
@@ -43,7 +45,7 @@ class LoginRequest extends FormRequest
         $this->ensureIsNotRateLimited();
 
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
-            RateLimiter::hit($this->throttleKey());
+            RateLimiter::hit($this->throttleKey(), 900); // 15 minutes lockout
 
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),

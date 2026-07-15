@@ -23,18 +23,24 @@ class WebsiteContentController extends Controller
     {
         $request->validate([
             'hero_title' => 'required|string|max:255',
-            'hero_title_en' => 'nullable|string|max:255',
             'hero_subtitle' => 'nullable|string|max:255',
-            'hero_subtitle_en' => 'nullable|string|max:255',
-            'hero_image' => 'nullable|image|max:5120',
+            'hero_image' => 'nullable|image|max:2048',
         ]);
+
+        $translator = app(\App\Services\TranslationService::class);
 
         // Update Hero
         $hero = HeroSection::latest()->first() ?? new HeroSection();
         $hero->title = $request->input('hero_title', $hero->title);
-        $hero->title_en = $request->input('hero_title_en', $hero->title_en);
         $hero->subtitle = $request->input('hero_subtitle', $hero->subtitle);
-        $hero->subtitle_en = $request->input('hero_subtitle_en', $hero->subtitle_en);
+        
+        // Auto-Translate
+        if ($request->filled('hero_title')) {
+            $hero->title_en = $translator->translateToEnglish($request->input('hero_title'));
+        }
+        if ($request->filled('hero_subtitle')) {
+            $hero->subtitle_en = $translator->translateToEnglish($request->input('hero_subtitle'));
+        }
         
         if ($request->hasFile('hero_image')) {
             $hero->background_image = \App\Services\ImageService::upload($request->file('hero_image'), 'hero', $hero->background_image);
@@ -53,9 +59,17 @@ class WebsiteContentController extends Controller
 
         foreach ($keys as $key) {
             if ($request->has($key)) {
-                Setting::updateOrCreate(['key' => $key], ['value' => $request->input($key)]);
+                $val = $request->input($key);
+                Setting::updateOrCreate(['key' => $key], ['value' => $val]);
+                
+                if (!empty($val)) {
+                    $valEn = $translator->translateToEnglish($val);
+                    Setting::updateOrCreate(['key' => $key . '_en'], ['value' => $valEn]);
+                }
+                
                 // We'll also clear cache to ensure frontend sees it
                 \Illuminate\Support\Facades\Cache::forget('home_page_data_html');
+                \Illuminate\Support\Facades\Cache::forget('home_page_data');
             }
         }
 
@@ -70,16 +84,28 @@ class WebsiteContentController extends Controller
             'vision' => 'nullable|string',
             'mission' => 'nullable|string',
             'history' => 'nullable|string',
-            'about_image' => 'nullable|image|max:5120',
         ]);
 
+        $translator = app(\App\Services\TranslationService::class);
+
         $keys = [
-            'name', 'description', 'vision', 'mission', 'history',
-            'description_en', 'vision_en', 'mission_en', 'history_en'
+            'name', 'description', 'vision', 'mission', 'history'
         ];
+        
         foreach ($keys as $key) {
             if ($request->has($key)) {
-                CompanyProfile::updateOrCreate(['key' => $key], ['value' => $request->input($key)]);
+                $val = $request->input($key);
+                CompanyProfile::updateOrCreate(['key' => $key], ['value' => $val]);
+                
+                // Auto translate for the _en version
+                if (!empty($val)) {
+                    if ($key === 'name') {
+                        $valEn = $val; // Do not translate company name
+                    } else {
+                        $valEn = $translator->translateToEnglish($val);
+                    }
+                    CompanyProfile::updateOrCreate(['key' => $key . '_en'], ['value' => $valEn]);
+                }
             }
         }
         
@@ -90,15 +116,17 @@ class WebsiteContentController extends Controller
             }
         }
         
-        if ($request->hasFile('about_image')) {
-            $oldImage = CompanyProfile::where('key', 'image')->value('value');
-            $newImage = \App\Services\ImageService::upload($request->file('about_image'), 'about', $oldImage);
-            CompanyProfile::updateOrCreate(['key' => 'image'], ['value' => $newImage]);
+        // Clean up old company profile image if it exists (since we use global icon now)
+        $oldImage = CompanyProfile::where('key', 'image')->value('value');
+        if ($oldImage) {
+            \App\Services\ImageService::delete($oldImage);
+            CompanyProfile::where('key', 'image')->delete();
         }
         
         \Illuminate\Support\Facades\Cache::forget('home_page_data_html');
+        \Illuminate\Support\Facades\Cache::forget('home_page_data');
 
-        return redirect()->route('admin.content.index')->with('success', 'About content updated successfully.');
+        return redirect()->route('admin.content.index')->with('success', 'About Us content updated successfully.');
     }
 
     public function updateGallery(Request $request)
@@ -109,9 +137,16 @@ class WebsiteContentController extends Controller
     public function updateContact(Request $request)
     {
         $keys = ['contact_email', 'contact_phone1', 'contact_phone2', 'contact_address', 'contact_map_url'];
+        $translator = app(\App\Services\TranslationService::class);
         foreach ($keys as $key) {
             if ($request->has($key)) {
-                Setting::updateOrCreate(['key' => $key], ['value' => $request->input($key)]);
+                $val = $request->input($key);
+                Setting::updateOrCreate(['key' => $key], ['value' => $val]);
+                
+                if (!empty($val)) {
+                    $valEn = $translator->translateToEnglish($val);
+                    Setting::updateOrCreate(['key' => $key . '_en'], ['value' => $valEn]);
+                }
             }
         }
         return redirect()->route('admin.content.index')->with('success', 'Contact content updated successfully.');
@@ -120,9 +155,16 @@ class WebsiteContentController extends Controller
     public function updateFooter(Request $request)
     {
         $keys = ['footer_about_text', 'footer_copyright', 'social_facebook', 'social_instagram', 'social_linkedin'];
+        $translator = app(\App\Services\TranslationService::class);
         foreach ($keys as $key) {
             if ($request->has($key)) {
-                Setting::updateOrCreate(['key' => $key], ['value' => $request->input($key)]);
+                $val = $request->input($key);
+                Setting::updateOrCreate(['key' => $key], ['value' => $val]);
+                
+                if (!empty($val)) {
+                    $valEn = $translator->translateToEnglish($val);
+                    Setting::updateOrCreate(['key' => $key . '_en'], ['value' => $valEn]);
+                }
             }
         }
         return redirect()->route('admin.content.index')->with('success', 'Footer content updated successfully.');

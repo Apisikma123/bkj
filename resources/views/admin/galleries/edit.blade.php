@@ -6,35 +6,21 @@
             @csrf
             @method('PUT')
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="grid grid-cols-1 gap-6 mb-6">
                 <div>
-                    <x-input-label for="title" value="Title (ID)" required />
+                    <x-input-label for="title" value="Title" required />
                     <x-text-input id="title" name="title" type="text" value="{{ old('title', $gallery->title) }}" required />
                     @error('title')
                         <p class="text-error text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-                <div>
-                    <x-input-label for="title_en" value="Title (EN)" />
-                    <x-text-input id="title_en" name="title_en" type="text" value="{{ old('title_en', $gallery->title_en) }}" />
-                    @error('title_en')
-                        <p class="text-error text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="grid grid-cols-1 gap-6 mb-6">
                 <div>
-                    <x-input-label for="category" value="Category (ID)" />
+                    <x-input-label for="category" value="Category" />
                     <x-text-input name="category" id="category" placeholder="e.g. CSR, Operations" value="{{ old('category', $gallery->category) }}" />
                     @error('category')
-                        <p class="text-error text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div>
-                    <x-input-label for="category_en" value="Category (EN)" />
-                    <x-text-input name="category_en" id="category_en" placeholder="e.g. CSR, Operations" value="{{ old('category_en', $gallery->category_en) }}" />
-                    @error('category_en')
                         <p class="text-error text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
@@ -58,6 +44,7 @@
                 @endif
                 <x-input-label for="image" value="Replace Image (Optional)" />
                 <input type="file" name="image" id="image" class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 border border-outline-variant/40 rounded-lg bg-white mt-1 cursor-pointer" accept="image/*" />
+                <p class="text-xs text-outline mt-2">Maksimal 2 MB, format akan diconvert ke WebP.</p>
                 @error('image')
                     <p class="text-error text-xs mt-1">{{ $message }}</p>
                 @enderror

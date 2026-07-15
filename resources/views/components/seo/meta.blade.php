@@ -19,12 +19,44 @@
     $finalDesc = $description ?? $defaultDesc;
     $finalImage = $image ?? $defaultImage;
     $finalUrl = $url ?? url()->current();
+
+    // Dynamic Favicon Resolution based on active company (subsidiary)
+    $activeSubsidiary = null;
+    if (isset($subsidiary) && $subsidiary instanceof \App\Models\Subsidiary) {
+        $activeSubsidiary = $subsidiary;
+    } else {
+        $route = request()->route();
+        if ($route && $route->getName() === 'subsidiaries.show') {
+            $slug = $route->parameter('slug');
+            $activeSubsidiary = \App\Models\Subsidiary::where('slug', $slug)->first();
+        }
+    }
+
+    $faviconUrl = asset('favicon.ico');
+    if ($activeSubsidiary && $activeSubsidiary->favicon_path) {
+        $faviconUrl = \Illuminate\Support\Facades\Storage::url($activeSubsidiary->favicon_path);
+    } elseif (!empty($globalSettings['global_favicon'])) {
+        $faviconUrl = \Illuminate\Support\Facades\Storage::url($globalSettings['global_favicon']);
+    } else {
+        $defaultSub = \App\Models\Subsidiary::where('slug', 'pt-bintang-kepri-jaya')->first();
+        if ($defaultSub && $defaultSub->favicon_path) {
+            $faviconUrl = \Illuminate\Support\Facades\Storage::url($defaultSub->favicon_path);
+        }
+    }
+
+    $faviconType = 'image/x-icon';
+    if (\Illuminate\Support\Str::endsWith($faviconUrl, '.svg')) {
+        $faviconType = 'image/svg+xml';
+    } elseif (\Illuminate\Support\Str::endsWith($faviconUrl, '.png')) {
+        $faviconType = 'image/png';
+    }
 @endphp
 
 {{-- Standard SEO Tags --}}
 <title>{{ $finalTitle }}</title>
 <meta name="description" content="{{ $finalDesc }}">
 <link rel="canonical" href="{{ $finalUrl }}">
+<link rel="icon" type="{{ $faviconType }}" href="{{ $faviconUrl }}">
 
 {{-- OpenGraph Tags --}}
 <meta property="og:title" content="{{ $finalTitle }}">

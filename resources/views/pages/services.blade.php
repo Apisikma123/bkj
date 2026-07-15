@@ -22,54 +22,46 @@
             <div class="space-y-32">
                 @php
                     $locale = app()->getLocale();
-                    $hardcodedServices = [
-                        [
-                            'slug' => 'bongkar-muat',
-                            'title' => $locale === 'en' ? 'Cargo Stevedoring' : 'Bongkar Muat',
-                            'short_description' => $locale === 'en' ? 'Professional cargo loading and unloading services at the port with adequate equipment and trained human resources.' : 'Layanan bongkar muat kargo profesional di pelabuhan dengan peralatan memadai dan SDM terlatih.',
-                            'content' => $locale === 'en' ? 'Our professional services are designed to ensure the efficiency and security of your supply chain.' : 'Layanan profesional kami dirancang untuk memastikan efisiensi dan keamanan rantai pasok Anda.',
-                            'icon' => 'truck'
-                        ],
-                        [
-                            'slug' => 'transportasi-logistik',
-                            'title' => $locale === 'en' ? 'Logistics Transportation' : 'Transportasi Logistik',
-                            'short_description' => $locale === 'en' ? 'Safe and timely logistics distribution throughout Indonesia.' : 'Distribusi logistik aman dan tepat waktu ke seluruh Indonesia.',
-                            'content' => $locale === 'en' ? 'We provide end-to-end logistics transportation tailored to your business needs.' : 'Kami menyediakan transportasi logistik menyeluruh yang disesuaikan dengan kebutuhan bisnis Anda.',
-                            'icon' => 'ship'
-                        ],
-                        [
-                            'slug' => 'penyedia-tenaga-kerja',
-                            'title' => $locale === 'en' ? 'Manpower Supply' : 'Penyedia Tenaga Kerja',
-                            'short_description' => $locale === 'en' ? 'Competent and experienced stevedoring manpower (TKBM).' : 'Tenaga Kerja Bongkar Muat (TKBM) yang kompeten dan berpengalaman.',
-                            'content' => $locale === 'en' ? 'Supported by highly trained personnel to support your operational needs.' : 'Didukung oleh personel terlatih untuk menunjang kebutuhan operasional Anda.',
-                            'icon' => 'users'
-                        ]
-                    ];
                 @endphp
-                @foreach($hardcodedServices as $index => $service)
-                    <div id="service-{{ $service['slug'] }}" class="flex flex-col lg:flex-row gap-16 items-center {{ $index % 2 !== 0 ? 'lg:flex-row-reverse' : '' }}">
+                @foreach($services as $index => $service)
+                    @php
+                        $title = $locale === 'en' && !empty($service->title_en) ? $service->title_en : $service->title;
+                        $shortDescription = $locale === 'en' && !empty($service->short_description_en) ? $service->short_description_en : $service->short_description;
+                        $content = $locale === 'en' && !empty($service->content_en) ? $service->content_en : $service->content;
+                    @endphp
+                    <div id="service-{{ $service->slug }}" class="flex flex-col lg:flex-row gap-16 items-center {{ $index % 2 !== 0 ? 'lg:flex-row-reverse' : '' }}">
                         <div class="w-full lg:w-1/2">
-                            <div class="relative h-[400px] lg:h-[500px] rounded-[2rem] overflow-hidden shadow-ambient group">
-                                <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-700 z-10"></div>
-                                <div class="w-full h-full bg-outline-variant/10"></div>
+                            <div class="relative h-[400px] lg:h-[500px] rounded-[2rem] overflow-hidden shadow-ambient group flex items-center justify-center bg-primary/5 border border-outline-variant/10">
+                                <div class="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors duration-700 z-10"></div>
+                                @if($service->image_path)
+                                    <img src="{{ Storage::url($service->image_path) }}" alt="{{ $title }}" class="w-full h-full object-cover relative z-0 transition-transform duration-700 group-hover:scale-105">
+                                @elseif(!empty($globalSettings['global_icon']))
+                                    <img src="{{ Storage::url($globalSettings['global_icon']) }}" alt="BKJ Group Service Fallback" class="max-w-[40%] max-h-[60%] object-contain opacity-30 group-hover:opacity-50 transition-opacity duration-700" loading="lazy" decoding="async">
+                                @else
+                                    <div class="w-full h-full bg-outline-variant/10"></div>
+                                @endif
                             </div>
                         </div>
                         <div class="w-full lg:w-1/2">
-                            <div class="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-8 shadow-sm">
-                                @php
-                                    try {
-                                        echo \Illuminate\Support\Facades\Blade::render('<x-dynamic-component :component="\'lucide-\' . $icon" class="w-8 h-8" />', ['icon' => $service['icon']]);
-                                    } catch (\Exception $e) {
-                                        echo \Illuminate\Support\Facades\Blade::render('<x-lucide-package class="w-8 h-8" />');
-                                    }
-                                @endphp
+                            <div class="w-16 h-16 bg-primary/10 text-primary rounded-2xl flex items-center justify-center mb-8 shadow-sm overflow-hidden">
+                                @if($service->image_path)
+                                    <img src="{{ Storage::url($service->image_path) }}" alt="{{ $title }}" class="w-full h-full object-cover">
+                                @else
+                                    @php
+                                        try {
+                                            echo \Illuminate\Support\Facades\Blade::render('<x-dynamic-component :component="\'lucide-\' . $icon" class="w-8 h-8" />', ['icon' => $service->icon]);
+                                        } catch (\Exception $e) {
+                                            echo \Illuminate\Support\Facades\Blade::render('<x-lucide-package class="w-8 h-8" />');
+                                        }
+                                    @endphp
+                                @endif
                             </div>
-                            <h2 class="text-headline-lg font-bold text-primary mb-6">{{ $service['title'] }}</h2>
-                            @if($service['short_description'])
-                                <p class="text-body-lg text-secondary font-medium mb-6">{{ $service['short_description'] }}</p>
+                            <h2 class="text-headline-lg font-bold text-primary mb-6">{{ $title }}</h2>
+                            @if($shortDescription)
+                                <p class="text-body-lg text-secondary font-medium mb-6">{{ $shortDescription }}</p>
                             @endif
                             <div class="prose prose-lg prose-p:text-on-surface-variant prose-headings:text-primary max-w-none mb-10">
-                                {!! $service['content'] !!}
+                                {!! $content !!}
                             </div>
                             <x-ui.button variant="primary" href="{{ route('contact') }}">{{ $locale === 'en' ? 'Consult Now' : 'Konsultasi Sekarang' }}</x-ui.button>
                         </div>

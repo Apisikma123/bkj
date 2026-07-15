@@ -13,27 +13,17 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="md:col-span-2 space-y-6">
-                        <div class="grid grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 gap-4">
                             <div>
-                                <x-input-label for="title" value="Title (ID)" required />
+                                <x-input-label for="title" value="Title" required />
                                 <x-text-input id="title" name="title" type="text" value="{{ old('title') }}" required autofocus />
                             </div>
-                            <div>
-                                <x-input-label for="title_en" value="Title (EN)" />
-                                <x-text-input id="title_en" name="title_en" type="text" value="{{ old('title_en') }}" />
-                            </div>
                         </div>
 
                         <div>
-                            <x-input-label for="content" value="Content (ID)" required />
+                            <x-input-label for="content" value="Content" required />
                             <input type="hidden" name="content" id="content">
                             <div id="editor" class="min-h-[400px] rounded-b-lg border-gray-300"></div>
-                        </div>
-
-                        <div>
-                            <x-input-label for="content_en" value="Content (EN)" />
-                            <input type="hidden" name="content_en" id="content_en">
-                            <div id="editor_en" class="min-h-[400px] rounded-b-lg border-gray-300"></div>
                         </div>
                     </div>
 
@@ -60,6 +50,8 @@
                         <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
                             <h4 class="font-medium text-gray-900 mb-4">Thumbnail</h4>
                             <input type="file" name="thumbnail" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20">
+                            <p class="text-xs text-gray-500 mt-2">Maksimal 2 MB, format akan diconvert ke WebP</p>
+                            @error('thumbnail') <p class="text-error text-xs mt-1">{{ $message }}</p> @enderror
                         </div>
                         
                         <x-primary-button class="w-full justify-center text-center">
@@ -90,24 +82,10 @@
             }
         });
         
-        var quill_en = new Quill('#editor_en', {
-            theme: 'snow',
-            modules: {
-                toolbar: [
-                    [{ 'header': [1, 2, 3, false] }],
-                    ['bold', 'italic', 'underline', 'strike'],
-                    ['blockquote', 'code-block'],
-                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    [{ 'align': [] }],
-                    ['link', 'image', 'video'],
-                    ['clean']
-                ]
-            }
-        });
-
-        document.getElementById('blog-form').onsubmit = function() {
-            document.getElementById('content').value = quill.root.innerHTML;
-            document.getElementById('content_en').value = quill_en.root.innerHTML;
+        var form = document.querySelector('#blog-form');
+        form.onsubmit = function() {
+            var content = document.querySelector('input[name=content]');
+            content.value = quill.root.innerHTML;
         };
     </script>
     <style>

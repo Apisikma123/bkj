@@ -1,6 +1,18 @@
-@props(['title', 'subtitle' => null, 'image', 'primaryCta' => null, 'primaryLink' => '#', 'secondaryCta' => 'Pelajari Lebih Lanjut'])
+@props([
+    'title',
+    'subtitle' => null,
+    'image',
+    'primaryCta' => null,
+    'primaryLink' => '#',
+    'secondaryCta' => null
+])
 
-<div class="relative w-full h-screen min-h-[600px] flex items-center overflow-hidden bg-primary" id="hero">
+@php
+    $locale = app()->getLocale();
+    $secondaryCta = $secondaryCta ?? ($locale === 'en' ? 'Learn More' : 'Pelajari Lebih Lanjut');
+@endphp
+
+<div class="relative w-full h-screen min-h-[600px] flex items-center overflow-x-hidden bg-primary" id="hero">
     {{-- Parallax Background --}}
     <div class="absolute inset-0 w-full h-[120%] -top-[10%] z-0" data-hero-parallax>
         <div class="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent z-10"></div>
@@ -41,8 +53,8 @@
     </x-layout.container>
     
     {{-- Scroll Indicator --}}
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/50 animate-bounce cursor-pointer">
-        <span class="text-xs uppercase tracking-widest">Scroll</span>
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/50 cursor-pointer hover:text-white transition-colors duration-300">
+        <span class="text-xs font-semibold uppercase tracking-widest">Scroll</span>
         <x-lucide-mouse class="w-5 h-5" />
     </div>
 </div>

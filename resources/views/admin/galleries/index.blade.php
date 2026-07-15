@@ -13,25 +13,22 @@
         </div>
     </div>
 
-    <!-- Search & Filter -->
-    <div class="bg-white rounded-lg border border-outline-variant/30 shadow-sm mb-6 p-4">
-        <form action="{{ route('admin.galleries.index') }}" method="GET" class="flex flex-col md:flex-row gap-4 items-end">
-            <div class="flex-1 w-full">
-                <x-input-label value="Search Title" />
-                <div class="relative mt-1">
-                    <x-lucide-search class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                    <input type="text" name="q" value="{{ request('q') }}" placeholder="Search images..." class="pl-9 w-full border-gray-300 focus:border-primary focus:ring-primary rounded-md shadow-sm">
-                </div>
+    {{-- Search & Filter --}}
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+        <form action="{{ route('admin.galleries.index') }}" method="GET" class="flex flex-col md:flex-row gap-4">
+            <div class="flex-1">
+                <x-text-input name="q" value="{{ request('q') }}" placeholder="Cari judul galeri..." class="w-full text-lg py-3 px-4" />
             </div>
-            <div class="flex-1 w-full">
-                <x-input-label value="Filter Category" />
-                <x-text-input type="text" name="category" placeholder="Filter Category..." value="{{ request('category') }}" class="mt-1 w-full" />
+            <div class="w-full md:w-56">
+                <x-text-input name="category" value="{{ request('category') }}" placeholder="Cari kategori..." class="w-full text-lg py-3 px-4" />
             </div>
-            <div class="flex gap-2 w-full md:w-auto">
-                <x-primary-button class="h-10">Filter</x-primary-button>
+            <div class="flex gap-2">
+                <button type="submit" class="inline-flex items-center justify-center px-6 py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-colors text-lg">
+                    Cari
+                </button>
                 @if(request('q') || request('category'))
-                    <a href="{{ route('admin.galleries.index') }}" class="inline-flex items-center justify-center px-4 py-2 bg-gray-100 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-200 focus:bg-gray-200 active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150 h-10" title="Clear Filters">
-                        Clear
+                    <a href="{{ route('admin.galleries.index') }}" class="inline-flex items-center justify-center px-6 py-3 bg-red-50 text-red-700 font-bold rounded-xl hover:bg-red-100 transition-colors text-lg">
+                        Reset
                     </a>
                 @endif
             </div>

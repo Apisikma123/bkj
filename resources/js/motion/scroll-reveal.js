@@ -14,21 +14,19 @@ export default function initScrollReveal() {
         return;
     }
 
-    // 1. Standard Cinematic Reveal
+    // 1. Standard Elegant Reveal
     const revealElements = document.querySelectorAll('[data-scroll-reveal]');
     
     revealElements.forEach((el) => {
         gsap.fromTo(el, 
             { 
-                y: 40, 
-                opacity: 0,
-                scale: 0.98
+                y: 30, 
+                opacity: 0
             },
             {
                 y: 0,
                 opacity: 1,
-                scale: 1,
-                duration: 0.6,
+                duration: 0.8,
                 ease: "power2.out",
                 scrollTrigger: {
                     trigger: el,
@@ -42,9 +40,9 @@ export default function initScrollReveal() {
     // 1.5 Diverse Animations
     document.querySelectorAll('[data-scroll-zoom]').forEach((el) => {
         gsap.fromTo(el, 
-            { opacity: 0, scale: 0.8 },
+            { opacity: 0, scale: 0.9 },
             {
-                opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.2)",
+                opacity: 1, scale: 1, duration: 1, ease: "power3.out",
                 scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" }
             }
         );
@@ -52,9 +50,9 @@ export default function initScrollReveal() {
 
     document.querySelectorAll('[data-scroll-fade-left]').forEach((el) => {
         gsap.fromTo(el, 
-            { opacity: 0, x: -60 },
+            { opacity: 0, x: -80 },
             {
-                opacity: 1, x: 0, duration: 0.8, ease: "power2.out",
+                opacity: 1, x: 0, duration: 1, ease: "power3.out",
                 scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" }
             }
         );
@@ -62,9 +60,9 @@ export default function initScrollReveal() {
 
     document.querySelectorAll('[data-scroll-fade-right]').forEach((el) => {
         gsap.fromTo(el, 
-            { opacity: 0, x: 60 },
+            { opacity: 0, x: 80 },
             {
-                opacity: 1, x: 0, duration: 0.8, ease: "power2.out",
+                opacity: 1, x: 0, duration: 1, ease: "power3.out",
                 scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" }
             }
         );
@@ -78,15 +76,15 @@ export default function initScrollReveal() {
         
         gsap.fromTo(children,
             {
-                y: 30,
+                y: 40,
                 opacity: 0
             },
             {
                 y: 0,
                 opacity: 1,
-                duration: 0.5,
-                stagger: 0.1,
-                ease: "power2.out",
+                duration: 0.7,
+                stagger: 0.15,
+                ease: "power3.out",
                 scrollTrigger: {
                     trigger: container,
                     start: "top 85%",

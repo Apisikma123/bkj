@@ -18,7 +18,7 @@
         </div>
 
         <!-- Password -->
-        <div>
+        <div x-data="{ showPassword: false }">
             <div class="flex justify-between items-center mb-1">
                 <x-input-label for="password" :value="__('Password')" class="mb-0" />
                 @if (Route::has('password.request'))
@@ -28,10 +28,19 @@
                 @endif
             </div>
 
-            <x-text-input id="password" class="block w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+            <div class="relative">
+                <x-text-input id="password" class="block w-full pr-12"
+                                ::type="showPassword ? 'text' : 'password'"
+                                name="password"
+                                required autocomplete="current-password" />
+                
+                <button type="button" 
+                        class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors focus:outline-none cursor-pointer"
+                        @click="showPassword = !showPassword">
+                    <x-lucide-eye class="w-5 h-5" x-show="!showPassword" />
+                    <x-lucide-eye-off class="w-5 h-5" x-show="showPassword" style="display: none;" />
+                </button>
+            </div>
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
@@ -44,10 +53,23 @@
             </label>
         </div>
 
+        @if(!app()->environment('testing') && !empty(env('TURNSTILE_SITE_KEY')))
+            <div class="mt-4 flex justify-center">
+                <div class="cf-turnstile" data-sitekey="{{ env('TURNSTILE_SITE_KEY') }}" data-theme="light"></div>
+            </div>
+            @error('cf-turnstile-response')
+                <x-input-error :messages="$message" class="mt-2 text-center" />
+            @enderror
+        @endif
+
         <div class="mt-8">
             <x-ui.button variant="primary" class="w-full" type="submit">
                 {{ __('Log in') }}
             </x-ui.button>
         </div>
     </form>
+
+    @if(!app()->environment('testing') && !empty(env('TURNSTILE_SITE_KEY')))
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    @endif
 </x-guest-layout>

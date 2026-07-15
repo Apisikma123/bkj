@@ -1,11 +1,12 @@
 <x-public-layout>
-    <x-slot:title>Klien Kami - BKJ Group</x-slot>
+    @php $locale = app()->getLocale(); @endphp
+    <x-slot:title>{{ $locale === 'en' ? 'Our Clients - BKJ Group' : 'Klien Kami - BKJ Group' }}</x-slot>
 
     <section class="py-32 bg-surface text-center">
         <x-layout.container>
-            <h1 class="text-display-lg font-bold text-primary mb-6">Klien Kami</h1>
+            <h1 class="text-display-lg font-bold text-primary mb-6">{{ $locale === 'en' ? 'Our Clients' : 'Klien Kami' }}</h1>
             <p class="text-body-lg text-on-surface-variant max-w-2xl mx-auto">
-                Kepercayaan yang diberikan oleh mitra dan klien adalah bukti komitmen kami dalam memberikan layanan logistik dan maritim terbaik.
+                {{ $locale === 'en' ? 'The trust given by our partners and clients is proof of our commitment to providing the best logistics and maritime services.' : 'Kepercayaan yang diberikan oleh mitra dan klien adalah bukti komitmen kami dalam memberikan layanan logistik dan maritim terbaik.' }}
             </p>
         </x-layout.container>
     </section>

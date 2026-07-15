@@ -32,16 +32,18 @@ class BlogController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'title_en' => 'nullable|string|max:255',
             'category' => 'nullable|string|max:255',
             'content' => 'required|string',
-            'content_en' => 'nullable|string',
-            'excerpt_en' => 'nullable|string',
             'status' => 'required|in:draft,published,expired,archived',
             'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
         ], [
             'thumbnail.max' => 'The thumbnail must not exceed 2MB.'
         ]);
+
+        $translator = app(\App\Services\TranslationService::class);
+        $data['title_en'] = $translator->translateToEnglish($data['title']);
+        $data['content_en'] = $translator->translateToEnglish($data['content']);
+        $data['excerpt_en'] = Str::limit(strip_tags($data['content_en']), 150);
 
         $data['slug'] = Str::slug($data['title']) . '-' . uniqid();
         $data['author_id'] = auth()->id();
@@ -69,16 +71,18 @@ class BlogController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'title_en' => 'nullable|string|max:255',
             'category' => 'nullable|string|max:255',
             'content' => 'required|string',
-            'content_en' => 'nullable|string',
-            'excerpt_en' => 'nullable|string',
             'status' => 'required|in:draft,published,expired,archived',
             'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
         ], [
             'thumbnail.max' => 'The thumbnail must not exceed 2MB.'
         ]);
+
+        $translator = app(\App\Services\TranslationService::class);
+        $data['title_en'] = $translator->translateToEnglish($data['title']);
+        $data['content_en'] = $translator->translateToEnglish($data['content']);
+        $data['excerpt_en'] = Str::limit(strip_tags($data['content_en']), 150);
 
         if ($data['title'] !== $blog->title) {
             $data['slug'] = Str::slug($data['title']) . '-' . uniqid();

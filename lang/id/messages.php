@@ -10,6 +10,7 @@ return [
     'blog' => 'Berita',
     'contact' => 'Hubungi Kami',
     'search' => 'Cari',
+    'clients' => 'Klien',
 
     // Footer
     'quick_links' => 'Tautan Cepat',

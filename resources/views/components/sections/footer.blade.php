@@ -1,11 +1,33 @@
+@php
+    $activeSubsidiary = null;
+    if (isset($subsidiary) && $subsidiary instanceof \App\Models\Subsidiary) {
+        $activeSubsidiary = $subsidiary;
+    } else {
+        $route = request()->route();
+        if ($route && $route->getName() === 'subsidiaries.show') {
+            $slug = $route->parameter('slug');
+            $activeSubsidiary = \App\Models\Subsidiary::where('slug', $slug)->first();
+        }
+    }
+
+    $footerLogoUrl = null;
+    if ($activeSubsidiary && $activeSubsidiary->icon_path) {
+        $footerLogoUrl = \Illuminate\Support\Facades\Storage::url($activeSubsidiary->icon_path);
+    } elseif (!empty($globalSettings['global_icon'])) {
+        $footerLogoUrl = \Illuminate\Support\Facades\Storage::url($globalSettings['global_icon']);
+    } else {
+        $footerLogoUrl = asset('assets/logos/bkj-group-logo-light.svg');
+    }
+@endphp
+
 <footer class="bg-primary text-white pt-20 pb-10 border-t-4 border-secondary">
     <x-layout.container>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             {{-- Brand Column --}}
             <div class="flex flex-col gap-6">
-                <img src="{{ asset('assets/logos/bkj-group-logo-light.svg') }}" alt="PT. BATAM KEPRI JAYA" class="h-12 w-auto">
+                <img src="{{ $footerLogoUrl }}" alt="PT. BATAM KEPRI JAYA" class="h-12 w-auto object-contain self-start">
                 <p class="text-on-primary-container text-body-md">
-                    Perusahaan Jasa Pengurusan Transportasi (JPT) terpercaya, memberikan solusi layanan logistik dan transportasi yang profesional dan aman di Indonesia.
+                    {{ __('home.footer_desc') }}
                 </p>
                 @php
                     $socialFacebook = $globalSettings['social_facebook'] ?? null;
@@ -69,6 +91,31 @@
             </div>
         </div>
         
+        {{-- Bank Accounts Section --}}
+        @php
+            $footerBankAccounts = \App\Models\BankAccount::with('subsidiary')->get()->groupBy('subsidiary.name');
+        @endphp
+        @if($footerBankAccounts->count() > 0)
+        <div class="pt-12 border-t border-primary-container mb-12">
+            <h3 class="text-headline-sm font-semibold text-secondary mb-8 text-center">{{ app()->getLocale() === 'en' ? 'Official Bank Accounts' : 'Rekening Pembayaran Resmi' }}</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                @foreach($footerBankAccounts as $subsidiaryName => $accounts)
+                    <div class="bg-primary-container/30 p-6 rounded-xl border border-primary-container">
+                        <h4 class="text-body-lg font-bold text-white mb-4 border-b border-primary-container pb-2">{{ $subsidiaryName }}</h4>
+                        <div class="space-y-4">
+                            @foreach($accounts as $account)
+                                <div class="flex flex-col">
+                                    <span class="text-sm font-semibold text-secondary-container">{{ $account->bank_name }} - {{ $account->account_name }}</span>
+                                    <span class="text-body-lg text-white font-mono tracking-wider">{{ $account->account_number }}</span>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
+
         <div class="pt-8 border-t border-primary-container flex flex-col md:flex-row items-center justify-between gap-4 text-on-primary-container text-sm">
             <p>&copy; {{ date('Y') }} PT. Batam Kepri Jaya. {{ __('messages.all_rights_reserved') }}</p>
             <div class="flex gap-4">

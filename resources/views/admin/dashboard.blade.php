@@ -1,32 +1,95 @@
 <x-admin-layout>
     <div class="space-y-6">
         <x-admin.page-header title="Dashboard Overview" subtitle="Welcome back! Here is what's happening today." />
+        <!-- Statistik Ringkasan -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center shrink-0">
+                    <x-lucide-newspaper class="w-6 h-6"/>
+                </div>
+                <div>
+                    <span class="text-sm font-medium text-gray-500 block">Total Berita</span>
+                    <span class="text-2xl font-bold text-gray-900">{{ $totalBlogs }}</span>
+                </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
+                <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center shrink-0">
+                    <x-lucide-image class="w-6 h-6"/>
+                </div>
+                <div>
+                    <span class="text-sm font-medium text-gray-500 block">Total Galeri</span>
+                    <span class="text-2xl font-bold text-gray-900">{{ $totalGalleries }}</span>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
+                <div class="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center shrink-0">
+                    <x-lucide-truck class="w-6 h-6"/>
+                </div>
+                <div>
+                    <span class="text-sm font-medium text-gray-500 block">Total Layanan</span>
+                    <span class="text-2xl font-bold text-gray-900">{{ $totalServices }}</span>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
+                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center shrink-0">
+                    <x-lucide-mail class="w-6 h-6"/>
+                </div>
+                <div>
+                    <span class="text-sm font-medium text-gray-500 block">Pesan Baru</span>
+                    <span class="text-2xl font-bold text-gray-900">{{ $unreadMessagesCount }}</span>
+                </div>
+            </div>
+        </div>
 
         <!-- Quick Actions -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
             <h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <x-lucide-zap class="w-5 h-5 text-amber-500"/> Quick Actions
             </h3>
-            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
-                <a href="{{ route('admin.content.index') }}" class="group p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-sm hover:border-primary/20 transition-all text-center">
+            <div class="grid grid-cols-2 lg:grid-cols-6 gap-4">
+                <a href="{{ route('admin.content.index') }}" class="group p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-sm hover:border-primary/20 transition-all text-center flex flex-col justify-between">
                     <div class="w-10 h-10 mx-auto rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                         <x-lucide-layout-template class="w-5 h-5"/>
                     </div>
-                    <span class="text-sm font-medium text-gray-700 group-hover:text-primary">Edit Web Content</span>
+                    <span class="text-xs font-semibold text-gray-700 group-hover:text-primary">Edit Web Content</span>
                 </a>
                 
-                <a href="{{ route('admin.blogs.create') }}" class="group p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-sm hover:border-primary/20 transition-all text-center">
+                <a href="{{ route('admin.blogs.create') }}" class="group p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-sm hover:border-primary/20 transition-all text-center flex flex-col justify-between">
                     <div class="w-10 h-10 mx-auto rounded-full bg-green-100 text-green-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                         <x-lucide-pen-tool class="w-5 h-5"/>
                     </div>
-                    <span class="text-sm font-medium text-gray-700 group-hover:text-primary">Write News</span>
+                    <span class="text-xs font-semibold text-gray-700 group-hover:text-primary">Write News</span>
                 </a>
 
-                <a href="{{ route('admin.galleries.create') }}" class="group p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-sm hover:border-primary/20 transition-all text-center">
+                <a href="{{ route('admin.galleries.create') }}" class="group p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-sm hover:border-primary/20 transition-all text-center flex flex-col justify-between">
                     <div class="w-10 h-10 mx-auto rounded-full bg-purple-100 text-purple-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                         <x-lucide-image-plus class="w-5 h-5"/>
                     </div>
-                    <span class="text-sm font-medium text-gray-700 group-hover:text-primary">Upload Gallery</span>
+                    <span class="text-xs font-semibold text-gray-700 group-hover:text-primary">Upload Gallery</span>
+                </a>
+
+                <a href="{{ route('admin.services.create') }}" class="group p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-sm hover:border-primary/20 transition-all text-center flex flex-col justify-between">
+                    <div class="w-10 h-10 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <x-lucide-truck class="w-5 h-5"/>
+                    </div>
+                    <span class="text-xs font-semibold text-gray-700 group-hover:text-primary">Tambah Layanan</span>
+                </a>
+
+                <a href="{{ route('admin.team-members.create') }}" class="group p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-sm hover:border-primary/20 transition-all text-center flex flex-col justify-between">
+                    <div class="w-10 h-10 mx-auto rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <x-lucide-users class="w-5 h-5"/>
+                    </div>
+                    <span class="text-xs font-semibold text-gray-700 group-hover:text-primary">Tambah Tim</span>
+                </a>
+
+                <a href="{{ route('admin.clients.create') }}" class="group p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-sm hover:border-primary/20 transition-all text-center flex flex-col justify-between">
+                    <div class="w-10 h-10 mx-auto rounded-full bg-pink-100 text-pink-600 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                        <x-lucide-award class="w-5 h-5"/>
+                    </div>
+                    <span class="text-xs font-semibold text-gray-700 group-hover:text-primary">Tambah Klien</span>
                 </a>
             </div>
         </div>

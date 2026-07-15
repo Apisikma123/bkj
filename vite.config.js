@@ -10,4 +10,16 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    'vendor-gsap': ['gsap', 'gsap/ScrollTrigger'],
+                    'vendor-alpine': ['alpinejs'],
+                    'vendor-sweetalert': ['sweetalert2'],
+                    'vendor-lenis': ['@studio-freight/lenis'],
+                },
+            },
+        },
+    },
 });

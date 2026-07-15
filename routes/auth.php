@@ -18,10 +18,19 @@ Route::middleware('guest')->group(function () {
 
     // Route::post('register', [RegisteredUserController::class, 'store']);
 
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])
+    Route::get('bkj-portal-access', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('bkj-portal-access', [AuthenticatedSessionController::class, 'store']);
+
+    Route::get('otp', [AuthenticatedSessionController::class, 'showOtp'])
+        ->name('otp.show');
+
+    Route::post('otp', [AuthenticatedSessionController::class, 'verifyOtp'])
+        ->name('otp.verify');
+
+    Route::post('otp/resend', [AuthenticatedSessionController::class, 'resendOtp'])
+        ->name('otp.resend');
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');

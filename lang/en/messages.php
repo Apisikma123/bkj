@@ -10,6 +10,7 @@ return [
     'blog' => 'Blog',
     'contact' => 'Contact Us',
     'search' => 'Search',
+    'clients' => 'Clients',
 
     // Footer
     'quick_links' => 'Quick Links',

@@ -1,17 +1,14 @@
 <x-public-layout>
     @php $locale = app()->getLocale(); @endphp
     <x-slot name="title">{{ __('pages.blog_title') }}</x-slot>
-    <x-slot name="description">Berita terbaru seputar industri logistik, maritim, dan perkembangan BKJ Group.</x-slot>
+    <x-slot name="description">{{ $locale === 'en' ? 'Latest news about the logistics and maritime industry, and BKJ Group developments.' : 'Berita terbaru seputar industri logistik, maritim, dan perkembangan BKJ Group.' }}</x-slot>
     
-    <x-seo.meta title="{{ __('pages.blog_title') }}" description="Berita terbaru seputar industri logistik, maritim, dan perkembangan BKJ Group." />
+    <x-seo.meta title="{{ __('pages.blog_title') }}" description="{{ $locale === 'en' ? 'Latest news about the logistics and maritime industry, and BKJ Group developments.' : 'Berita terbaru seputar industri logistik, maritim, dan perkembangan BKJ Group.' }}" />
 
-    <div class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-surface overflow-hidden">
-        <div class="absolute right-0 top-0 w-1/2 h-full bg-[url('/public/assets/images/blog-hero-pattern.svg')] opacity-5"></div>
-        <x-layout.container class="relative z-10">
-            <div class="max-w-2xl">
-                <span class="text-label-md text-secondary tracking-widest uppercase mb-4 block">{{ __('pages.blog_subtitle') }}</span>
-                <h1 class="text-display-lg text-primary font-bold">{{ __('pages.blog_title') }}</h1>
-            </div>
+    <div class="relative pt-32 pb-24 bg-primary" id="hero">
+        <x-layout.container class="relative z-10 text-left">
+            <span class="text-label-md text-secondary tracking-widest uppercase font-bold block mb-4" data-hero-text>{{ __('pages.blog_subtitle') }}</span>
+            <h1 class="text-headline-lg md:text-display-sm text-white font-bold max-w-4xl leading-tight" data-hero-text>{{ __('pages.blog_title') }}</h1>
         </x-layout.container>
     </div>
 
@@ -44,9 +41,9 @@
                 </div>
             @endif
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" data-scroll-stagger>
                 @forelse($blogs->skip($blogs->currentPage() == 1 ? 1 : 0) as $blog)
-                    <div class="bg-white rounded-3xl overflow-hidden border border-outline-variant/30 shadow-sm hover:shadow-hover transform hover:-translate-y-2 transition-all duration-500 flex flex-col group">
+                    <div class="bg-white rounded-3xl overflow-hidden border border-outline-variant/30 shadow-ambient hover-card-premium border-top-accent flex flex-col group">
                         <div class="relative h-60 overflow-hidden">
                             @if(!empty($blog->thumbnail))
                                 <x-ui.image src="{{ Storage::url($blog->thumbnail) }}" alt="{{ $blog->title }}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
