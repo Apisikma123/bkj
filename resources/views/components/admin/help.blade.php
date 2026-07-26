@@ -164,22 +164,22 @@
          class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-black/50" 
          x-cloak
          style="display: none;">
-        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 max-w-lg w-full p-8 relative text-left" @click.away="open = false">
-            <button @click="open = false" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600">
+        <div class="bg-white rounded-2xl shadow-xl border border-surface-container max-w-lg w-full p-8 relative text-left" @click.away="open = false">
+            <button @click="open = false" class="absolute top-6 right-6 text-outline hover:text-on-surface-variant">
                 <x-lucide-x class="w-6 h-6" />
             </button>
-            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h2 class="text-2xl font-bold text-on-surface mb-4 flex items-center gap-2">
                 <x-lucide-info class="w-6 h-6 text-amber-500 animate-pulse" /> {{ $activeHelp['title'] }}
             </h2>
-            <div class="space-y-4 text-base text-gray-600 leading-relaxed">
-                <p class="font-medium text-gray-700">Petunjuk Penggunaan:</p>
+            <div class="space-y-4 text-base text-on-surface-variant leading-relaxed">
+                <p class="font-medium text-on-surface-variant">Petunjuk Penggunaan:</p>
                 <ul class="list-disc pl-5 space-y-3">
                     @foreach($activeHelp['steps'] as $step)
                         <li>{!! $step !!}</li>
                     @endforeach
                 </ul>
             </div>
-            <button @click="open = false" class="mt-8 w-full py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-colors">
+            <button @click="open = false" class="mt-8 w-full py-3 bg-surface-container text-on-surface-variant font-bold rounded-xl hover:bg-surface-container-high transition-colors">
                 Tutup
             </button>
         </div>

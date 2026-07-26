@@ -3,10 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/clear-cache', function() {
-    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
-    return 'Cache cleared successfully!';
-});
+
+
 
 Route::get('/', [\App\Http\Controllers\PageController::class, 'home'])->name('home');
 Route::get('/about', [\App\Http\Controllers\PageController::class, 'about'])->name('about');
@@ -93,6 +91,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'admin'])->name('admin.'
     Route::post('/content/about', [\App\Http\Controllers\Admin\WebsiteContentController::class, 'updateAbout'])->name('content.updateAbout');
     Route::post('/content/gallery', [\App\Http\Controllers\Admin\WebsiteContentController::class, 'updateGallery'])->name('content.updateGallery');
     Route::post('/content/contact', [\App\Http\Controllers\Admin\WebsiteContentController::class, 'updateContact'])->name('content.updateContact');
+    Route::post('/content/offices', [\App\Http\Controllers\Admin\WebsiteContentController::class, 'updateOffices'])->name('content.updateOffices');
     Route::post('/content/footer', [\App\Http\Controllers\Admin\WebsiteContentController::class, 'updateFooter'])->name('content.updateFooter');
 
     // Company Assets (Icon & Favicon)
@@ -117,15 +116,51 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'admin'])->name('admin.'
     Route::resource('contacts', \App\Http\Controllers\Admin\ContactController::class);
 
     // Bank Accounts
-    Route::resource('bank-accounts', \App\Http\Controllers\Admin\BankAccountController::class);
+    // Route::resource('bank-accounts', \App\Http\Controllers\Admin\BankAccountController::class);
 
     // Services, Team Members, Clients
     Route::resource('services', \App\Http\Controllers\Admin\ServiceController::class);
-    Route::resource('team-members', \App\Http\Controllers\Admin\TeamMemberController::class);
+    // Route::resource('team-members', \App\Http\Controllers\Admin\TeamMemberController::class);
     Route::resource('clients', \App\Http\Controllers\Admin\ClientController::class);
 
     // Users — Super Admin only
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->middleware('admin:super-admin');
 });
+
+// Dynamic Favicon Route (Fallback when public/favicon.ico does not exist on disk)
+Route::get('/favicon.ico', function () {
+    // Attempt to load the global favicon setting
+    $globalFaviconSetting = \App\Models\Setting::where('key', 'global_favicon')->first();
+    
+    if ($globalFaviconSetting && $globalFaviconSetting->value) {
+        $disk = \Illuminate\Support\Facades\Storage::disk('public');
+        if ($disk->exists($globalFaviconSetting->value)) {
+            $path = $disk->path($globalFaviconSetting->value);
+            $mimeType = mime_content_type($path) ?: 'image/x-icon';
+            return response()->file($path, [
+                'Content-Type' => $mimeType,
+                'Cache-Control' => 'public, max-age=86400',
+            ]);
+        }
+    }
+    
+    // Default fallback to first active subsidiary favicon
+    $defaultSub = \App\Models\Subsidiary::where('slug', 'pt-bintang-kepri-jaya')->first() ?? \App\Models\Subsidiary::first();
+    if ($defaultSub && $defaultSub->favicon_path) {
+        $disk = \Illuminate\Support\Facades\Storage::disk('public');
+        if ($disk->exists($defaultSub->favicon_path)) {
+            $path = $disk->path($defaultSub->favicon_path);
+            $mimeType = mime_content_type($path) ?: 'image/x-icon';
+            return response()->file($path, [
+                'Content-Type' => $mimeType,
+                'Cache-Control' => 'public, max-age=86400',
+            ]);
+        }
+    }
+    
+    // If absolutely nothing is found, return 404
+    return response('', 404);
+});
+
 
 

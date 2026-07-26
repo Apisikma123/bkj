@@ -25,38 +25,49 @@
                         {{ __('contact.info_desc') }}
                     </p>
                     
-                    <div class="space-y-8">
-                        @php
-                            $contactAddress = $globalSettings['contact_address'] ?? null;
-                            $contactPhone1 = $globalSettings['contact_phone1'] ?? null;
-                            $contactPhone2 = $globalSettings['contact_phone2'] ?? null;
-                            $contactEmail = $globalSettings['contact_email'] ?? null;
-                        @endphp
-                        <div class="flex items-start gap-6">
-                            <div class="w-14 h-14 bg-white shadow-sm border border-outline-variant/30 text-secondary flex items-center justify-center rounded-2xl shrink-0"><x-lucide-map-pin class="w-6 h-6"/></div>
-                            <div>
-                                <h3 class="text-headline-md font-bold text-primary mb-2">{{ __('contact.office_title') }}</h3>
-                                <p class="text-body-md text-on-surface-variant">{!! nl2br(e($contactAddress ?? 'Batam, Kepulauan Riau, Indonesia')) !!}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-6">
-                            <div class="w-14 h-14 bg-white shadow-sm border border-outline-variant/30 text-secondary flex items-center justify-center rounded-2xl shrink-0"><x-lucide-phone class="w-6 h-6"/></div>
-                            <div>
-                                <h3 class="text-headline-md font-bold text-primary mb-2">{{ __('contact.phone_title') }}</h3>
-                                <p class="text-body-md text-on-surface-variant">{{ $contactPhone1 ?? '+62 123 4567 8900' }}</p>
-                                @if(!empty($contactPhone2))
-                                    <p class="text-body-md text-on-surface-variant mt-1">{{ $contactPhone2 }}</p>
-                                @endif
-                                <p class="text-label-md text-on-surface-variant uppercase tracking-wider mt-2">{{ __('contact.hours') }}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-6">
-                            <div class="w-14 h-14 bg-white shadow-sm border border-outline-variant/30 text-secondary flex items-center justify-center rounded-2xl shrink-0"><x-lucide-mail class="w-6 h-6"/></div>
-                            <div>
-                                <h3 class="text-headline-md font-bold text-primary mb-2">{{ __('contact.email_title') }}</h3>
-                                <p class="text-body-md text-on-surface-variant">{{ $contactEmail ?? 'info@bkjgroup.com' }}</p>
-                            </div>
-                        </div>
+                    <div class="space-y-6">
+                        @for ($i = 1; $i <= 4; $i++)
+                            @php
+                                $localeSuffix = app()->getLocale() === 'en' ? '_en' : '';
+                                $isActive = ($globalSettings["office_{$i}_active"] ?? '1') == '1';
+                                $officeName = !empty($globalSettings["office_{$i}_name{$localeSuffix}"]) ? $globalSettings["office_{$i}_name{$localeSuffix}"] : ($globalSettings["office_{$i}_name"] ?? null);
+                                $officeTagline = !empty($globalSettings["office_{$i}_tagline{$localeSuffix}"]) ? $globalSettings["office_{$i}_tagline{$localeSuffix}"] : ($globalSettings["office_{$i}_tagline"] ?? null);
+                                $officeAddress = !empty($globalSettings["office_{$i}_address{$localeSuffix}"]) ? $globalSettings["office_{$i}_address{$localeSuffix}"] : ($globalSettings["office_{$i}_address"] ?? null);
+                                $officePhone = $globalSettings["office_{$i}_phone"] ?? null;
+                                $officeEmail = $globalSettings["office_{$i}_email"] ?? null;
+                            @endphp
+                            @if($isActive && $officeName)
+                                <div class="bg-white p-6 rounded-2xl border border-outline-variant/30 shadow-sm space-y-4 hover:shadow-ambient transition-shadow duration-300">
+                                    <div>
+                                        <h3 class="text-headline-md font-bold text-primary">{{ $officeName }}</h3>
+                                        @if($officeTagline)
+                                            <span class="inline-block text-[10px] font-semibold bg-secondary/10 text-secondary px-2 py-0.5 rounded uppercase tracking-wider mt-1">{{ $officeTagline }}</span>
+                                        @endif
+                                    </div>
+                                    
+                                    <div class="space-y-3 text-sm text-on-surface-variant">
+                                        @if($officeAddress)
+                                            <div class="flex items-start gap-3">
+                                                <span class="w-5 h-5 shrink-0 inline-flex items-center justify-center mt-0.5" style="width:20px;height:20px;"><x-lucide-map-pin class="w-5 h-5 text-secondary" style="width:20px;height:20px;" /></span>
+                                                <span class="flex-1">{{ $officeAddress }}</span>
+                                            </div>
+                                        @endif
+                                        @if($officePhone)
+                                            <div class="flex items-start gap-3">
+                                                <span class="w-5 h-5 shrink-0 inline-flex items-center justify-center" style="width:20px;height:20px;"><x-lucide-phone class="w-5 h-5 text-secondary" style="width:20px;height:20px;" /></span>
+                                                <a href="tel:{{ str_replace(' ', '', $officePhone) }}" class="hover:text-primary transition-colors font-medium">{{ $officePhone }}</a>
+                                            </div>
+                                        @endif
+                                        @if($officeEmail)
+                                            <div class="flex items-start gap-3">
+                                                <span class="w-5 h-5 shrink-0 inline-flex items-center justify-center" style="width:20px;height:20px;"><x-lucide-mail class="w-5 h-5 text-secondary" style="width:20px;height:20px;" /></span>
+                                                <a href="mailto:{{ $officeEmail }}" class="hover:text-primary transition-colors font-medium truncate" title="{{ $officeEmail }}">{{ $officeEmail }}</a>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endif
+                        @endfor
                     </div>
                 </div>
                 
@@ -82,6 +93,31 @@
                                 <input type="text" id="company" name="company" value="{{ old('company') }}" class="w-full px-5 py-4 bg-surface-container-lowest border border-outline-variant/50 rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary transition-colors text-body-md" placeholder="{{ __('contact.form_company_placeholder') }}">
                                 @error('company')<p class="text-sm text-red-600 mt-1">{{ $message }}</p>@enderror
                             </div>
+                        </div>
+                        @php
+                            $localeSuffix = app()->getLocale() === 'en' ? '_en' : '';
+                            $opt1 = !empty($globalSettings["office_1_name{$localeSuffix}"]) ? $globalSettings["office_1_name{$localeSuffix}"] : ($globalSettings["office_1_name"] ?? 'PT. BINTANG KEPRI JAYA');
+                            $opt2 = !empty($globalSettings["office_2_name{$localeSuffix}"]) ? $globalSettings["office_2_name{$localeSuffix}"] : ($globalSettings["office_2_name"] ?? 'KOPERASI JASA TBKM BINTANG KEPRI JAYA');
+                            $opt3 = !empty($globalSettings["office_3_name{$localeSuffix}"]) ? $globalSettings["office_3_name{$localeSuffix}"] : ($globalSettings["office_3_name"] ?? 'PT BATAM KEPRI JAYA');
+                            $opt4 = !empty($globalSettings["office_4_name{$localeSuffix}"]) ? $globalSettings["office_4_name{$localeSuffix}"] : ($globalSettings["office_4_name"] ?? 'PT BINTANG KEPRI JAYA');
+                            
+                            $tag1 = !empty($globalSettings["office_1_tagline{$localeSuffix}"]) ? $globalSettings["office_1_tagline{$localeSuffix}"] : ($globalSettings["office_1_tagline"] ?? 'BONGKAR MUAT');
+                            $tag2 = !empty($globalSettings["office_2_tagline{$localeSuffix}"]) ? $globalSettings["office_2_tagline{$localeSuffix}"] : ($globalSettings["office_2_tagline"] ?? 'KOPERASI JASA TBKM');
+                            $tag3 = !empty($globalSettings["office_3_tagline{$localeSuffix}"]) ? $globalSettings["office_3_tagline{$localeSuffix}"] : ($globalSettings["office_3_tagline"] ?? 'JASA PENGURUSAN TRANSPORTASI');
+                            $tag4 = !empty($globalSettings["office_4_tagline{$localeSuffix}"]) ? $globalSettings["office_4_tagline{$localeSuffix}"] : ($globalSettings["office_4_tagline"] ?? 'BONGKAR MUAT');
+                        @endphp
+                        <div>
+                            <label for="business_unit" class="block text-label-md text-primary mb-2">{{ __('contact.form_business_unit') }}</label>
+                            <div class="relative">
+                                <select id="business_unit" name="business_unit" class="w-full px-5 py-4 bg-surface-container-lowest border border-outline-variant/50 rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary transition-colors text-body-md appearance-none" style="background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3E%3Cpath stroke=\'%236b7280\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'m6 8 4 4 4-4\'/%3E%3C/svg%3E'); background-position: right 1.25rem center; background-repeat: no-repeat; background-size: 1.5em 1.5em; padding-right: 2.5rem;">
+                                    <option value="" disabled {{ old('business_unit') ? '' : 'selected' }}>{{ __('contact.form_business_unit_placeholder') }}</option>
+                                    @if(($globalSettings['office_1_active'] ?? '1') == '1' && $opt1) <option value="{{ $opt1 }} - {{ $tag1 }} (Batu Ampar)" {{ old('business_unit') === "$opt1 - $tag1 (Batu Ampar)" ? 'selected' : '' }}>{{ $opt1 }} - {{ $tag1 }} (Batu Ampar)</option> @endif
+                                    @if(($globalSettings['office_2_active'] ?? '1') == '1' && $opt2) <option value="{{ $opt2 }} (Batu Ampar)" {{ old('business_unit') === "$opt2 (Batu Ampar)" ? 'selected' : '' }}>{{ $opt2 }} (Batu Ampar)</option> @endif
+                                    @if(($globalSettings['office_3_active'] ?? '1') == '1' && $opt3) <option value="{{ $opt3 }} - {{ $tag3 }} (Mega Legenda)" {{ old('business_unit') === "$opt3 - $tag3 (Mega Legenda)" ? 'selected' : '' }}>{{ $opt3 }} - {{ $tag3 }} (Mega Legenda)</option> @endif
+                                    @if(($globalSettings['office_4_active'] ?? '1') == '1' && $opt4) <option value="{{ $opt4 }} - {{ $tag4 }} (Mega Legenda)" {{ old('business_unit') === "$opt4 - $tag4 (Mega Legenda)" ? 'selected' : '' }}>{{ $opt4 }} - {{ $tag4 }} (Mega Legenda)</option> @endif
+                                </select>
+                            </div>
+                            @error('business_unit')<p class="text-sm text-red-600 mt-1">{{ $message }}</p>@enderror
                         </div>
                         <div>
                             <label for="email" class="block text-label-md text-primary mb-2">{{ __('contact.form_email') }}</label>

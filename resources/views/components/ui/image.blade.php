@@ -16,8 +16,7 @@
         decoding="{{ $decoding }}"
         @if($width) width="{{ $width }}" @endif
         @if($height) height="{{ $height }}" @endif
-        {{ $attributes->merge(['class' => 'w-full h-full object-cover transition-opacity duration-normal']) }}
         @if(!$priority) onload="this.classList.add('opacity-100'); this.classList.remove('opacity-0');" @endif
-        class="{{ $opacityClass }} w-full h-full object-cover transition-opacity duration-normal"
+        {{ $attributes->merge(['class' => "$opacityClass w-full h-full object-cover transition-opacity duration-normal"]) }}
     >
 </picture>

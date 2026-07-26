@@ -1,15 +1,15 @@
 <x-public-layout>
     <x-slot name="title">{{ __('messages.privacy_policy') }}</x-slot>
-    <x-slot name="description">Kebijakan Privasi PT Bintang Kepri Jaya (BKJ Group).</x-slot>
+    <x-slot name="description">Kebijakan Privasi Bintang Kepri Jaya (BKJ Group).</x-slot>
     
-    <x-seo.meta title="{{ __('messages.privacy_policy') }}" description="Kebijakan Privasi PT Bintang Kepri Jaya (BKJ Group)." />
+    <x-seo.meta title="{{ __('messages.privacy_policy') }}" description="Kebijakan Privasi Bintang Kepri Jaya (BKJ Group)." />
 
     <section class="py-32 bg-surface min-h-screen">
         <x-layout.container class="max-w-4xl bg-white p-12 rounded-[2rem] shadow-ambient">
             <h1 class="text-headline-lg font-bold text-primary mb-8">{{ __('messages.privacy_policy') }}</h1>
             <div class="prose prose-lg prose-p:text-on-surface-variant max-w-none">
                 <p>Terakhir diperbarui: {{ date('d M Y') }}</p>
-                <p>PT Bintang Kepri Jaya (selanjutnya disebut "BKJ Group", "kami", atau "milik kami") menghormati privasi Anda dan berkomitmen untuk melindungi data pribadi Anda. Kebijakan privasi ini akan memberi tahu Anda tentang bagaimana kami menjaga data pribadi Anda ketika Anda mengunjungi situs web kami (terlepas dari mana Anda mengunjunginya) dan memberi tahu Anda tentang hak-hak privasi Anda dan bagaimana hukum melindungi Anda.</p>
+                <p>Bintang Kepri Jaya (selanjutnya disebut "BKJ Group", "kami", atau "milik kami") menghormati privasi Anda dan berkomitmen untuk melindungi data pribadi Anda. Kebijakan privasi ini akan memberi tahu Anda tentang bagaimana kami menjaga data pribadi Anda ketika Anda mengunjungi situs web kami (terlepas dari mana Anda mengunjunginya) dan memberi tahu Anda tentang hak-hak privasi Anda dan bagaimana hukum melindungi Anda.</p>
                 
                 <h3 class="text-headline-md font-bold text-primary mt-8 mb-4">1. Data yang Kami Kumpulkan</h3>
                 <p>Kami dapat mengumpulkan, menggunakan, menyimpan, dan mentransfer berbagai jenis data pribadi tentang Anda yang telah kami kelompokkan bersama sebagai berikut:</p>

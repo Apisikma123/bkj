@@ -21,10 +21,10 @@
            x-ref="fileInput"
            @change="fileSelected($event)"
            {{ $required ? 'required' : '' }}
-           class="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 border border-outline-variant/40 rounded-lg bg-white mt-1 cursor-pointer">
+           class="w-full text-sm text-outline file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 border border-outline-variant/40 rounded-lg bg-white mt-1 cursor-pointer">
            
     @if($description)
-        <p class="text-sm text-gray-500 mt-1">{!! $description !!}</p>
+        <p class="text-sm text-outline mt-1">{!! $description !!}</p>
     @endif
     
     @error($name) <p class="text-error text-xs mt-1">{{ $message }}</p> @enderror
@@ -32,8 +32,8 @@
     <!-- Current Image Preview -->
     @if($currentImageUrl)
         <div class="mt-3" x-show="!hasCroppedImage">
-            <p class="text-xs text-gray-500 mb-1">Gambar saat ini:</p>
-            <img src="{{ $currentImageUrl }}" alt="Current Image" class="w-32 h-32 object-cover rounded-lg border border-gray-200">
+            <p class="text-xs text-outline mb-1">Gambar saat ini:</p>
+            <img src="{{ $currentImageUrl }}" alt="Current Image" class="w-32 h-32 object-cover rounded-lg border border-surface-container-highest">
         </div>
     @endif
 
@@ -53,16 +53,16 @@
                 <!-- Header -->
                 <div class="px-6 py-4 border-b border-outline-variant/30 flex justify-between items-center bg-white">
                     <div>
-                        <h3 class="text-xl font-bold text-gray-900">Sesuaikan Gambar (Crop)</h3>
-                        <p class="text-sm text-gray-500 mt-1">Geser kotak pemotong untuk menyesuaikan rasio dan fokus gambar.</p>
+                        <h3 class="text-xl font-bold text-on-surface">Sesuaikan Gambar (Crop)</h3>
+                        <p class="text-sm text-outline mt-1">Geser kotak pemotong untuk menyesuaikan rasio dan fokus gambar.</p>
                     </div>
-                    <button type="button" @click="cancelCrop" class="text-gray-500 hover:text-error transition-colors p-2 rounded-lg hover:bg-error/10">
+                    <button type="button" @click="cancelCrop" class="text-outline hover:text-error transition-colors p-2 rounded-lg hover:bg-error/10">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                 </div>
                 
                 <!-- Cropper Container -->
-                <div class="bg-gray-900 relative p-4">
+                <div class="bg-on-surface relative p-4">
                     <div class="flex items-center justify-center">
                         <img x-ref="cropperImage" src="" class="block w-full" alt="Image to crop">
                     </div>
@@ -70,7 +70,7 @@
                 
                 <!-- Footer -->
                 <div class="px-6 py-4 border-t border-outline-variant/30 bg-white flex justify-end gap-3">
-                    <button type="button" @click="cancelCrop" class="px-5 py-2.5 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition-colors">
+                    <button type="button" @click="cancelCrop" class="px-5 py-2.5 bg-surface-container text-on-surface-variant font-medium rounded-xl hover:bg-surface-container-high transition-colors">
                         Batal
                     </button>
                     <button type="button" @click="applyCrop" class="px-6 py-2.5 bg-primary text-white font-medium rounded-xl hover:bg-primary/90 transition-colors shadow-md flex items-center">

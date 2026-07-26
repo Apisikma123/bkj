@@ -2,12 +2,12 @@
     <div class="space-y-6" x-data="{ name: '' }">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-                <h1 class="text-3xl font-bold text-gray-900">Tambah Klien Baru</h1>
-                <p class="text-lg text-gray-600 mt-1">Tambahkan klien baru ke marquee text halaman depan.</p>
+                <h1 class="text-3xl font-bold text-on-surface">Tambah Klien Baru</h1>
+                <p class="text-lg text-on-surface-variant mt-1">Tambahkan klien baru ke marquee text halaman depan.</p>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+        <div class="bg-white rounded-2xl shadow-sm border border-surface-container p-8">
             <form action="{{ route('admin.clients.store') }}" method="POST" class="space-y-6">
                 @csrf
 
@@ -15,7 +15,7 @@
                     <div>
                         <x-input-label for="name" value="Nama Instansi / Perusahaan Klien*" />
                         <x-text-input id="name" name="name" type="text" x-model="name" required maxlength="255" class="w-full text-lg py-3 px-4" placeholder="Contoh: PT. Samudera Indonesia" />
-                        <div class="flex justify-between items-center text-sm text-gray-500 mt-1">
+                        <div class="flex justify-between items-center text-sm text-outline mt-1">
                             <span>Wajib diisi.</span>
                             <span><span x-text="name.length">0</span>/255</span>
                         </div>
@@ -30,8 +30,8 @@
                     </div>
                 </div>
 
-                <div class="flex justify-end gap-3 pt-6 border-t border-gray-100">
-                    <a href="{{ route('admin.clients.index') }}" class="inline-flex items-center justify-center px-6 py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-colors text-lg">
+                <div class="flex justify-end gap-3 pt-6 border-t border-surface-container">
+                    <a href="{{ route('admin.clients.index') }}" class="inline-flex items-center justify-center px-6 py-3 bg-surface-container text-on-surface-variant font-bold rounded-xl hover:bg-surface-container-high transition-colors text-lg">
                         Batal
                     </a>
                     <x-primary-button type="submit">

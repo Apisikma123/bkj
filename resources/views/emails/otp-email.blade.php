@@ -55,7 +55,7 @@
             font-size: 36px;
             font-weight: 700;
             letter-spacing: 6px;
-            color: #006e2d;
+            color: #0d47a1;
             background-color: #f1f4f6;
             padding: 12px 30px;
             border-radius: 6px;

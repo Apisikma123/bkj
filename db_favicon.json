@@ -1,0 +1,18 @@
+{
+    "global_favicon": "companies\/favicons\/favicon_global_1784106769.png",
+    "global_favicon_exists": false,
+    "subsidiaries": {
+        "pt-bintang-kepri-jaya": {
+            "path": null,
+            "exists": false
+        },
+        "pt-batam-kepri-jaya": {
+            "path": null,
+            "exists": false
+        },
+        "koperasi-tkbm-bintang-kepri-jaya": {
+            "path": null,
+            "exists": false
+        }
+    }
+}

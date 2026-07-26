@@ -19,9 +19,7 @@
                 ['label' => 'News Center', 'route' => 'admin.blogs.index', 'icon' => 'newspaper', 'active' => 'admin.blogs.*'],
                 ['label' => 'Gallery', 'route' => 'admin.galleries.index', 'icon' => 'image', 'active' => ['admin.galleries.*']],
                 ['label' => 'Layanan', 'route' => 'admin.services.index', 'icon' => 'truck', 'active' => 'admin.services.*'],
-                ['label' => 'Struktur Tim', 'route' => 'admin.team-members.index', 'icon' => 'users-2', 'active' => 'admin.team-members.*'],
                 ['label' => 'Daftar Klien', 'route' => 'admin.clients.index', 'icon' => 'award', 'active' => 'admin.clients.*'],
-                ['label' => 'Rekening Bank', 'route' => 'admin.bank-accounts.index', 'icon' => 'credit-card', 'active' => 'admin.bank-accounts.*'],
                 ['label' => 'Inbox', 'route' => 'admin.contacts.index', 'icon' => 'mail', 'active' => 'admin.contacts.*'],
             ];
 

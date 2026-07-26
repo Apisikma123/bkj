@@ -1,9 +1,9 @@
 <x-public-layout>
     @php $locale = app()->getLocale(); @endphp
     <x-slot name="title">{{ __('pages.subsidiaries_title') }}</x-slot>
-    <x-slot name="description">{{ $locale === 'en' ? 'The maritime and logistics ecosystem network of PT Bintang Kepri Jaya.' : 'Jaringan ekosistem maritim dan logistik PT Bintang Kepri Jaya.' }}</x-slot>
+    <x-slot name="description">{{ $locale === 'en' ? 'The maritime and logistics ecosystem network of Bintang Kepri Jaya.' : 'Jaringan ekosistem maritim dan logistik Bintang Kepri Jaya.' }}</x-slot>
     
-    <x-seo.meta title="{{ __('pages.subsidiaries_title') }}" description="{{ $locale === 'en' ? 'The maritime and logistics ecosystem network of PT Bintang Kepri Jaya.' : 'Jaringan ekosistem maritim dan logistik PT Bintang Kepri Jaya.' }}" />
+    <x-seo.meta title="{{ __('pages.subsidiaries_title') }}" description="{{ $locale === 'en' ? 'The maritime and logistics ecosystem network of Bintang Kepri Jaya.' : 'Jaringan ekosistem maritim dan logistik Bintang Kepri Jaya.' }}" />
 
     <div class="relative pt-24 pb-12 lg:pt-48 lg:pb-32 bg-surface overflow-hidden">
         <x-layout.container class="relative z-10 text-center max-w-3xl">
@@ -35,8 +35,11 @@
                                 @endphp
                             </div>
                             <h3 class="text-headline-md font-bold text-primary mb-4">{{ $locale === 'en' && !empty($sub->name_en) ? $sub->name_en : $sub->name }}</h3>
+                            @php
+                                $desc = ($locale === 'en' && !empty($sub->description_en)) ? $sub->description_en : ($sub->description ?? ($locale === 'en' ? 'Plays a vital role in the operational logistics ecosystem of BKJ Group.' : 'Berperan vital dalam operasional ekosistem logistik BKJ Group.'));
+                            @endphp
                             <div class="prose prose-p:text-on-surface-variant max-w-none">
-                                {!! ($locale === 'en' && !empty($sub->description_en)) ? $sub->description_en : ($sub->description ?? ($locale === 'en' ? 'Plays a vital role in the operational logistics ecosystem of BKJ Group.' : 'Berperan vital dalam operasional ekosistem logistik BKJ Group.')) !!}
+                                {!! $desc !!}
                             </div>
                         </div>
                     </div>

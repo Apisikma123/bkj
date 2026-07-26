@@ -63,7 +63,7 @@
     @if ($errors->any())
         <script type="module">
             if (window.Alert) {
-                let errorList = '<ul class="list-disc pl-5 mt-2 text-left text-sm text-gray-600">';
+                let errorList = '<ul class="list-disc pl-5 mt-2 text-left text-sm text-on-surface-variant">';
                 @foreach ($errors->all() as $error)
                     errorList += '<li>{!! addslashes($error) !!}</li>';
                 @endforeach

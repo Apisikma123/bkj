@@ -108,24 +108,34 @@ class CompanyAssetController extends Controller
             $favName = 'favicon_global_' . time() . '.' . $favExt;
             $favPath = 'companies/favicons/' . $favName;
 
-            // Compress PNG via resizing
-            if ($favExt === 'png' && class_exists(ImageManager::class)) {
+            // Crop and resize to 192x192 square (multiple of 48px for Google guidelines)
+            if (in_array($favExt, ['png', 'jpg', 'jpeg', 'webp']) && class_exists(ImageManager::class)) {
                 try {
                     $manager = new ImageManager(new Driver());
                     $image = $manager->read($favFile->getRealPath());
                     
-                    if ($image->width() > 128 || $image->height() > 128) {
-                        $image->scaleDown(width: 128, height: 128);
-                    }
+                    // Enforce square aspect ratio and resize to 192x192
+                    $image->cover(192, 192);
                     
-                    $encoded = $image->toPng();
+                    $encoded = ($favExt === 'webp') ? $image->toWebp() : (($favExt === 'png') ? $image->toPng() : $image->toJpeg());
                     Storage::disk('public')->put($favPath, (string) $encoded);
                 } catch (\Throwable $e) {
-                    \Log::warning("Global Favicon compression failed: " . $e->getMessage());
+                    \Log::warning("Global Favicon processing failed: " . $e->getMessage());
                     $favFile->storeAs('companies/favicons', $favName, 'public');
                 }
             } else {
                 $favFile->storeAs('companies/favicons', $favName, 'public');
+            }
+
+            // Copy to public/favicon.ico so direct root requests and crawlers fetch the correct file
+            try {
+                $publicFaviconPath = public_path('favicon.ico');
+                if (Storage::disk('public')->exists($favPath)) {
+                    $faviconContent = Storage::disk('public')->get($favPath);
+                    file_put_contents($publicFaviconPath, $faviconContent);
+                }
+            } catch (\Throwable $e) {
+                \Log::error("Failed to copy global favicon to public/favicon.ico: " . $e->getMessage());
             }
 
             $globalFaviconSetting->value = $favPath;
@@ -227,20 +237,19 @@ class CompanyAssetController extends Controller
             $favName = 'favicon_' . $subsidiary->slug . '_' . time() . '.' . $favExt;
             $favPath = 'companies/favicons/' . $favName;
 
-            // Compress PNG via resizing
-            if ($favExt === 'png' && class_exists(ImageManager::class)) {
+            // Crop and resize to 192x192 square (multiple of 48px for Google guidelines)
+            if (in_array($favExt, ['png', 'jpg', 'jpeg', 'webp']) && class_exists(ImageManager::class)) {
                 try {
                     $manager = new ImageManager(new Driver());
                     $image = $manager->read($favFile->getRealPath());
                     
-                    if ($image->width() > 128 || $image->height() > 128) {
-                        $image->scaleDown(width: 128, height: 128);
-                    }
+                    // Enforce square aspect ratio and resize to 192x192
+                    $image->cover(192, 192);
                     
-                    $encoded = $image->toPng();
+                    $encoded = ($favExt === 'webp') ? $image->toWebp() : (($favExt === 'png') ? $image->toPng() : $image->toJpeg());
                     Storage::disk('public')->put($favPath, (string) $encoded);
                 } catch (\Throwable $e) {
-                    \Log::warning("Favicon compression failed: " . $e->getMessage());
+                    \Log::warning("Favicon processing failed: " . $e->getMessage());
                     $favFile->storeAs('companies/favicons', $favName, 'public');
                 }
             } else {

@@ -15,6 +15,7 @@ return [
     // Footer
     'quick_links' => 'Tautan Cepat',
     'contact_us' => 'Hubungi Kami',
+    'our_offices' => 'Kantor & Cabang Kami',
     'privacy_policy' => 'Kebijakan Privasi',
     'terms' => 'Syarat & Ketentuan',
     'sitemap' => 'Peta Situs',

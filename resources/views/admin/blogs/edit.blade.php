@@ -2,12 +2,12 @@
     <div class="space-y-6">
         <div class="flex items-center justify-between">
             <x-admin.page-header title="Edit News" subtitle="Update existing article." />
-            <a href="{{ route('admin.blogs.index') }}" class="px-4 py-2 bg-white border border-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors shadow-sm flex items-center gap-2">
+            <a href="{{ route('admin.blogs.index') }}" class="px-4 py-2 bg-white border border-surface-container-highest text-on-surface-variant font-medium rounded-lg hover:bg-surface-container-low transition-colors shadow-sm flex items-center gap-2">
                 <x-lucide-arrow-left class="w-4 h-4"/> Back to list
             </a>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-sm border border-surface-container overflow-hidden">
             <form action="{{ route('admin.blogs.update', $blog) }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6" id="blog-form">
                 @csrf
                 @method('PUT')
@@ -24,13 +24,13 @@
                         <div>
                             <x-input-label for="content" value="Content" required />
                             <input type="hidden" name="content" id="content" value="{{ old('content', $blog->content) }}">
-                            <div id="editor" class="min-h-[400px] rounded-b-lg border-gray-300">{!! old('content', $blog->content) !!}</div>
+                            <div id="editor" class="min-h-[400px] rounded-b-lg border-outline-variant">{!! old('content', $blog->content) !!}</div>
                         </div>
                     </div>
 
                     <div class="space-y-6">
-                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                            <h4 class="font-medium text-gray-900 mb-4">Publishing</h4>
+                        <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container">
+                            <h4 class="font-medium text-on-surface mb-4">Publishing</h4>
                             <div class="space-y-4">
                                 <div>
                                     <x-input-label for="status" value="Status" required />
@@ -48,8 +48,8 @@
                             </div>
                         </div>
 
-                        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                            <h4 class="font-medium text-gray-900 mb-4">Thumbnail</h4>
+                        <div class="bg-surface-container-low p-4 rounded-xl border border-surface-container">
+                            <h4 class="font-medium text-on-surface mb-4">Thumbnail</h4>
                             <x-admin.image-cropper 
                                 id="thumbnail" 
                                 name="thumbnail" 

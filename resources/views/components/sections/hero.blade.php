@@ -17,7 +17,7 @@
     <div class="absolute inset-0 w-full h-[120%] -top-[10%] z-0" data-hero-parallax>
         <div class="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent z-10"></div>
         @if(!empty($image) && !str_contains($image, 'assets/images/'))
-            <x-ui.image src="{{ $image }}" alt="{{ $title }}" :priority="true" />
+            <x-ui.image src="{{ $image }}" alt="{{ $title }}" :priority="true" class="w-full h-full" />
         @else
             <div class="w-full h-full bg-outline-variant/10"></div>
         @endif

@@ -1,187 +1,120 @@
-<div align="center">
-  
-# 🚛 PT. Batam Kepri Jaya (BKJ Group)
-**Professional Freight Forwarding & Transportation Services**
+# BKJ Group (Batam Kepri Jaya)
 
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![License](https://img.shields.io/badge/license-MIT-blue)
-![PHP Version](https://img.shields.io/badge/PHP-8.3%2B-777BB4?logo=php)
-![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20?logo=laravel)
-![Tailwind](https://img.shields.io/badge/TailwindCSS-4.0-06B6D4?logo=tailwindcss)
+**Live Website:** [bkjgrup.com](https://bkjgrup.com)
 
-</div>
+A comprehensive corporate web portal and Content Management System (CMS) built for Batam Kepri Jaya (BKJ Group). This platform provides a centralized, dynamic, and localized web presence for the company and its various subsidiaries, allowing administrators to manage content, news, services, and client portfolios effortlessly.
 
----
+## Motivation and Architecture (The "Why")
 
-## 📑 Table of Contents
-- [About The Project](#-about-the-project)
-- [Key Features](#-key-features)
-- [Tech Stack](#-tech-stack)
-- [Getting Started](#-getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation & Setup](#installation--setup)
-- [Usage & Configuration](#-usage--configuration)
-  - [Environment Variables](#environment-variables)
-- [Contributing](#-contributing)
-- [License & Contact](#-license--contact)
+The BKJ Group required a robust and scalable digital platform to consolidate its corporate identity and manage multiple subsidiary profiles under a single, unified system. The architectural goal was to build a secure, high-performance web application that delivers a premium user experience on the frontend while providing a flexible, structured CMS on the backend.
 
----
+We chose the Laravel ecosystem for its powerful MVC architecture, built-in security features, and excellent developer experience. On the frontend, the integration of Tailwind CSS v4, Alpine.js, and GSAP ensures a highly responsive, modern, and animated interface without the overhead of heavy SPA frameworks. The application also implements dynamic asset handling (like subsidiary-specific favicons) and content localization to cater to a diverse audience.
 
-## 📖 About The Project
+## Tech Stack
 
-**PT. Batam Kepri Jaya** is a comprehensive transportation management and freight forwarding company (Jasa Pengurusan Transportasi) based in Batam Center, Kota Batam. 
+**Backend**
+- PHP 8.3
+- Laravel 13 (MVC Framework)
+- MySQL (Relational Database)
 
-This repository houses the **Corporate Web Portal** for BKJ Group, designed to showcase our company profile, services, and subsidiaries. 
+**Frontend**
+- Tailwind CSS v4 (Utility-first styling)
+- Alpine.js (Lightweight JavaScript behavior)
+- GSAP & Lenis (Advanced animations and smooth scrolling)
+- Splide (Accessible sliders)
+- Vite (Next-generation frontend tooling)
 
-### The Why
-In the fast-paced logistics and transportation industry, establishing a robust digital presence is critical. This application serves as the central hub for our clients to understand our capabilities, ensuring we provide:
-- **Fast and secure** shipping solutions.
-- **Competitive pricing** tailored to customer needs.
-- **Professional service** that scales across Indonesia.
+**Key Packages & Integrations**
+- Laravel Breeze (Authentication scaffolding)
+- Spatie Media Library (File and image management)
+- Spatie Sitemap (Automated SEO sitemap generation)
+- Stichoza Google Translate PHP (Dynamic localization)
 
----
+## Features
 
-## ✨ Key Features
+- **Dynamic Content Management:** Full admin control over core pages including Home, About, Gallery, Contact, and Offices.
+- **Subsidiary Management:** Dedicated profiles, assets (icons/favicons), and content routing for individual BKJ Group subsidiaries.
+- **News & Blog Center:** Integrated publishing platform for corporate announcements and industry news.
+- **Localization:** Multi-language support (English and Indonesian) to serve both local and international stakeholders.
+- **Role-Based Access Control:** Secure admin dashboard with Super Admin privileges for comprehensive user and role management.
+- **Performance Optimized:** Leveraging Vite for asset bundling, caching strategies, and responsive image handling via Spatie Media Library.
+- **SEO & Accessibility:** Automated sitemaps, semantic HTML, and optimized metadata for search engine visibility.
 
-- 🏢 **Dynamic Company Profile**: Centralized management of company information, vision, and mission.
-- 🌐 **Localization & Translation**: Multi-language support seamlessly integrated for international clients.
-- 📈 **SEO Optimized**: Automated sitemap generation and robust meta-tag management for maximum visibility.
-- 🎨 **Modern UI/UX**: Smooth scrolling, engaging animations, and a responsive layout using modern frontend libraries.
-- 🖼️ **Media Management**: Efficient handling of corporate assets, certificates, and gallery images.
-
----
-
-## 🛠️ Tech Stack
-
-### Backend
-- **Framework**: Laravel 
-- **Language**: PHP 8.3+
-- **Database**: MySQL
-
-### Frontend
-- **Templating**: Laravel Blade
-- **Styling**: Tailwind CSS v4
-- **Interactivity**: Alpine.js
-- **Animations/UI**: GSAP, Splide (Carousels), Lenis (Smooth Scrolling)
-
-### Tools & Packages
-- `spatie/laravel-medialibrary` - Asset management
-- `spatie/laravel-sitemap` - SEO optimization
-- `stichoza/google-translate-php` - Dynamic translations
-- `sweetalert2` - User-friendly alerts
-
----
-
-## 🚀 Getting Started
-
-Follow these instructions to set up the project locally for development and testing.
+## Getting Started
 
 ### Prerequisites
 
 Ensure your local development environment meets the following requirements:
-- **PHP**: `>= 8.3`
-- **Composer**: `v2.x`
-- **Node.js**: `>= 20.x` & **npm**
-- **MySQL**: `>= 8.0`
+- **PHP:** `^8.3`
+- **Composer:** Latest stable version
+- **Node.js & npm:** (v18+ recommended)
+- **Database:** MySQL or MariaDB
 
-### Installation & Setup
+### Installation
 
-1. **Clone the repository:**
+Follow these steps to set up the project locally:
+
+1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/bkj-group.git
-   cd bkj-group
+   git clone <your-repository-url>
+   cd BKJ
    ```
 
-2. **Install PHP Dependencies:**
+2. **Run the setup script**
+   The project includes a custom Composer script that handles dependencies, environment configuration, database migrations, and frontend builds in one command:
    ```bash
-   composer install
+   composer setup
    ```
+   *(Alternatively, you can manually run: `composer install`, copy `.env.example` to `.env`, generate the app key, migrate the database, and run `npm install && npm run build`)*
 
-3. **Install NPM Dependencies:**
+3. **Start the development server**
+   You can use the built-in dev script to concurrently run the PHP server, Vite, and queue listener:
    ```bash
-   npm install
+   composer dev
    ```
 
-4. **Environment Setup:**
-   Copy the example environment file and generate an application key:
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
+4. **Access the application**
+   Visit `http://localhost:8000` in your browser. To access the admin dashboard, visit `/admin/dashboard` (you can generate default admin credentials by temporarily accessing the `/create-admin` route locally).
 
-5. **Database Configuration:**
-   Update the `.env` file with your local MySQL credentials:
-   ```env
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=bkj_group
-   DB_USERNAME=root
-   DB_PASSWORD=your_password
-   ```
+## Environment Variables
 
-6. **Run Migrations & Seeders:**
-   ```bash
-   php artisan migrate --seed
-   ```
+Copy the `.env.example` file to `.env` and configure the following key variables:
 
-7. **Compile Frontend Assets:**
-   ```bash
-   npm run build
-   ```
-   *(For development, use `npm run dev`)*
+| Variable | Description | Example Value |
+|----------|-------------|---------------|
+| `APP_NAME` | The name of the application | `"BKJ Group"` |
+| `APP_ENV` | The environment (local, production) | `local` |
+| `APP_KEY` | Application encryption key | `base64:...` |
+| `APP_DEBUG` | Enable/disable debug mode | `true` |
+| `APP_URL` | The base URL of the application | `http://localhost:8000` |
+| `DB_CONNECTION` | Database driver | `mysql` |
+| `DB_DATABASE` | Database name | `bkj_group` |
+| `DB_USERNAME` | Database user | `root` |
+| `DB_PASSWORD` | Database password | `secret` |
 
----
+## Project Structure
 
-## 💻 Usage & Configuration
-
-To run the application locally, you can use Laravel's built-in development server alongside Vite:
-
-```bash
-# Start the Laravel backend server
-php artisan serve
-
-# In a separate terminal, start the Vite development server
-npm run dev
+```text
+├── app/
+│   ├── Http/Controllers/   # Admin and frontend logic
+│   └── Models/             # Eloquent data models (Subsidiary, Setting, etc.)
+├── database/
+│   ├── migrations/         # Database schema definitions
+│   └── seeders/            # Initial CMS settings and demo data
+├── public/                 # Publicly accessible assets and entry point
+├── resources/
+│   ├── views/              # Blade templates (frontend and admin)
+│   ├── css/                # Tailwind CSS entry points
+│   └── js/                 # Alpine.js, GSAP, and Vite configurations
+├── routes/
+│   ├── web.php             # Web, Admin, and Localization routes
+│   └── auth.php            # Breeze authentication routes
 ```
 
-Alternatively, you can run the unified setup script configured in `composer.json`:
-```bash
-composer run dev
-```
+## License and Author Information
 
-### Environment Variables
+**Author:** Aga Putra & The BKJ Group Development Team
+**Contact:** admin@bkjgroup.com | agaputra62@gmail.com
+**Website:** [bkjgrup.com](https://bkjgrup.com)
 
-Key environment variables you might need to configure in `.env`:
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `APP_NAME` | The name of the application | `BKJ Group` |
-| `APP_ENV` | Environment (local, production) | `local` |
-| `APP_URL` | Base URL of the application | `http://localhost` |
-| `DB_*` | Database connection settings | (MySQL defaults) |
-
----
-
-## 🤝 Contributing
-
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. **Fork** the Project
-2. **Create** your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. **Commit** your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. **Push** to the Branch (`git push origin feature/AmazingFeature`)
-5. **Open** a Pull Request
-
----
-
-## 📄 License & Contact
-
-### Contact
-**PT. BATAM KEPRI JAYA**
-- **Address**: Ruko Mega Legenda II Blok B2 No 03 Batam Center - Kota Batam
-- **Phone**: +62852 6439 6766 / +62812 7588 5695
-- **Email**: [batamkeprijaya23@gmail.com](mailto:batamkeprijaya23@gmail.com)
-
----
-*Built with ❤️ for PT. Batam Kepri Jaya.*
+*For internal distribution and authorized contributors only.*

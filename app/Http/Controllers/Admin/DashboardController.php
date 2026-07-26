@@ -11,7 +11,6 @@ use App\Models\Subsidiary;
 use App\Models\Contact;
 use App\Models\User;
 use App\Models\Service;
-use App\Models\TeamMember;
 use App\Models\Client;
 
 class DashboardController extends Controller
@@ -25,7 +24,6 @@ class DashboardController extends Controller
                 'totalUsers' => User::count(),
                 'unreadMessagesCount' => Contact::where('is_read', false)->count(),
                 'totalServices' => Service::count(),
-                'totalTeamMembers' => TeamMember::count(),
                 'totalClients' => Client::count(),
                 'totalBlogs' => Blog::count(),
                 'totalGalleries' => Gallery::count(),

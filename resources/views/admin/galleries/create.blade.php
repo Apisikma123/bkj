@@ -33,7 +33,7 @@
             </div>
             
             <div class="flex justify-end gap-3 mt-8 pt-6 border-t border-outline-variant/20">
-                <a href="{{ route('admin.galleries.index') }}" class="inline-flex items-center justify-center px-4 py-2 bg-gray-100 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-200 transition-colors font-medium text-sm shadow-sm">Cancel</a>
+                <a href="{{ route('admin.galleries.index') }}" class="inline-flex items-center justify-center px-4 py-2 bg-surface-container text-on-surface-variant border border-outline-variant rounded-lg hover:bg-surface-container-high transition-colors font-medium text-sm shadow-sm">Cancel</a>
                 <x-primary-button>
                     <x-lucide-upload class="w-4 h-4 mr-2" /> Start Upload
                 </x-primary-button>

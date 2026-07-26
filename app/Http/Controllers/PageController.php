@@ -20,9 +20,6 @@ class PageController extends Controller
                 'blogs' => Blog::with('author')->where('status', 'published')->latest()->limit(3)->get(),
                 'galleries' => Gallery::where('status', 'published')->latest()->limit(6)->get(),
                 'services' => \App\Models\Service::where('status', 'published')->get(),
-                'teamMembers' => \App\Models\TeamMember::where('status', 'published')->where('branch', 'main')->orderBy('order')->orderBy('name')->get(),
-                'koperasiMembers' => \App\Models\TeamMember::where('status', 'published')->where('branch', 'koperasi')->orderBy('order')->orderBy('name')->get(),
-                'bintangMembers' => \App\Models\TeamMember::where('status', 'published')->where('branch', 'pt-bintang-kepri-jaya')->orderBy('order')->orderBy('name')->get(),
                 'clients' => \App\Models\Client::where('status', 'published')->get(),
                 'subsidiariesList' => Subsidiary::all(),
             ];
@@ -33,10 +30,7 @@ class PageController extends Controller
 
     public function about()
     {
-        $teamMembers = \App\Models\TeamMember::where('status', 'published')->where('branch', 'main')->orderBy('order')->orderBy('name')->get();
-        $koperasiMembers = \App\Models\TeamMember::where('status', 'published')->where('branch', 'koperasi')->orderBy('order')->orderBy('name')->get();
-        $bintangMembers = \App\Models\TeamMember::where('status', 'published')->where('branch', 'pt-bintang-kepri-jaya')->orderBy('order')->orderBy('name')->get();
-        return view('pages.about', compact('teamMembers', 'koperasiMembers', 'bintangMembers'));
+        return view('pages.about');
     }
 
     public function services()
@@ -47,19 +41,22 @@ class PageController extends Controller
 
     public function showSubsidiary($slug)
     {
-        $subsidiary = Subsidiary::where('slug', $slug)->firstOrFail();
+        $subsidiary = Subsidiary::where('slug', $slug)->first();
+
+        // Fallback: If exact slug not found, try to slugify the input (e.g., if user typed "PT batam-kepri-jaya")
+        if (!$subsidiary) {
+            $slugified = \Illuminate\Support\Str::slug($slug);
+            $subsidiary = Subsidiary::where('slug', $slugified)->firstOrFail();
+            
+            // Redirect to the correct canonical URL
+            return redirect()->route('subsidiaries.show', $subsidiary->slug);
+        }
         
         if (!empty($subsidiary->url) && filter_var($subsidiary->url, FILTER_VALIDATE_URL)) {
             return redirect()->away($subsidiary->url);
         }
 
-        $teamMembers = \App\Models\TeamMember::where('status', 'published')
-                            ->where('branch', $slug)
-                            ->orderBy('order')
-                            ->orderBy('name')
-                            ->get();
-
-        return view('pages.subsidiaries.show', compact('subsidiary', 'teamMembers'));
+        return view('pages.subsidiaries.show', compact('subsidiary'));
     }
 
     public function gallery()
@@ -90,9 +87,18 @@ class PageController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'company' => 'nullable|string|max:255',
+            'business_unit' => 'nullable|string|max:255',
             'message' => 'required|string|max:5000',
             'cf-turnstile-response' => [app()->environment('testing') || empty(env('TURNSTILE_SECRET_KEY')) ? 'nullable' : 'required', new \App\Rules\Turnstile()],
         ]);
+
+        // Defensive: If the database hasn't been migrated yet to add the business_unit column,
+        // we prepend the selected business unit to the message body so the application does not crash
+        // and you still receive the selected business unit information.
+        if (!empty($validated['business_unit']) && !\Illuminate\Support\Facades\Schema::hasColumn('contacts', 'business_unit')) {
+            $validated['message'] = "Target Unit: " . $validated['business_unit'] . "\n\n" . $validated['message'];
+            unset($validated['business_unit']);
+        }
 
         \App\Models\Contact::create($validated);
 
@@ -101,7 +107,17 @@ class PageController extends Controller
 
     public function showBlog($slug)
     {
-        $blog = Blog::with('author')->where('slug', $slug)->where('status', 'published')->firstOrFail();
+        $blog = Blog::with('author')->where('slug', $slug)->where('status', 'published')->first();
+
+        // Fallback: If exact slug not found, try to slugify the input
+        if (!$blog) {
+            $slugified = \Illuminate\Support\Str::slug($slug);
+            $blog = Blog::with('author')->where('slug', $slugified)->where('status', 'published')->firstOrFail();
+            
+            // Redirect to the correct canonical URL
+            return redirect()->route('blog.show', $blog->slug);
+        }
+
         return view('pages.blog-show', compact('blog'));
     }
 

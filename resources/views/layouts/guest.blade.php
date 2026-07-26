@@ -32,7 +32,7 @@
                         {{-- Assuming application-logo is SVG, we can force white fill if needed, or just use text --}}
                         <div class="text-3xl font-display font-bold tracking-tight text-white flex items-center gap-3">
                             <x-lucide-anchor class="w-10 h-10 text-secondary-fixed" />
-                            <span>PT BKJ</span>
+                            <span>BKJ</span>
                         </div>
                     </a>
                     
@@ -70,7 +70,7 @@
                     <div class="lg:hidden mb-12 flex justify-center">
                         <a href="/" class="text-2xl font-display font-bold text-primary flex items-center gap-2">
                             <x-lucide-anchor class="w-8 h-8 text-secondary" />
-                            PT BKJ
+                            BKJ
                         </a>
                     </div>
                     

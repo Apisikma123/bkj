@@ -1,8 +1,8 @@
 <x-public-layout>
     <x-slot name="title">Peta Situs</x-slot>
-    <x-slot name="description">Peta Situs (Sitemap) PT Bintang Kepri Jaya (BKJ Group).</x-slot>
+    <x-slot name="description">Peta Situs (Sitemap) Bintang Kepri Jaya (BKJ Group).</x-slot>
     
-    <x-seo.meta title="Peta Situs" description="Peta Situs (Sitemap) PT Bintang Kepri Jaya (BKJ Group)." />
+    <x-seo.meta title="Peta Situs" description="Peta Situs (Sitemap) Bintang Kepri Jaya (BKJ Group)." />
 
     <section class="py-32 bg-surface min-h-screen">
         <x-layout.container class="max-w-4xl bg-white p-12 rounded-[2rem] shadow-ambient border border-outline-variant/30">

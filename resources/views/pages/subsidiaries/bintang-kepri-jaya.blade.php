@@ -1,11 +1,11 @@
 <x-public-layout>
-    <x-slot:title>PT Bintang Kepri Jaya</x-slot>
+    <x-slot:title>Bintang Kepri Jaya</x-slot>
 
     @php $locale = app()->getLocale(); @endphp
 
     {{-- Hero Section --}}
     <x-sections.hero 
-        title="PT Bintang Kepri Jaya"
+        title="Bintang Kepri Jaya"
         subtitle="{{ $locale === 'en' ? 'Trusted Shipping Agency & Logistics Solutions' : 'Solusi Logistik & Keagenan Kapal Terpercaya' }}"
         image=""
         primaryCta="{{ $locale === 'en' ? 'Contact Us' : 'Hubungi Kami' }}"
@@ -23,7 +23,7 @@
                 <div class="w-full lg:w-1/2">
                     <h2 class="text-headline-lg font-bold text-primary mb-6 leading-tight">{{ $locale === 'en' ? 'Best Shipping Agency & Forwarding in Kepri' : 'Keagenan Kapal & Forwarding Terbaik di Kepri' }}</h2>
                     <p class="text-body-lg text-on-surface-variant leading-relaxed mb-10 bg-surface-container-low p-6 rounded-lg">
-                        {{ $locale === 'en' ? 'PT Bintang Kepri Jaya provides shipping agency (clearance in/out), stevedoring, and freight forwarding services with high operational standards. We ensure the smooth running of your logistics across all ports in the Riau Islands.' : 'PT Bintang Kepri Jaya menyediakan layanan keagenan kapal (clearance in/out), bongkar muat, dan freight forwarding dengan standar operasional tinggi. Kami memastikan kelancaran logistik Anda di seluruh pelabuhan Kepulauan Riau.' }}
+                        {{ $locale === 'en' ? 'Bintang Kepri Jaya provides shipping agency (clearance in/out), stevedoring, and freight forwarding services with high operational standards. We ensure the smooth running of your logistics across all ports in the Riau Islands.' : 'Bintang Kepri Jaya menyediakan layanan keagenan kapal (clearance in/out), bongkar muat, dan freight forwarding dengan standar operasional tinggi. Kami memastikan kelancaran logistik Anda di seluruh pelabuhan Kepulauan Riau.' }}
                     </p>
                 </div>
             </div>

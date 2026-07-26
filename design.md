@@ -1,53 +1,53 @@
 ---
 name: Logistics Excellence System
 colors:
-  surface: '#f7fafc'
-  surface-dim: '#d7dadc'
-  surface-bright: '#f7fafc'
+  surface: '#ffffff'
+  surface-dim: '#e3e6ec'
+  surface-bright: '#ffffff'
   surface-container-lowest: '#ffffff'
-  surface-container-low: '#f1f4f6'
-  surface-container: '#ebeef0'
-  surface-container-high: '#e5e9eb'
-  surface-container-highest: '#e0e3e5'
-  on-surface: '#181c1e'
-  on-surface-variant: '#42474d'
-  inverse-surface: '#2d3133'
-  inverse-on-surface: '#eef1f3'
-  outline: '#72787e'
-  outline-variant: '#c2c7ce'
-  surface-tint: '#3c627f'
-  primary: '#001c2e'
+  surface-container-low: '#f5f7fb'
+  surface-container: '#eef1f7'
+  surface-container-high: '#e6e9f0'
+  surface-container-highest: '#dde1e9'
+  on-surface: '#0d1b2a'
+  on-surface-variant: '#3b4963'
+  inverse-surface: '#0d1b2a'
+  inverse-on-surface: '#ffffff'
+  outline: '#5c6b7e'
+  outline-variant: '#a8b5c8'
+  surface-tint: '#0d47a1'
+  primary: '#0d47a1'
   on-primary: '#ffffff'
-  primary-container: '#00324d'
-  on-primary-container: '#759bba'
-  inverse-primary: '#a4cbec'
-  secondary: '#006e2d'
+  primary-container: '#1565c0'
+  on-primary-container: '#e3f2fd'
+  inverse-primary: '#90caf9'
+  secondary: '#0a3071'
   on-secondary: '#ffffff'
-  secondary-container: '#93f9a2'
-  on-secondary-container: '#007430'
-  tertiary: '#241800'
-  on-tertiary: '#ffffff'
-  tertiary-container: '#3e2c00'
-  on-tertiary-container: '#bf8f00'
+  secondary-container: '#bbdefb'
+  on-secondary-container: '#0d47a1'
+  tertiary: '#ffffff'
+  on-tertiary: '#0d1b2a'
+  tertiary-container: '#e8eaf6'
+  on-tertiary-container: '#1a237e'
   error: '#ba1a1a'
   on-error: '#ffffff'
   error-container: '#ffdad6'
   on-error-container: '#93000a'
-  primary-fixed: '#cbe6ff'
-  primary-fixed-dim: '#a4cbec'
-  on-primary-fixed: '#001e30'
-  on-primary-fixed-variant: '#224a66'
-  secondary-fixed: '#93f9a2'
-  secondary-fixed-dim: '#77dc88'
-  on-secondary-fixed: '#002109'
-  on-secondary-fixed-variant: '#005320'
-  tertiary-fixed: '#ffdf9f'
-  tertiary-fixed-dim: '#f7be2f'
-  on-tertiary-fixed: '#261a00'
-  on-tertiary-fixed-variant: '#5c4300'
-  background: '#f7fafc'
-  on-background: '#181c1e'
-  surface-variant: '#e0e3e5'
+  primary-fixed: '#bbdefb'
+  primary-fixed-dim: '#90caf9'
+  on-primary-fixed: '#0d1b2a'
+  on-primary-fixed-variant: '#1565c0'
+  secondary-fixed: '#e3f2fd'
+  secondary-fixed-dim: '#bbdefb'
+  on-secondary-fixed: '#0d1b2a'
+  on-secondary-fixed-variant: '#0a3071'
+  tertiary-fixed: '#ffffff'
+  tertiary-fixed-dim: '#e8eaf6'
+  on-tertiary-fixed: '#0d1b2a'
+  on-tertiary-fixed-variant: '#3b4963'
+  background: '#ffffff'
+  on-background: '#0d1b2a'
+  surface-variant: '#e8eaf6'
 typography:
   display-lg:
     fontFamily: Poppins
@@ -117,8 +117,8 @@ We adopt a **Modern Corporate** style characterized by:
 The palette is strictly derived from the brand's identity, ensuring instant recognition and institutional cohesion.
 
 - **Primary (Dark Navy):** Used for navigation, headings, and high-importance surfaces. It provides the "anchor" for the entire UI.
-- **Secondary (Emerald Green):** Used for growth indicators, primary calls to action, and success states.
-- **Tertiary (Golden Yellow):** Applied to warning states, highlights, and secondary interactive elements to provide high-contrast visibility.
+- **Secondary (Navy Blue):** Used for primary calls to action and secondary interactive elements to maintain a unified color scheme.
+- **Tertiary (White/Light Grays):** Applied to backgrounds and surfaces to provide high-contrast visibility and a clean look.
 - **Neutrals:** A range of cool grays and off-whites facilitate a clean, breathable background that prevents the bold primary colors from overwhelming the user.
 
 ## Typography
@@ -160,12 +160,12 @@ To maintain a **professional and industrial** aesthetic with a contemporary appr
 ## Components
 
 ### Buttons
-- **Primary:** Solid Emerald Green with White text. Subtle Navy shadow on hover.
+- **Primary:** Solid Navy Blue with White text. Subtle Light Navy shadow on hover.
 - **Secondary:** Outlined Navy with 2px border. Transitions to solid Navy on hover.
 - **Tertiary:** Ghost style (text only) in Navy with an underline that expands from center on hover.
 
 ### Input Fields
-- Use a light gray background with a 1px border. On focus, the border transitions to Emerald Green with a soft glow (3px spread).
+- Use a light gray/white background with a 1px border. On focus, the border transitions to Navy Blue with a soft glow (3px spread).
 
 ### Animation & Motion
 The design system targets 60% animation coverage to feel "alive":
@@ -175,4 +175,4 @@ The design system targets 60% animation coverage to feel "alive":
 
 ### Cards
 - White background, 1px light gray border, and the ambient Navy-tinted shadow.
-- Header of the card can optionally use a 4px top-border in Emerald Green or Golden Yellow to denote status.
+- Header of the card can optionally use a 4px top-border in Navy Blue to denote status.

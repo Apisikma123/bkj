@@ -137,6 +137,16 @@ class WebsiteContentController extends Controller
     public function updateContact(Request $request)
     {
         $keys = ['contact_email', 'contact_phone1', 'contact_phone2', 'contact_address', 'contact_map_url'];
+        
+        // Add office settings keys to be saved along with contact
+        for ($i = 1; $i <= 4; $i++) {
+            $keys[] = "office_{$i}_name";
+            $keys[] = "office_{$i}_tagline";
+            $keys[] = "office_{$i}_address";
+            $keys[] = "office_{$i}_phone";
+            $keys[] = "office_{$i}_email";
+        }
+
         $translator = app(\App\Services\TranslationService::class);
         foreach ($keys as $key) {
             if ($request->has($key)) {
@@ -144,17 +154,44 @@ class WebsiteContentController extends Controller
                 Setting::updateOrCreate(['key' => $key], ['value' => $val]);
                 
                 if (!empty($val)) {
-                    $valEn = $translator->translateToEnglish($val);
+                    if (str_ends_with($key, '_phone') || str_ends_with($key, '_email') || str_ends_with($key, '_name') || $key === 'contact_email') {
+                        $valEn = $val;
+                    } else {
+                        $valEn = $translator->translateToEnglish($val);
+                    }
                     Setting::updateOrCreate(['key' => $key . '_en'], ['value' => $valEn]);
                 }
             }
         }
-        return redirect()->route('admin.content.index')->with('success', 'Contact content updated successfully.');
+        return redirect()->route('admin.content.index')->with('success', 'Contact and offices content updated successfully.');
+    }
+
+    public function updateOffices(Request $request)
+    {
+        return $this->updateContact($request);
     }
 
     public function updateFooter(Request $request)
     {
-        $keys = ['footer_about_text', 'footer_copyright', 'social_facebook', 'social_instagram', 'social_linkedin'];
+        $keys = [
+            'footer_about_text',
+            'footer_copyright',
+            'social_facebook',
+            'social_instagram',
+            'social_linkedin',
+            'social_twitter',
+            'social_youtube',
+            'social_tiktok'
+        ];
+
+        // Handle Social Media Hide/Show Toggles
+        $socialPlatforms = ['facebook', 'instagram', 'linkedin', 'twitter', 'youtube', 'tiktok'];
+        foreach ($socialPlatforms as $platform) {
+            $activeKey = "social_{$platform}_active";
+            $activeVal = $request->has($activeKey) ? '1' : '0';
+            Setting::updateOrCreate(['key' => $activeKey], ['value' => $activeVal]);
+        }
+
         $translator = app(\App\Services\TranslationService::class);
         foreach ($keys as $key) {
             if ($request->has($key)) {
@@ -162,7 +199,11 @@ class WebsiteContentController extends Controller
                 Setting::updateOrCreate(['key' => $key], ['value' => $val]);
                 
                 if (!empty($val)) {
-                    $valEn = $translator->translateToEnglish($val);
+                    if (str_starts_with($key, 'social_')) {
+                        $valEn = $val;
+                    } else {
+                        $valEn = $translator->translateToEnglish($val);
+                    }
                     Setting::updateOrCreate(['key' => $key . '_en'], ['value' => $valEn]);
                 }
             }

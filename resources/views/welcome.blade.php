@@ -252,7 +252,7 @@
     </section>
 
 
-        {{-- 7.5 Our Team (Hierarchical Organizational Structure) --}}
+        {{-- 7.5 Our Team (Hierarchical Organizational Structure)
     <section id="our-team" class="py-12 md:py-24 bg-surface" data-scroll-reveal>
         <x-layout.container>
             <div class="text-center max-w-3xl mx-auto mb-16">
@@ -260,18 +260,15 @@
                 <p class="text-body-lg text-on-surface-variant mt-4">{{ $locale === 'en' ? 'The main pillars driving the BKJ Group logistics ecosystem.' : 'Pilar utama yang menggerakkan ekosistem logistik BKJ Group.' }}</p>
             </div>
 
-            {{-- Tabs for Subsidiaries (AlpineJS) --}}
             <div x-data="{ activeTab: 'main' }" class="w-full">
                 <div class="flex flex-wrap justify-center gap-2 mb-12">
                     <button @click="activeTab = 'main'" :class="activeTab === 'main' ? 'bg-primary text-white shadow-md' : 'bg-surface-container text-on-surface-variant hover:bg-surface-container-high'" class="px-4 py-2 md:px-6 md:py-3 rounded-full font-bold transition-all duration-300 text-sm md:text-base">PT Batam Kepri Jaya</button>
                     <button @click="activeTab = 'koperasi'" :class="activeTab === 'koperasi' ? 'bg-primary text-white shadow-md' : 'bg-surface-container text-on-surface-variant hover:bg-surface-container-high'" class="px-4 py-2 md:px-6 md:py-3 rounded-full font-bold transition-all duration-300 text-sm md:text-base">Koperasi TKBM BKJ</button>
-                    <button @click="activeTab = 'bintang'" :class="activeTab === 'bintang' ? 'bg-primary text-white shadow-md' : 'bg-surface-container text-on-surface-variant hover:bg-surface-container-high'" class="px-4 py-2 md:px-6 md:py-3 rounded-full font-bold transition-all duration-300 text-sm md:text-base">PT Bintang Kepri Jaya</button>
+                    <button @click="activeTab = 'bintang'" :class="activeTab === 'bintang' ? 'bg-primary text-white shadow-md' : 'bg-surface-container text-on-surface-variant hover:bg-surface-container-high'" class="px-4 py-2 md:px-6 md:py-3 rounded-full font-bold transition-all duration-300 text-sm md:text-base">Bintang Kepri Jaya</button>
                 </div>
 
-                {{-- PT Batam Kepri Jaya Tree --}}
                 <div x-show="activeTab === 'main'" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100" class="flex flex-col items-center w-full max-w-5xl mx-auto relative z-10">
                     
-                    {{-- Commissioner --}}
                     @php $commissioner = $teamMembers->where('level', 'commissioner')->first(); @endphp
                     @if($commissioner)
                     <div class="relative flex flex-col items-center mb-12 w-full max-w-[288px]">
@@ -280,7 +277,6 @@
                     </div>
                     @endif
                     
-                    {{-- Director --}}
                     @php $director = $teamMembers->where('level', 'director')->first(); @endphp
                     @if($director)
                     <div class="relative flex flex-col items-center mb-12 w-full max-w-[288px]">
@@ -289,7 +285,6 @@
                     </div>
                     @endif
                     
-                    {{-- Manager --}}
                     @php $manager = $teamMembers->where('level', 'manager')->first(); @endphp
                     @if($manager)
                     <div class="relative flex flex-col items-center mb-16 w-full max-w-[288px]">
@@ -298,7 +293,6 @@
                     </div>
                     @endif
 
-                    {{-- Operational (Grid) --}}
                     @php 
                         $operasionals = $teamMembers->where('level', 'operational');
                         $opCount = $operasionals->count();
@@ -323,14 +317,12 @@
                     </div>
                     @endif
                     @if($teamMembers->count() === 0)
-                    <div class="text-center py-12 text-gray-500 italic">Belum ada struktur organisasi.</div>
+                    <div class="text-center py-12 text-outline italic">Belum ada struktur organisasi.</div>
                     @endif
                 </div>
 
-                {{-- Koperasi TKBM BKJ Tree --}}
                 <div x-show="activeTab === 'koperasi'" x-cloak style="display: none;" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100" class="flex flex-col items-center w-full max-w-5xl mx-auto relative z-10">
                     
-                    {{-- Supervisor --}}
                     @php $supervisor = $koperasiMembers->where('level', 'supervisor')->first(); @endphp
                     @if($supervisor)
                     <div class="relative flex flex-col items-center mb-16 w-full max-w-[288px]">
@@ -339,7 +331,6 @@
                     </div>
                     @endif
 
-                    {{-- Management (Grid) --}}
                     @php 
                         $management = $koperasiMembers->where('level', 'management');
                         $mgtCount = $management->count();
@@ -364,14 +355,12 @@
                     </div>
                     @endif
                     @if($koperasiMembers->count() === 0)
-                    <div class="text-center py-12 text-gray-500 italic">Belum ada struktur organisasi.</div>
+                    <div class="text-center py-12 text-outline italic">Belum ada struktur organisasi.</div>
                     @endif
                 </div>
 
-                {{-- PT Bintang Kepri Jaya Tree --}}
                 <div x-show="activeTab === 'bintang'" x-cloak style="display: none;" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100" class="flex flex-col items-center w-full max-w-5xl mx-auto relative z-10">
                     
-                    {{-- Director --}}
                     @php $binDirector = $bintangMembers->where('level', 'director')->first(); @endphp
                     @if($binDirector)
                     <div class="relative flex flex-col items-center mb-12 w-full max-w-[288px]">
@@ -380,7 +369,6 @@
                     </div>
                     @endif
                     
-                    {{-- Manager --}}
                     @php $binManager = $bintangMembers->where('level', 'manager')->first(); @endphp
                     @if($binManager)
                     <div class="relative flex flex-col items-center mb-16 w-full max-w-[288px]">
@@ -389,7 +377,6 @@
                     </div>
                     @endif
 
-                    {{-- Operational (Grid) --}}
                     @php 
                         $binOps = $bintangMembers->where('level', 'operational');
                         $binOpCount = $binOps->count();
@@ -414,13 +401,14 @@
                     </div>
                     @endif
                     @if($bintangMembers->count() === 0)
-                    <div class="text-center py-12 text-gray-500 italic">Belum ada struktur organisasi.</div>
+                    <div class="text-center py-12 text-outline italic">Belum ada struktur organisasi.</div>
                     @endif
                 </div>
 
             </div>
         </x-layout.container>
     </section>
+    --}}
 
 
     {{-- 8. Subsidiaries (Split Layout) --}}
@@ -443,7 +431,10 @@
                     <a href="{{ route('subsidiaries.show', $sub->slug) }}" class="block p-6 md:p-12 border border-outline-variant/20 hover:bg-primary hover:text-white transition-colors duration-500 group cursor-pointer {{ $isLastOdd ? 'md:col-span-2 bg-surface-container' : ($index % 2 == 0 ? 'bg-white' : 'bg-surface-container-low') }}">
                         @svg('lucide-' . $icon, 'w-12 h-12 text-primary group-hover:text-secondary mb-8 transition-colors')
                         <h3 class="text-headline-md font-display font-bold mb-4">{{ $locale === 'en' && !empty($sub->name_en) ? $sub->name_en : $sub->name }}</h3>
-                        <p class="text-body-md text-on-surface-variant group-hover:text-white/80 line-clamp-3">{{ $locale === 'en' && !empty($sub->description_en) ? $sub->description_en : $sub->description }}</p>
+                        @php
+                            $homeSubDesc = $locale === 'en' && !empty($sub->description_en) ? $sub->description_en : $sub->description;
+                        @endphp
+                        <p class="text-body-md text-on-surface-variant group-hover:text-white/80 line-clamp-3">{{ $homeSubDesc }}</p>
                     </a>
                 @endforeach
             </div>
@@ -490,7 +481,7 @@
                     </div>
                 </div>
             @else
-                <div class="text-center py-4 text-gray-400">
+                <div class="text-center py-4 text-outline">
                     Belum ada klien terdaftar.
                 </div>
             @endif

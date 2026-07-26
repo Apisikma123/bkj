@@ -9,13 +9,13 @@
                 <td class="px-6 py-4">{{ $item->created_at->format('Y-m-d') }}</td>
                 <td class="px-6 py-4 text-right">
                     <div class="flex items-center justify-end gap-2">
-                        <a href="{{ route('admin.subsidiaries.edit', $item) }}" class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
+                        <a href="{{ route('admin.subsidiaries.edit', $item) }}" class="p-2 text-outline hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
                             <x-lucide-edit class="w-4 h-4" />
                         </a>
                         <form action="{{ route('admin.subsidiaries.destroy', $item) }}" method="POST" class="inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
+                            <button type="submit" class="p-2 text-outline hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
                                 <x-lucide-trash-2 class="w-4 h-4" />
                             </button>
                         </form>

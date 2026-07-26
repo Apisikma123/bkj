@@ -15,6 +15,7 @@ return [
     // Footer
     'quick_links' => 'Quick Links',
     'contact_us' => 'Contact Us',
+    'our_offices' => 'Our Offices & Branches',
     'privacy_policy' => 'Privacy Policy',
     'terms' => 'Terms of Service',
     'sitemap' => 'Sitemap',

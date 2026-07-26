@@ -25,6 +25,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Dynamically override public storage path on cPanel to bypass config cache issues
+        if (is_dir(base_path('../public_html'))) {
+            config(['filesystems.disks.public.root' => base_path('../public_html/storage')]);
+        }
+
         if (config('app.env') === 'production') {
             URL::forceScheme('https');
         }

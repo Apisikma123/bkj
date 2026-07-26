@@ -2,17 +2,17 @@
     <div class="space-y-6">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-                <h1 class="text-3xl font-bold text-gray-900 font-display">Tambah User Baru</h1>
-                <p class="text-lg text-gray-600 mt-1">Buat data pengguna administrator baru.</p>
+                <h1 class="text-3xl font-bold text-on-surface font-display">Tambah User Baru</h1>
+                <p class="text-lg text-on-surface-variant mt-1">Buat data pengguna administrator baru.</p>
             </div>
             <div>
-                <a href="{{ route('admin.users.index') }}" class="inline-flex items-center px-5 py-2.5 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors shadow-sm text-sm">
+                <a href="{{ route('admin.users.index') }}" class="inline-flex items-center px-5 py-2.5 bg-surface-container text-on-surface-variant font-medium rounded-lg hover:bg-surface-container-high transition-colors shadow-sm text-sm">
                     <x-lucide-arrow-left class="w-4 h-4 mr-2" /> Kembali
                 </a>
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 max-w-3xl">
+        <div class="bg-white rounded-2xl shadow-sm border border-surface-container p-8 max-w-3xl">
             <form action="{{ route('admin.users.store') }}" method="POST" class="space-y-6">
                 @csrf
 
@@ -49,8 +49,8 @@
                     </div>
                 </div>
 
-                <div class="flex justify-end gap-3 mt-8 pt-6 border-t border-gray-100">
-                    <a href="{{ route('admin.users.index') }}" class="inline-flex items-center justify-center px-6 py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-colors text-lg">Batal</a>
+                <div class="flex justify-end gap-3 mt-8 pt-6 border-t border-surface-container">
+                    <a href="{{ route('admin.users.index') }}" class="inline-flex items-center justify-center px-6 py-3 bg-surface-container text-on-surface-variant font-bold rounded-xl hover:bg-surface-container-high transition-colors text-lg">Batal</a>
                     <x-primary-button class="px-6 py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/95 transition-colors text-lg">
                         <x-lucide-save class="w-5 h-5 mr-2" /> Simpan User
                     </x-primary-button>

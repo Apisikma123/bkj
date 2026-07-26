@@ -2,8 +2,8 @@
     <div class="space-y-6">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-                <h1 class="text-3xl font-bold text-gray-900">User Management</h1>
-                <p class="text-lg text-gray-600 mt-1">Kelola data administrator dan hak akses pengguna sistem.</p>
+                <h1 class="text-3xl font-bold text-on-surface">User Management</h1>
+                <p class="text-lg text-on-surface-variant mt-1">Kelola data administrator dan hak akses pengguna sistem.</p>
             </div>
             <div class="flex gap-3">
                 <a href="{{ route('admin.users.create') }}" class="inline-flex items-center px-5 py-2.5 bg-primary text-white font-medium rounded-lg hover:bg-primary/95 transition-colors shadow-sm text-lg">
@@ -16,10 +16,10 @@
         <x-admin.table :headers="['Nama Pengguna', 'Email', 'Role / Peran', 'Tanggal Terdaftar']">
             @forelse($users as $user)
                 <tr>
-                    <td class="px-6 py-4 font-medium text-gray-900">
+                    <td class="px-6 py-4 font-medium text-on-surface">
                         {{ $user->name }}
                     </td>
-                    <td class="px-6 py-4 text-gray-700">
+                    <td class="px-6 py-4 text-on-surface-variant">
                         {{ $user->email }}
                     </td>
                     <td class="px-6 py-4">
@@ -27,19 +27,19 @@
                             {{ $user->role ? $user->role->name : 'N/A' }}
                         </span>
                     </td>
-                    <td class="px-6 py-4 text-gray-500">
+                    <td class="px-6 py-4 text-outline">
                         {{ $user->created_at->format('d M Y') }}
                     </td>
                     <td class="px-6 py-4 text-right">
                         <div class="flex items-center justify-end gap-2">
-                            <a href="{{ route('admin.users.edit', $user) }}" class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
+                            <a href="{{ route('admin.users.edit', $user) }}" class="p-2 text-outline hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
                                 <x-lucide-edit class="w-4 h-4" />
                             </a>
                             @if($user->id !== auth()->id())
                                 <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus user ini?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Hapus">
+                                    <button type="submit" class="p-2 text-outline hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Hapus">
                                         <x-lucide-trash-2 class="w-4 h-4" />
                                     </button>
                                 </form>
@@ -49,9 +49,9 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5" class="px-6 py-12 text-center text-gray-500">
+                    <td colspan="5" class="px-6 py-12 text-center text-outline">
                         <div class="flex flex-col items-center justify-center">
-                            <x-lucide-users class="w-12 h-12 text-gray-300 mb-3" />
+                            <x-lucide-users class="w-12 h-12 text-outline-variant mb-3" />
                             <p class="font-medium">Tidak ada data pengguna ditemukan.</p>
                         </div>
                     </td>

@@ -1,9 +1,9 @@
 <x-public-layout>
     @php $locale = app()->getLocale(); @endphp
     <x-slot name="title">{{ __('pages.gallery_title') }}</x-slot>
-    <x-slot name="description">Dokumentasi aktivitas operasional dan infrastruktur PT Bintang Kepri Jaya.</x-slot>
+    <x-slot name="description">Dokumentasi aktivitas operasional dan infrastruktur Bintang Kepri Jaya.</x-slot>
     
-    <x-seo.meta title="{{ __('pages.gallery_title') }}" description="Dokumentasi aktivitas operasional dan infrastruktur PT Bintang Kepri Jaya." />
+    <x-seo.meta title="{{ __('pages.gallery_title') }}" description="Dokumentasi aktivitas operasional dan infrastruktur Bintang Kepri Jaya." />
 
     <div class="relative pt-24 pb-12 lg:pt-48 lg:pb-32 bg-primary overflow-hidden">
         <div class="absolute inset-0 z-0">

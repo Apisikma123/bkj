@@ -6,20 +6,23 @@
             <tr>
                 <td class="px-6 py-4">{{ $item->id }}</td>
                 <td class="px-6 py-4">
-                    <div class="font-medium text-gray-900">{{ $item->name }}</div>
-                    <div class="text-xs text-gray-500">{{ $item->email }}</div>
+                    <div class="font-medium text-on-surface">{{ $item->name }}</div>
+                    <div class="text-xs text-outline">{{ $item->email }}</div>
+                    @if($item->business_unit)
+                        <div class="mt-1"><span class="inline-block text-[10px] font-semibold bg-secondary/15 text-secondary px-1.5 py-0.5 rounded">{{ $item->business_unit }}</span></div>
+                    @endif
                 </td>
                 <td class="px-6 py-4">{{ Str::limit($item->message, 50) }}</td>
                 <td class="px-6 py-4">{{ $item->created_at->format('Y-m-d') }}</td>
                 <td class="px-6 py-4 text-right">
                     <div class="flex items-center justify-end gap-2">
-                        <a href="{{ route('admin.contacts.show', $item) }}" class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="View">
+                        <a href="{{ route('admin.contacts.show', $item) }}" class="p-2 text-outline hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="View">
                             <x-lucide-eye class="w-4 h-4" />
                         </a>
                         <form action="{{ route('admin.contacts.destroy', $item) }}" method="POST" class="inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
+                            <button type="submit" class="p-2 text-outline hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
                                 <x-lucide-trash-2 class="w-4 h-4" />
                             </button>
                         </form>
