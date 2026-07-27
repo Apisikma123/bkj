@@ -36,34 +36,43 @@
     $faviconUrl = asset('favicon.ico');
 
     // Use dynamically uploaded favicon from admin panel if available
-    if ($activeSubsidiary && $activeSubsidiary->favicon_path && \Illuminate\Support\Facades\Storage::disk('public')->exists($activeSubsidiary->favicon_path)) {
-        $faviconUrl = asset(\Illuminate\Support\Facades\Storage::url($activeSubsidiary->favicon_path));
-    } elseif (!empty($globalSettings['global_favicon']) && \Illuminate\Support\Facades\Storage::disk('public')->exists($globalSettings['global_favicon'])) {
-        $faviconUrl = asset(\Illuminate\Support\Facades\Storage::url($globalSettings['global_favicon']));
+    if ($activeSubsidiary && !empty($activeSubsidiary->favicon_path)) {
+        $faviconUrl = asset(\Illuminate\Support\Facades\Storage::url($activeSubsidiary->favicon_path)) . '?v=' . strtotime($activeSubsidiary->updated_at);
+        $debugFavicon = "Subsidiary Favicon Found in DB: " . $activeSubsidiary->favicon_path;
+    } elseif (!empty($globalSettings['global_favicon'])) {
+        $faviconUrl = asset(\Illuminate\Support\Facades\Storage::url($globalSettings['global_favicon'])) . '?v=' . time();
+        $debugFavicon = "Global Favicon Found in DB: " . $globalSettings['global_favicon'];
+    } else {
+        $debugFavicon = "No Favicon in DB, using fallback";
     }
 
     $faviconType = 'image/x-icon';
-    if (\Illuminate\Support\Str::endsWith($faviconUrl, '.svg')) {
+    $faviconBase = explode('?', $faviconUrl)[0];
+    
+    if (\Illuminate\Support\Str::endsWith($faviconBase, '.svg')) {
         $faviconType = 'image/svg+xml';
-    } elseif (\Illuminate\Support\Str::endsWith($faviconUrl, '.png')) {
+    } elseif (\Illuminate\Support\Str::endsWith($faviconBase, '.png')) {
         $faviconType = 'image/png';
-    } elseif (\Illuminate\Support\Str::endsWith($faviconUrl, '.webp')) {
+    } elseif (\Illuminate\Support\Str::endsWith($faviconBase, '.webp')) {
         $faviconType = 'image/webp';
-    } elseif (\Illuminate\Support\Str::endsWith($faviconUrl, '.gif')) {
+    } elseif (\Illuminate\Support\Str::endsWith($faviconBase, '.gif')) {
         $faviconType = 'image/gif';
-    } elseif (\Illuminate\Support\Str::endsWith($faviconUrl, '.jpg') || \Illuminate\Support\Str::endsWith($faviconUrl, '.jpeg')) {
+    } elseif (\Illuminate\Support\Str::endsWith($faviconBase, '.jpg') || \Illuminate\Support\Str::endsWith($faviconBase, '.jpeg')) {
         $faviconType = 'image/jpeg';
     }
 @endphp
 
 {{-- Standard SEO Tags --}}
+<!-- DEBUG FAVICON: {{ $debugFavicon }} -->
 <title>{{ $finalTitle }}</title>
 <meta name="description" content="{{ $finalDesc }}">
 <link rel="canonical" href="{{ $finalUrl }}">
+{{-- Fallback standard favicon for strict crawlers --}}
+@if(strpos($faviconUrl, 'favicon.ico') !== false)
+<link rel="icon" type="image/x-icon" href="{{ url('/favicon.ico') }}">
+@endif
 <link rel="icon" type="{{ $faviconType }}" href="{{ $faviconUrl }}" sizes="192x192">
 <link rel="apple-touch-icon" href="{{ $faviconUrl }}">
-{{-- Fallback standard favicon for strict crawlers --}}
-<link rel="icon" type="image/x-icon" href="{{ url('/favicon.ico') }}">
 {{-- OpenGraph Tags --}}
 <meta property="og:title" content="{{ $finalTitle }}">
 <meta property="og:description" content="{{ $finalDesc }}">
