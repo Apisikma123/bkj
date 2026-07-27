@@ -128,6 +128,8 @@ class CmsSettingsSeeder extends Seeder
             ['key' => 'team_members', 'value' => "Sudirman (Direktur)\nNandi (Komisaris)\nSyafrudin", 'type' => 'text'],
             ['key' => 'company_legality', 'value' => "SIUP\nNIB\nNPWP\nTDP", 'type' => 'text'],
             ['key' => 'client_testimonials', 'value' => "Layanan yang sangat memuaskan, pengiriman selalu tepat waktu. - PT. Maju Bersama\nLogistik terbaik di Batam. - CV. Sinar Terang", 'type' => 'text'],
+            ['key' => 'footer_desc', 'value' => 'Perusahaan Jasa Pengurusan Transportasi (JPT) terpercaya, memberikan solusi layanan logistik dan transportasi yang profesional dan aman di Indonesia.', 'type' => 'text'],
+            ['key' => 'footer_desc_en', 'value' => 'A trusted Transportation Management Services (JPT) company, providing professional and safe logistics and transportation solutions in Indonesia.', 'type' => 'text'],
 
             ['key' => 'home_why_2_title', 'value' => 'Legalitas Terjamin', 'type' => 'text'],
             ['key' => 'home_why_2_desc', 'value' => 'Perusahaan berlisensi penuh di kawasan pabean internasional.', 'type' => 'textarea'],

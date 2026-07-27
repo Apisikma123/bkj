@@ -26,6 +26,7 @@ class SubsidiaryController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'content' => 'nullable|string',
+            'footer_desc' => 'nullable|string',
             'url' => 'nullable|url|max:255',
             'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
@@ -38,6 +39,7 @@ class SubsidiaryController extends Controller
         if (!empty($data['name'])) $data['name_en'] = $data['name']; // Do not translate proper names
         if (!empty($data['description'])) $data['description_en'] = $translator->translateToEnglish($data['description']);
         if (!empty($data['content'])) $data['content_en'] = $translator->translateToEnglish($data['content']);
+        if (!empty($data['footer_desc'])) $data['footer_desc_en'] = $translator->translateToEnglish($data['footer_desc']);
 
         $data['slug'] = Str::slug($data['name']);
         Subsidiary::create($data);
@@ -55,6 +57,7 @@ class SubsidiaryController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'content' => 'nullable|string',
+            'footer_desc' => 'nullable|string',
             'url' => 'nullable|url|max:255',
             'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
@@ -67,6 +70,7 @@ class SubsidiaryController extends Controller
         if (!empty($data['name'])) $data['name_en'] = $data['name']; // Do not translate proper names
         if (!empty($data['description'])) $data['description_en'] = $translator->translateToEnglish($data['description']);
         if (!empty($data['content'])) $data['content_en'] = $translator->translateToEnglish($data['content']);
+        if (!empty($data['footer_desc'])) $data['footer_desc_en'] = $translator->translateToEnglish($data['footer_desc']);
 
         $data['slug'] = Str::slug($data['name']);
         $subsidiary->update($data);

@@ -27,7 +27,22 @@
             <div class="flex flex-col gap-6">
                 <img src="{{ $footerLogoUrl }}" alt="BATAM KEPRI JAYA" class="h-12 w-auto object-contain self-start">
                 <p class="text-on-primary-container text-body-md">
-                    {{ __('home.footer_desc') }}
+                    @php
+                        $localeSuffix = app()->getLocale() === 'en' ? '_en' : '';
+                        $desc = null;
+                        if ($activeSubsidiary) {
+                            $descField = 'footer_desc' . $localeSuffix;
+                            $desc = !empty($activeSubsidiary->$descField) ? $activeSubsidiary->$descField : ($activeSubsidiary->footer_desc ?? null);
+                        }
+                        if (empty($desc)) {
+                            $descField = 'footer_desc' . $localeSuffix;
+                            $desc = !empty($globalSettings[$descField]) ? $globalSettings[$descField] : ($globalSettings['footer_desc'] ?? null);
+                        }
+                        if (empty($desc)) {
+                            $desc = __('home.footer_desc');
+                        }
+                    @endphp
+                    {{ $desc }}
                 </p>
                 @php
                     $socialFacebook = $globalSettings['social_facebook'] ?? null;

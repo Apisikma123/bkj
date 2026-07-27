@@ -107,16 +107,7 @@
                                 </div>
                             </div>
                             
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                                <div>
-                                    <x-input-label for="team_members" value="Our Team (Pisahkan per baris)" />
-                                    <x-textarea-input id="team_members" name="team_members" rows="4" placeholder="Sudirman (Direktur)&#10;Nandi (Komisaris)">{{ $settings['team_members'] ?? '' }}</x-textarea-input>
-                                </div>
-                                <div>
-                                    <x-input-label for="company_legality" value="Company Legality (Pisahkan per baris)" />
-                                    <x-textarea-input id="company_legality" name="company_legality" rows="4" placeholder="SIUP&#10;NIB">{{ $settings['company_legality'] ?? '' }}</x-textarea-input>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="flex justify-end gap-3 mt-8 pt-6 border-t border-outline-variant/20">
                             <x-primary-button>
@@ -281,6 +272,16 @@
                     <form action="{{ route('admin.content.updateFooter') }}" method="POST" class="space-y-6">
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="md:col-span-2">
+                                <x-input-label for="footer_desc" value="Deskripsi Footer (ID)" />
+                                <x-textarea-input id="footer_desc" name="footer_desc" rows="3">{{ $settings['footer_desc'] ?? __('home.footer_desc', [], 'id') }}</x-textarea-input>
+                            </div>
+
+                            <div class="md:col-span-2">
+                                <x-input-label for="footer_desc_en" value="Footer Description (EN)" />
+                                <x-textarea-input id="footer_desc_en" name="footer_desc_en" rows="3">{{ $settings['footer_desc_en'] ?? __('home.footer_desc', [], 'en') }}</x-textarea-input>
+                            </div>
+
                             <div class="md:col-span-2">
                                 <x-input-label for="footer_copyright" value="Copyright Text" />
                                 <x-text-input id="footer_copyright" name="footer_copyright" type="text" value="{{ $settings['footer_copyright'] ?? '© 2026 Bintang Kepri Jaya. All rights reserved.' }}" />

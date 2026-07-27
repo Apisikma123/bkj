@@ -8,7 +8,8 @@ class Subsidiary extends Model
 {
     protected $fillable = [
         'name', 'name_en', 'slug', 'description', 'description_en', 
-        'content', 'content_en', 'url', 'hero_image', 'icon_path', 'favicon_path'
+        'content', 'content_en', 'url', 'hero_image', 'icon_path', 'favicon_path',
+        'footer_desc', 'footer_desc_en'
     ];
 
     public function bankAccounts()

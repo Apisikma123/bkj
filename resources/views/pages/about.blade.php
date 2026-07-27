@@ -111,37 +111,7 @@
         </x-layout.container>
     </section>
 
-    {{-- Legalitas Perusahaan --}}
-    @php
-        $legality = $globalSettings['company_legality'] ?? null;
-    @endphp
-    @if($legality)
-    <section class="py-12 md:py-20 bg-surface border-b border-outline-variant/10" data-scroll-reveal>
-        <x-layout.container>
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-10">
-                    <span class="text-label-md text-secondary tracking-widest uppercase mb-3 block">{{ __('pages.about_subtitle') }}</span>
-                    <h2 class="text-headline-lg font-bold text-primary">{{ $locale === 'en' ? 'Company Legality' : 'Legalitas Perusahaan' }}</h2>
-                    <div class="w-16 h-1 bg-secondary rounded-full mx-auto mt-4"></div>
-                </div>
-                <div class="bg-white p-6 md:p-10 rounded-2xl shadow-ambient border border-outline-variant/30 text-body-lg text-on-surface-variant leading-relaxed">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        @foreach(explode("\n", $legality) as $doc)
-                            @if(trim($doc))
-                                <div class="flex items-start gap-4 p-4 rounded-xl hover:bg-surface-container-lowest transition-colors border border-outline-variant/10">
-                                    <div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                                        <x-lucide-file-text class="w-4 h-4" />
-                                    </div>
-                                    <span class="text-on-surface-variant font-medium text-base leading-relaxed">{{ trim($doc) }}</span>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </x-layout.container>
-    </section>
-    @endif
+
 
 
 </x-public-layout>

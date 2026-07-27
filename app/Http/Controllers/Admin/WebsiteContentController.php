@@ -110,13 +110,7 @@ class WebsiteContentController extends Controller
             }
         }
         
-        $settingKeys = ['team_members', 'company_legality'];
-        foreach ($settingKeys as $key) {
-            if ($request->has($key)) {
-                Setting::updateOrCreate(['key' => $key], ['value' => $request->input($key)]);
-            }
-        }
-        
+
         if ($request->hasFile('about_image')) {
             $oldImage = CompanyProfile::where('key', 'image')->value('value');
             $newImage = \App\Services\ImageService::upload($request->file('about_image'), 'about', $oldImage);
@@ -175,6 +169,7 @@ class WebsiteContentController extends Controller
     {
         $keys = [
             'footer_about_text',
+            'footer_desc',
             'footer_copyright',
             'social_facebook',
             'social_instagram',
@@ -202,7 +197,7 @@ class WebsiteContentController extends Controller
                     if (str_starts_with($key, 'social_')) {
                         $valEn = $val;
                     } else {
-                        $valEn = $translator->translateToEnglish($val);
+                        $valEn = $request->input($key . '_en') ?: $translator->translateToEnglish($val);
                     }
                     Setting::updateOrCreate(['key' => $key . '_en'], ['value' => $valEn]);
                 }

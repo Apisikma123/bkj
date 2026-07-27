@@ -29,6 +29,10 @@
                 <x-textarea-input id="description" name="description" rows="3">{{ old('description') }}</x-textarea-input>
             </div>
             <div class="mb-6">
+                <x-input-label for="footer_desc" value="Deskripsi Footer (Opsional - Jika kosong, akan menggunakan deskripsi footer global)" />
+                <x-textarea-input id="footer_desc" name="footer_desc" rows="2">{{ old('footer_desc') }}</x-textarea-input>
+            </div>
+            <div class="mb-6">
                 <x-input-label for="content" value="Page Content (Rich Text)" />
                 <input type="hidden" name="content" id="content">
                 <div id="editor" class="min-h-[400px] rounded-b-lg border-outline-variant"></div>
