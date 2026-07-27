@@ -162,5 +162,50 @@ Route::get('/favicon.ico', function () {
     return response('', 404);
 });
 
+// Temporary route to auto-setup subsidiary content
+Route::get('/setup-subsidiaries', function () {
+    try {
+        $subsidiary1 = \App\Models\Subsidiary::updateOrCreate(
+            ['slug' => 'pt-bintang-kepri-jaya'],
+            [
+                'name' => 'PT Bintang Kepri Jaya',
+                'description' => 'Perusahaan spesialis layanan bongkar muat (stevedoring) terkemuka dengan reputasi keandalan tinggi. Kami mengutamakan standar zero-delay policy dan keamanan maksimal untuk kelancaran arus barang di area pabean dan pelabuhan.',
+                'content' => '<h2>Solusi Penanganan Kargo Terpadu dan Presisi</h2><p>PT Bintang Kepri Jaya adalah ujung tombak layanan bongkar muat kargo (Stevedoring & Cargodoring) di kawasan Kepulauan Riau. Kami berdedikasi untuk memberikan solusi penanganan barang yang efisien, aman, dan berstandar internasional demi memastikan rantai pasok maritim klien tidak pernah terputus.</p><h3>Layanan Utama Kami:</h3><ul><li><strong>Stevedoring:</strong> Proses bongkar dan muat barang dari/ke kapal menggunakan infrastruktur modern dan operator berpengalaman, menjamin proses sandar kapal yang efisien.</li><li><strong>Cargodoring:</strong> Pengelolaan, penataan, dan pemindahan kargo secara sistematis dari dermaga ke fasilitas penumpukan (gudang/lapangan) dengan sistem proteksi barang tingkat tinggi.</li><li><strong>Receiving &amp; Delivery:</strong> Penyerahan kargo secara mulus (seamless) kepada pemilik barang dengan proses administrasi pelabuhan yang sangat cepat dan tertib.</li></ul><h3>Keunggulan Operasional Kami:</h3><ul><li><strong>Zero-Delay Policy:</strong> Optimalisasi waktu sandar dan bongkar kapal secara maksimal untuk menghindari denda (demurrage) dan memangkas anggaran logistik Anda.</li><li><strong>Kepatuhan Regulasi &amp; K3:</strong> Setiap pergerakan alat diawasi secara ketat di bawah standar Keselamatan dan Kesehatan Kerja (K3) serta diawasi oleh otoritas kepelabuhanan resmi.</li><li><strong>Penanganan Segala Jenis Kargo:</strong> Berpengalaman menangani berbagai spesifikasi barang—mulai dari kargo umum, curah kering, hingga alat berat dan konstruksi.</li></ul>',
+            ]
+        );
+
+        $subsidiary2 = \App\Models\Subsidiary::updateOrCreate(
+            ['slug' => 'pt-batam-kepri-jaya'],
+            [
+                'name' => 'PT Batam Kepri Jaya',
+                'description' => 'Mitra andalan Anda untuk Jasa Pengurusan Transportasi (JPT) dan Forwarding. Kami menghadirkan solusi logistik terintegrasi (darat & laut) yang cepat, legal, dan dirancang khusus untuk mengoptimalkan nilai bisnis Anda.',
+                'content' => '<h2>Navigasi Logistik Tanpa Batas untuk Distribusi Kargo Anda</h2><p>PT Batam Kepri Jaya hadir sebagai solusi komprehensif bagi perusahaan yang membutuhkan Jasa Pengurusan Transportasi (JPT) yang cerdas dan strategis. Di tengah kompleksitas regulasi dan tantangan geografis Nusantara, kami hadir untuk menjembatani distribusi kargo Anda secara end-to-end—dari titik keberangkatan pertama hingga sampai ke tujuan akhir.</p><h3>Layanan Utama Kami:</h3><ul><li><strong>Distribusi Darat &amp; Laut (Land &amp; Sea Freight):</strong> Kombinasi jalur distribusi multimoda untuk menjangkau seluruh pelosok negeri secara tepat waktu dan efisien.</li><li><strong>Customs Clearance &amp; Perizinan:</strong> Penanganan administrasi pabean dan perizinan kargo yang teliti, cepat, dan sepenuhnya mematuhi regulasi hukum kepabeanan.</li><li><strong>Manajemen Distribusi:</strong> Pengaturan jadwal distribusi kargo yang sangat terukur dan disesuaikan dengan siklus kebutuhan operasional supply chain Anda.</li></ul><h3>Keunggulan Operasional Kami:</h3><ul><li><strong>Visibilitas &amp; Transparansi:</strong> Komunikasi yang proaktif dan terpusat sehingga klien selalu mengetahui dan memiliki kendali atas status pergerakan barang.</li><li><strong>Rute yang Efisien Biaya (Cost-Effective):</strong> Penentuan rute logistik dan pemilihan armada yang strategis demi meminimalisir pembengkakan biaya transportasi klien.</li><li><strong>Jaringan Kemitraan Ekstensif:</strong> Kolaborasi solid dengan armada transportasi darat dan operator pelayaran terkemuka memastikan kargo Anda selalu mendapat jalur prioritas.</li></ul>',
+            ]
+        );
+
+        $subsidiary3 = \App\Models\Subsidiary::updateOrCreate(
+            ['slug' => 'koperasi-jasa-tbkm-bintang-kepri-jaya'],
+            [
+                'name' => 'Koperasi Jasa TBKM Bintang Kepri Jaya',
+                'description' => 'Pusat penyediaan Tenaga Kerja Bongkar Muat (TKBM) profesional dan bersertifikasi resmi. Kami memberdayakan SDM lokal berstandar tinggi untuk menjamin keamanan dan produktivitas pelabuhan.',
+                'content' => '<h2>Sinergi Tenaga Ahli untuk Produktivitas Pelabuhan yang Maksimal</h2><p>Koperasi Jasa TBKM Bintang Kepri Jaya merupakan pilar utama perusahaan dalam pemenuhan kebutuhan Sumber Daya Manusia (SDM) yang andal dan siap pakai di area pelabuhan. Kami tidak sekadar menyalurkan tenaga kerja, melainkan membangun ekosistem profesional yang meletakkan kedisiplinan dan keselamatan kerja pada prioritas tertinggi.</p><h3>Layanan Utama Kami:</h3><ul><li><strong>Penyediaan Tenaga Bongkar Muat (TKBM):</strong> Alokasi tenaga kerja operasional harian atau shift yang siap menangani pemindahan kargo fisik dengan cekatan, kuat, dan terlatih.</li><li><strong>Penyediaan Operator Lisensi Khusus:</strong> Menyuplai operator bersertifikasi resmi (SIO) yang handal dalam mengoperasikan alat berat seperti crane, forklift, maupun instrumen pelabuhan krusial lainnya.</li><li><strong>Supervisi Lapangan &amp; Tally:</strong> Pengawas operasi lapangan (foreman/checker) yang cermat memastikan seluruh pencatatan barang dan aktivitas berjalan sesuai SOP dan target waktu.</li></ul><h3>Keunggulan Operasional Kami:</h3><ul><li><strong>Budaya Keselamatan Kerja (K3):</strong> Mewajibkan penggunaan Alat Pelindung Diri (APD) lengkap dan mematuhi regulasi pelabuhan untuk mencapai target zero-accident.</li><li><strong>Pemberdayaan Profesional:</strong> Mengedepankan model koperasi yang mengangkat ekonomi lokal sembari terus memberikan pelatihan operasional kelautan secara berkesinambungan.</li><li><strong>Skalabilitas &amp; Respons Cepat:</strong> Memiliki kapasitas memobilisasi tenaga kerja dalam jumlah massal dengan waktu yang sangat singkat untuk merespons lonjakan kapal di pelabuhan.</li></ul>',
+            ]
+        );
+
+        // Update English translations automatically
+        $translator = app(\App\Services\TranslationService::class);
+        foreach ([$subsidiary1, $subsidiary2, $subsidiary3] as $sub) {
+            if (empty($sub->name_en)) $sub->name_en = $sub->name;
+            $sub->description_en = $translator->translateToEnglish($sub->description);
+            $sub->content_en = $translator->translateToEnglish($sub->content);
+            $sub->save();
+        }
+
+        return "Data 3 Anak Perusahaan berhasil di-setup dan diperbarui secara otomatis menggunakan teks profesional!";
+    } catch (\Exception $e) {
+        return "Terjadi kesalahan: " . $e->getMessage();
+    }
+});
+
 
 
